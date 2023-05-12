@@ -8,7 +8,7 @@ import Feedcard from "../component/feedcard/feedcard";
 function Home() {
   return (
     <Backarea>
-      <div>
+      <div style={{ width: '30vh' }}>
         <Navbar />
       </div>
       <Feedbox>

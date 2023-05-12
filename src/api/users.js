@@ -3,7 +3,7 @@ import axios from "axios";
 //회원가입
 const signupPost = async({ email, nickname, password }) => {
     const res = await axios.post(
-        `${process.env.SERVER_URL}/users/signup`,{
+        `${process.env.SERVER_URL}/members/signup`,{
             email, nickname, password
         }
     )
@@ -13,7 +13,7 @@ const signupPost = async({ email, nickname, password }) => {
 //로그인
 const loginPost = async({email, password}) => {
     const res = await axios.post(
-        `${process.env.SERVER_URL}/users/login`,{
+        `${process.env.SERVER_URL}/members/login`,{
             email, password
         }
     )

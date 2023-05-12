@@ -50,10 +50,25 @@ background-size: cover;
 margin-bottom: 30px;
 `
 
+const Label = styled.label`
+width: 320px;
+display: flex;
+align-item: center;
+justify-content: center;
+flex-direction: column;
+flex-wrap;
+text-align: center;
+font-size: 20px;
+font-weight: bold;
+color: gray;
+margin-bottom: 30px;
+`
+
 export {
     Container,
     Form,
     Input,
     Button,
     Image,
+    Label,
 }

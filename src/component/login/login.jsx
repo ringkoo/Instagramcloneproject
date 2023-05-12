@@ -9,7 +9,6 @@ import {
     Input,
     Button,
     Image,
-    Label,
 } from "./styles";
 
 function Login() {
@@ -44,11 +43,10 @@ function Login() {
             <Container>
                 <Form onSubmit={handleSubmit}>
                     <Image />
-                    <Label>
-                        <Input type="text" value={email} onChange={handleEmailChange} placeholder="이메일을 입력해주세요." />
-                        <Input type="password" value={password} onChange={handlePasswordChange} placeholder="비밀번호를 입력해주세요." />
-                        <Button type="submit">로그인</Button>
-                    </Label>
+
+                    <Input type="text" value={email} onChange={handleEmailChange} placeholder="이메일을 입력해주세요." />
+                    <Input type="password" value={password} onChange={handlePasswordChange} placeholder="비밀번호를 입력해주세요." />
+                    <Button type="submit">로그인</Button>
                 </Form>
             </Container>
 

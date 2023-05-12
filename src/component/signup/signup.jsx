@@ -1,7 +1,15 @@
 import React, { useState } from "react"
 import { useMutation } from 'react-query'
-import { signupPost } from '../api/users'
+import { signupPost } from '../../api/users'
 import { useNavigate } from 'react-router-dom'
+import {
+  Container,
+  Form,
+  Input,
+  Button,
+  Image,
+  Label,
+} from "./styles";
 
 function Signup() {
   const [email, setEmail] = useState('')
@@ -36,14 +44,17 @@ function Signup() {
   }
 
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <input type="text" value={email} onChange={handleEmailChange} placeholder="이메일을 입력해주세요." />
-        <input type="text" value={nickname} onChange={handleNicknameChange} placeholder="닉네임을 입력해주세요." />
-        <input type="password" value={password} onChange={handlePasswordChange} placeholder="비밀번호를 입력해주세요." />
-        <button type="submit">회원가입</button>
-      </form>
-    </div>
+    <Container>
+
+      <Form onSubmit={handleSubmit}>
+        <Image />
+        <Label>친구들의 사진과 동영상을 보려면 가입하세요.</Label>
+        <Input type="text" value={email} onChange={handleEmailChange} placeholder="이메일을 입력해주세요." />
+        <Input type="text" value={nickname} onChange={handleNicknameChange} placeholder="닉네임을 입력해주세요." />
+        <Input type="password" value={password} onChange={handlePasswordChange} placeholder="비밀번호를 입력해주세요." />
+        <Button type="submit">회원가입</Button>
+      </Form>
+    </Container>
   );
 }
 

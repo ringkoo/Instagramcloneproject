@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 
 const Container = styled.div`
-    border:1px solid red;
+    border:1px solid #DBDBDB;
     height: 65vh;
     width: 50vh;
     margin-top: 15px;
@@ -12,6 +12,7 @@ const Container = styled.div`
 const Topdiv = styled.div`
     display:flex;
     align-items:center;
+    justify-content:space-between;
 `
 
 const Profilephoto = styled.div`
@@ -47,7 +48,6 @@ const Imagediv = styled.div`
     width: 50vh;
     height:50vh;
     border-radius:5px;
-    /* background-image:url('/card1.jpg'); */
     background-image:url(${props => props.url});
     background-repeat: no-repeat;
     background-size: cover;
@@ -75,4 +75,24 @@ const Commentimg = styled.div`
         color: #8E8E8E;
     }
 `
-export { Container, Profilephoto, Topdiv, Nickname, Datetime, Imagediv, Likeimg, Middlediv, Nicknamecontainer, Commentimg }
+
+const CommentContainer = styled.div`
+    display:flex;
+    justify-content:space-evenly;
+`
+
+const CommentHomeInput = styled.input`
+    border:none;
+    border-bottom:1px solid gray;
+    width:80%;
+    
+`
+
+const Commentsubmit = styled.div`
+    border:none;
+`
+
+const Userinfobox = styled.div`
+    display:flex;
+`
+export { Userinfobox, Commentsubmit, CommentHomeInput, CommentContainer, Container, Profilephoto, Topdiv, Nickname, Datetime, Imagediv, Likeimg, Middlediv, Nicknamecontainer, Commentimg }

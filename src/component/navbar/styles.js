@@ -1,9 +1,11 @@
 import styled from "styled-components";
 
 const Container = styled.div`
-    border:1px solid black;
-    height: 99vh;
-    width: 27vh;
+    position:fixed;
+    height: 100%;
+    width: 30vh;
+    height:100vh;
+    border-right: 1px solid gray;
 `
 
 const NavLogo = styled.div`

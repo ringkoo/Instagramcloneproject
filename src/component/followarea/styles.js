@@ -1,11 +1,39 @@
 import styled from "styled-components";
 
 const Container = styled.div`
-    border:1px solid red;
+    display:flex;
+    flex-direction: column;
     height: auto;
     width: 30vh;
     margin: 50px 150px 50px 0px;
 `
 
+const Divstyle = styled.div`
+    display:flex;
+    align-items:center;
+`
 
-export { Container }
+const Profilephoto = styled.div`
+    width: 45px;
+    height:45px;
+    border-radius:50px;
+    margin:5px 5px;
+    background-image:url(${props => props.url});
+    background-repeat: no-repeat;
+    background-size: cover;
+`
+
+const Nicknamecontainer = styled.div`
+    display:flex;
+    align-items: center;
+    justify-content: space-between;
+`
+
+const Nickname = styled.div`
+    font-weight:700;
+    font-size: 13px;
+    margin: 3px 10px;
+`
+
+
+export { Container, Profilephoto, Nicknamecontainer, Nickname, Divstyle }

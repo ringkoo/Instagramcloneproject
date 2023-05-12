@@ -1,10 +1,20 @@
 import React from "react";
-import { Container } from "./styles";
+import { Container, NavLogo, Icon, Icondiv, Icontext, Backarea } from "./styles";
 
 function Navbar() {
     return (
         <>
-            <Container>컨테이너</Container>
+            <Container>
+                <NavLogo />
+                <Icondiv>
+                    <Icon url='/home.png'></Icon>
+                    <Icontext>홈</Icontext>
+                </Icondiv>
+                <Icondiv>
+                    <Icon url='/Chaewon.png'></Icon>
+                    <Icontext>프로필</Icontext>
+                </Icondiv>
+            </Container>
         </>
     )
 }

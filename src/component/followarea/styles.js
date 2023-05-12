@@ -3,9 +3,11 @@ import styled from "styled-components";
 const Container = styled.div`
     display:flex;
     flex-direction: column;
-    height: auto;
+    flex-wrap: wrap;
+    height: 100%;
     width: 30vh;
     margin: 50px 150px 50px 0px;
+    background-color:white;
 `
 
 const Divstyle = styled.div`

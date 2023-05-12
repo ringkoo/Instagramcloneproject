@@ -3,8 +3,8 @@ import styled from "styled-components";
 const Container = styled.div`
     display:flex;
     gap: 20px;
-    height: 10vh;
-    width: 70vh;
+    height: 80px;
+    width: 660px;
     margin-top: 50px;
 `
 
@@ -16,6 +16,8 @@ const Storybox = styled.div`
 
 const Profilephoto = styled.div`
     width: 55px;
+    min-width:55px;
+    min-height:55px;
     height:55px;
     border-radius:50px;
     margin:5px 5px;

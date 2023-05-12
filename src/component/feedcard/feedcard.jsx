@@ -18,7 +18,7 @@ function Feedcard(props) {
                 {/* 상단 div */}
                 <Topdiv>
                     <Userinfobox>
-                        <Profilephoto></Profilephoto>
+                        <Profilephoto url={props.nickurl}></Profilephoto>
                         <Nicknamecontainer>
                             <Nickname>Kim Chaewon</Nickname>
                             <Datetime>작성 시간: {dateString}</Datetime>
@@ -28,7 +28,7 @@ function Feedcard(props) {
                 </Topdiv>
 
                 {/* 이미지div */}
-                <Imagediv url={props.url}></Imagediv>
+                <Imagediv url={props.imgurl}></Imagediv>
 
                 {/* 좋아요 댓글 icon div */}
                 <Middlediv>

@@ -4,8 +4,10 @@ import styled from "styled-components";
 
 const Container = styled.div`
     border:1px solid #DBDBDB;
-    height: 65vh;
-    width: 50vh;
+    height: 650px;
+    width: 500px;
+    min-width:50px;
+    min-height:50px;
     margin-top: 15px;
 `
 
@@ -18,9 +20,11 @@ const Topdiv = styled.div`
 const Profilephoto = styled.div`
     width: 45px;
     height:45px;
+    min-width:45px;
+    min-height:45px;
     border-radius:50px;
     margin:5px 5px;
-    background-image:url('/Chaewon.png');
+    background-image:url(${props => props.url});
     background-repeat: no-repeat;
     background-size: cover;
 `
@@ -45,12 +49,15 @@ const Datetime = styled.div`
 `
 
 const Imagediv = styled.div`
-    width: 50vh;
-    height:50vh;
+    width: 500px;
+    height:500px;
+    max-width: 100%; 
+    max-height: 100%; 
     border-radius:5px;
     background-image:url(${props => props.url});
     background-repeat: no-repeat;
     background-size: cover;
+    background-position: center;
 `
 
 const Middlediv = styled.div`

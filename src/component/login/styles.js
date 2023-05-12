@@ -15,7 +15,7 @@ flex-direction: column;
 background-color: white;
 border: 2px solid lightgray;
 padding: 20px;
-width; 400px;
+width: 400px;
 box-sizing: border-box;
 align-items: center;
 `
@@ -24,8 +24,8 @@ const Input = styled.input`
 width: 320px;
 height: 40px;
 margin-bottom: 10px;
-border: 1px solid lightgray
-border-radius: 5px
+border: 1px solid lightgray;
+border-radius: 5px;
 padding: 10px;
 box-sizing: border-box;
 `

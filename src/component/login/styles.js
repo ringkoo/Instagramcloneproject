@@ -6,6 +6,7 @@ justify-content: center;
 align-items: center;
 height: 100vh;
 background: white;
+flex-direction: column;
 `
 
 const Form = styled.form`
@@ -54,7 +55,6 @@ align-item: center;
 justify-content: center;
 flex-direction: column;
 `
-
 
 export {
     Container,

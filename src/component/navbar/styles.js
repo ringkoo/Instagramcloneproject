@@ -1,15 +1,17 @@
 import styled from "styled-components";
 
 const Container = styled.div`
-    border:1px solid black;
-    height: 99vh;
-    width: 27vh;
+    position:fixed;
+    height: 100%;
+    width: 260px;
+    height:100%;
+    border-right: 1px solid #DBDBDB;
 `
 
 const NavLogo = styled.div`
     margin: 20px 0px;
-    width:27vh;
-    height:15vh;
+    width:260px;
+    height:170px;
     background-image:url('/instalogo.jpg');
     background-repeat: no-repeat;
     background-size: cover;
@@ -28,8 +30,8 @@ const Icondiv = styled.div`
 `
 
 const Icon = styled.div`
-    width:4vh;
-    height:4vh;
+    width:40px;
+    height:40px;
     border-radius:50px;
     background-image:url(${props => props.url});
     background-repeat: no-repeat;

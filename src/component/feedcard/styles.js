@@ -102,4 +102,8 @@ const Commentsubmit = styled.div`
 const Userinfobox = styled.div`
     display:flex;
 `
-export { Userinfobox, Commentsubmit, CommentHomeInput, CommentContainer, Container, Profilephoto, Topdiv, Nickname, Datetime, Imagediv, Likeimg, Middlediv, Nicknamecontainer, Commentimg }
+
+const Contentsbox = styled.div`
+    
+`
+export { Contentsbox, Userinfobox, Commentsubmit, CommentHomeInput, CommentContainer, Container, Profilephoto, Topdiv, Nickname, Datetime, Imagediv, Likeimg, Middlediv, Nicknamecontainer, Commentimg }

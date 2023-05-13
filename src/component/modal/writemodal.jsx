@@ -22,6 +22,7 @@ function WriteModal() {
       queryClient.invalidateQueries("boards")
       alert("글 작성 완료")
       navigate('/home')
+      window.location.reload()
     },
     onError: (error) => {
       if (error.response.status !== null) {
@@ -33,24 +34,22 @@ function WriteModal() {
   //내용 변경
   const changeContents = (event) => {
     setContents(event.target.value)
-    console.log(contents)
   };
 
   // image 변경을 감지하는 함수
   const handleImageChange = (event) => {
     const file = event.target.files[0];
     setImage(file);
-    console.log('file', file)
   };
 
   //글작성
   const boardSubmitHandler = () => {
     const formData = new FormData();
-    formData.append("image", image);
+    formData.append("img", image);
     formData.append("contents", contents);
 
     mutation.mutate(formData);
-    
+
     //form 조회
     for (const [key, value] of formData.entries()) {
       console.log(`Key: ${key}, Value: ${value}`);

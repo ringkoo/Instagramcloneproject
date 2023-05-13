@@ -4,11 +4,7 @@ import { Textbutton } from "../common/textbutton";
 
 function ReadModal() {
   const [isOpen, setIsOpen] = useState(true);
-  const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
   const [image, setImage] = useState(null);
-  const [category, setCategory] = useState("");
-  const [region, setRegion] = useState("");
 
   const handleClose = () => {
     setIsOpen(!isOpen);
@@ -58,7 +54,6 @@ function ReadModal() {
               </Writebox>
               <Textbutton onClick={handleClose}>X</Textbutton>
             </Contents>
-
           </ModalWrap>
         </Overlay>
       ) : null}

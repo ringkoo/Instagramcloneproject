@@ -1,14 +1,24 @@
-import React, { useState } from "react";
-import { Userinfobox, CommentHomeInput, CommentContainer, Container, Profilephoto, Topdiv, Nickname, Datetime, Imagediv, Likeimg, Middlediv, Nicknamecontainer, Commentimg } from "./styles";
+import React, { useEffect, useState } from "react";
+import { Contentsbox, Userinfobox, CommentHomeInput, CommentContainer, Container, Profilephoto, Topdiv, Nickname, Datetime, Imagediv, Likeimg, Middlediv, Nicknamecontainer, Commentimg } from "./styles";
 import { BiComment } from "react-icons/bi";
 import { Textbutton } from "../common/textbutton";
 import WriteModal from "../modal/writemodal";
+import { deleteBoard, getBoard } from "../../api/board";
 
-function Feedcard(props) {
+function Feedcard({ id, imgurl, nickname, profileimg, date, content }) {
     const now = new Date();
     const dateString = now.toLocaleString();
     const [isLike, setIsLike] = useState(false)
     const [isOpen, setIsOpen] = useState(false);
+    const [boardData, setBoardData] = useState({});
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const data = await getBoard();
+            setBoardData(data);
+        };
+        fetchData();
+    }, []);
 
     const LikeHandler = () => {
         setIsLike(!isLike)
@@ -18,6 +28,13 @@ function Feedcard(props) {
         setIsOpen(!isOpen)
     }
 
+    const DeleteboardHandler = async (id) => {
+        const confirmed = window.confirm("정말로 삭제하시겠습니까?");
+        if (confirmed) {
+            await deleteBoard(id);
+        }
+    };
+
     return (
         <>
             <Container>
@@ -25,19 +42,19 @@ function Feedcard(props) {
                 <Topdiv>
                     <Userinfobox>
                         {/* 게시자 프로필 이미지 */}
-                        <Profilephoto url={props.nickurl}></Profilephoto>
+                        <Profilephoto url={profileimg}></Profilephoto>
                         <Nicknamecontainer>
                             {/* 게시자 닉네임 */}
-                            <Nickname>Kim Chaewon</Nickname>
+                            <Nickname>{nickname}</Nickname>
                             {/* 게시 시간 */}
-                            <Datetime>작성 시간: {dateString}</Datetime>
+                            <Datetime>작성 시간: {date}</Datetime>
                         </Nicknamecontainer>
                     </Userinfobox>
-                    <Textbutton>삭제</Textbutton>
+                    <Textbutton onClick={DeleteboardHandler}>삭제</Textbutton>
                 </Topdiv>
 
                 {/* 올렸던 이미지 */}
-                <Imagediv url={props.imgurl}></Imagediv>
+                <Imagediv url={imgurl}></Imagediv>
 
                 {/* 좋아요 댓글 icon div */}
                 <Middlediv>
@@ -49,9 +66,9 @@ function Feedcard(props) {
                     <Commentimg >
                         <BiComment onClick={ModalOpenHandler} />
                     </Commentimg>
-                    {isOpen ? <WriteModal /> : null }
+                    {isOpen ? <WriteModal /> : null}
                 </Middlediv>
-
+                <Contentsbox>{content || '내용'}</Contentsbox>
                 {/* 댓글입력창 div */}
                 <CommentContainer>
                     <CommentHomeInput placeholder="댓글 입력"></CommentHomeInput><Textbutton>게시</Textbutton>

@@ -4,20 +4,38 @@ import Storybar from "../component/storybar/storybar";
 import Followarea from "../component/followarea/followarea";
 import { Backarea, Feedbox, Homenavbox } from "../component/common/backarea";
 import Feedcard from "../component/feedcard/feedcard";
+import { useQuery } from "react-query";
+import { getBoard } from "../api/board";
 
 function Home() {
+  const { isLoading, isError, data } = useQuery("getBoard", getBoard);
+  if (isLoading) {
+    return <div>로딩중입니다...</div>;
+  }
+  if (isError) {
+    return <div>오류가 발생했습니다.</div>;
+  }
+  let getdata = data;
+  console.log(getdata)
+
   return (
+
     <Backarea>
       <Homenavbox>
         <Navbar />
       </Homenavbox>
       <Feedbox>
         <Storybar />
-        <Feedcard nickurl='/Chaewon.png' imgurl='https://images.khan.co.kr/article/2023/02/04/news-p.v1.20230204.62e1076ddfe8490e96ed3d10d0116dd0.png' />
-        <Feedcard nickurl='/Chaewon.png' imgurl='/card1.jpg' />
-        <Feedcard nickurl='/Chaewon.png' imgurl='/card2.jpg' />
-        <Feedcard nickurl='/Chaewon.png' imgurl='https://biz.chosun.com/resizer/JMVaZDrJqRXey9MzElls8hPDXHc=/616x0/smart/cloudfront-ap-northeast-1.images.arcpublishing.com/chosunbiz/5ESR4MD3NUGAHVGB42WMWT5WLM.jpg' />
-        <Feedcard nickurl='/Chaewon.png' imgurl='https://img.sbs.co.kr/newsnet/etv/upload/2022/11/14/30000803529_1280.jpg' />
+        {getdata.map((item) => (
+          <Feedcard
+            id={item.id}
+            nickname={item.nickname}
+            profileimg='/Chaewon.png'
+            date='서버와 연결되지 않았습니다'
+            imgurl='/card1.jpg'
+            content={item.contents}
+          />
+        ))}
       </Feedbox>
       <Followarea />
     </Backarea>

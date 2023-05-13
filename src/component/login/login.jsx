@@ -33,7 +33,6 @@ function Login() {
         e.preventDefault();
         loginMutation.mutate({ email, password }, {
             onSuccess: (data) => {
-                console.log(data)
                 Cookies.set('token', data.token)
                 navigate('/home')
             },

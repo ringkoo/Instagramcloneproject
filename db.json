@@ -1,0 +1,19 @@
+{
+  "boards": [
+    {
+      "id": 1,
+      "contents": "json-server",
+      "nickname": "test1"
+    },
+    {
+      "id": 2,
+      "contents": "json-server",
+      "nickname": "test2"
+    },
+    {
+      "id": 3,
+      "contents": "json-server",
+      "nickname": "test3"
+    }
+  ]
+}

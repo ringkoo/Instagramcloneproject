@@ -1,12 +1,13 @@
 import axios from "axios";
 
 //회원가입
-const signupPost = async ({ email, nickname, password }) => {
+const signupPost = async ({ email, nickName, password }) => {
     const res = await axios.post(
         `${process.env.SERVER_URL}/members/signup`, {
-        email, nickname, password
+        email, nickName, password
     }
     )
+    console.log(res)
     return res.data
 }
 
@@ -17,6 +18,7 @@ const loginPost = async ({ email, password }) => {
         email, password
     }
     )
+    console.log(res)
     return res.data
 }
 

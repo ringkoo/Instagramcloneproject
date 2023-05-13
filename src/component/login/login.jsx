@@ -3,6 +3,7 @@ import Cookies from "js-cookie";
 import { useMutation } from 'react-query'
 import { loginPost } from '../../api/users'
 import { useNavigate } from 'react-router-dom'
+import { Stringsignupbutton } from '../stringbutton/stringbutton'
 import {
     Container,
     Form,
@@ -33,6 +34,7 @@ function Login() {
                 navigate('/home')
             },
             onError: (error) => {
+                console.log(error)
                 // Handle login error here
             }
         })
@@ -48,6 +50,7 @@ function Login() {
                     <Input type="password" value={password} onChange={handlePasswordChange} placeholder="비밀번호를 입력해주세요." />
                     <Button type="submit">로그인</Button>
                 </Form>
+                <Stringsignupbutton />
             </Container>
 
         </div>

@@ -5,6 +5,7 @@ import Followarea from "../component/followarea/followarea";
 import { Backarea, Feedbox, Homenavbox } from "../component/common/backarea";
 import Feedcard from "../component/feedcard/feedcard";
 
+
 function Home() {
   return (
     <Backarea>

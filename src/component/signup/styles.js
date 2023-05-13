@@ -66,6 +66,12 @@ color: gray;
 margin-bottom: 30px;
 `
 
+const ErrorMessage = styled.div`
+  color: red;
+  font-size: 14px;
+  margin-bottom: 10px;
+`;
+
 export {
     Container,
     Form,
@@ -73,4 +79,5 @@ export {
     Button,
     Image,
     Label,
+    ErrorMessage,
 }

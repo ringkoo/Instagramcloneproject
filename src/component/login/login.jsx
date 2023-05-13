@@ -10,6 +10,7 @@ import {
     Input,
     Button,
     Image,
+    ErrorMessage,
 } from "./styles";
 
 function Login() {
@@ -17,6 +18,8 @@ function Login() {
     const [password, setPassword] = useState('')
     const loginMutation = useMutation(loginPost)
     const navigate = useNavigate()
+
+
 
     const handleEmailChange = (e) => {
         setEmail(e.target.value)
@@ -30,12 +33,11 @@ function Login() {
         e.preventDefault();
         loginMutation.mutate({ email, password }, {
             onSuccess: (data) => {
+                console.log(data)
                 Cookies.set('token', data.token)
                 navigate('/home')
             },
             onError: (error) => {
-                console.log(error)
-                // Handle login error here
             }
         })
     }
@@ -45,7 +47,6 @@ function Login() {
             <Container>
                 <Form onSubmit={handleSubmit}>
                     <Image />
-
                     <Input type="text" value={email} onChange={handleEmailChange} placeholder="이메일을 입력해주세요." />
                     <Input type="password" value={password} onChange={handlePasswordChange} placeholder="비밀번호를 입력해주세요." />
                     <Button type="submit">로그인</Button>

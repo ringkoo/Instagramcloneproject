@@ -36,6 +36,7 @@ function Signup() {
     mutation.mutate({ email, nickName, password }, {
       onSuccess: (data) => {
         navigate('/login');
+        console.log(data)
       },
       onError: (error) => {
         console.log(error)

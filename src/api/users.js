@@ -4,7 +4,7 @@ import axios from "axios";
 
 const signupPost = async ({ email, nickName, password }) => {
     const res = await axios.post(
-        `${process.env.SERVER_URL}/members/signup`, {
+        `${process.env.REACT_APP_SERVER_URL}/members/signup`, {
         email, nickName, password
     }
     )
@@ -15,7 +15,7 @@ const signupPost = async ({ email, nickName, password }) => {
 //로그인
 const loginPost = async ({ email, password }) => {
     const res = await axios.post(
-        `${process.env.SERVER_URL}/members/login`, {
+        `${process.env.REACT_APP_SERVER_URL}/members/login`, {
         email, password
     }
     )
@@ -26,7 +26,7 @@ const loginPost = async ({ email, password }) => {
 //유저 조회
 const userInquiry = async ({ jwt }) => {
     const res = await axios.get(
-        `${process.env.SERVER_URL}/members}`, {
+        `${process.env.REACT_APP_SERVER_URL}/members}`, {
         headers: {
             Authorization: `Bearer ${jwt}`
         }
@@ -38,7 +38,7 @@ const userInquiry = async ({ jwt }) => {
 //팔로우 상태
 const followPost = async ({ userId, jwt }) => {
     const res = await axios.post(
-        `${process.env.SERVER_URL}/members/${userId}`, {
+        `${process.env.REACT_APP_SERVER_URL}/members/${userId}`, {
         headers: {
             Authorization: `Bearer ${jwt}`
         }
@@ -49,7 +49,7 @@ const followPost = async ({ userId, jwt }) => {
 //팔로우 조회
 const followInquiry = async ({ userId, jwt }) => {
     const res = await axios.get(
-        `${process.env.SERVER_URL}/members/${userId}`, {
+        `${process.env.REACT_APP_SERVER_URL}/members/${userId}`, {
         headers: {
             Authorization: `Bearer ${jwt}`
         }
@@ -61,7 +61,7 @@ const followInquiry = async ({ userId, jwt }) => {
 //팔로잉 조회
 const followingInqury = async ({ userId, jwt }) => {
     const res = await axios.get(
-        `${process.env.SERVER_URL}/members/${userId}`, {
+        `${process.env.REACT_APP_SERVER_URL}/members/${userId}`, {
         headers: {
             Authorization: `Bearer ${jwt}`
         }

@@ -7,6 +7,7 @@ align-items: center;
 height: 100vh;
 background: white;
 flex-direction: column;
+gap: 10px;
 `
 
 const Form = styled.form`
@@ -25,7 +26,7 @@ width: 320px;
 height: 40px;
 margin-bottom: 10px;
 border: 1px solid lightgray
-border-radius: 5px
+border-radius: 5px;
 padding: 10px;
 box-sizing: border-box;
 `
@@ -41,13 +42,14 @@ margin-top: 10px;
 cursor: pointer;
 `
 
-const Image = styled.image`
+const Image = styled.img`
 width: 240px;
 height: 105px;
 background-position: center;
 background-image: url('https://fontmeme.com/images/instagram-new-logo.png');
 background-size: cover;
 margin-bottom: 30px;
+border: none;
 `
 
 const Label = styled.label`

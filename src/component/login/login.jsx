@@ -19,8 +19,6 @@ function Login() {
     const loginMutation = useMutation(loginPost)
     const navigate = useNavigate()
 
-
-
     const handleEmailChange = (e) => {
         setEmail(e.target.value)
     }
@@ -33,9 +31,9 @@ function Login() {
         e.preventDefault();
         loginMutation.mutate({ email, password }, {
             onSuccess: (data) => {
-                console.log(data)
                 Cookies.set('token', data.token)
                 navigate('/home')
+                console.log(data.token)
             },
             onError: (error) => {
             }

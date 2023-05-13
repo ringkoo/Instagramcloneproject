@@ -1,6 +1,7 @@
 import axios from "axios";
 
 //회원가입
+
 const signupPost = async ({ email, nickName, password }) => {
     const res = await axios.post(
         `${process.env.SERVER_URL}/members/signup`, {
@@ -64,9 +65,12 @@ const followingInqury = async ({ userId, jwt }) => {
         headers: {
             Authorization: `Bearer ${jwt}`
         }
+
     }
     )
     return res.data
 }
 
+
 export { loginPost, signupPost, userInquiry, followPost, followInquiry, followingInqury }
+

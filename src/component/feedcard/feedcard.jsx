@@ -51,7 +51,6 @@ function Feedcard({ id, imgurl, nickname, profileimg, date, content }) {
 
                 {/* 좋아요 댓글 icon div */}
                 <Middlediv>
-                    {/* 좋아요 버튼 */}
                     <Likeimg
                         onClick={LikeHandler}
                         isLike={isLike}

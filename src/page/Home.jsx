@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Navbar from "../component/navbar/navbar";
 import Storybar from "../component/storybar/storybar";
 import Followarea from "../component/followarea/followarea";
@@ -6,7 +6,6 @@ import { Backarea, Feedbox, Homenavbox } from "../component/common/backarea";
 import Feedcard from "../component/feedcard/feedcard";
 import { useQuery } from "react-query";
 import { getBoard } from "../api/board";
-
 
 function Home() {
   const { isLoading, isError, data } = useQuery("getBoard", getBoard);

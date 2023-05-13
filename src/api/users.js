@@ -1,7 +1,7 @@
 import axios from "axios";
-import Cookies from "js-cookie";
 
 //회원가입
+
 const signupPost = async ({ email, nickName, password }) => {
     const response = await axios.post(
         `${process.env.REACT_APP_SERVER_URL}/members/signup`, {
@@ -19,7 +19,7 @@ const loginPost = async ({ email, password }) => {
         email, password
     }
     )
-    console.log(response.headers.get('authorization').split(' ')[1])
+    console.log(response)
     return response.data
 }
 

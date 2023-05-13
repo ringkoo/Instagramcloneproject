@@ -2,22 +2,16 @@ import React, { useState } from "react";
 import { Userinfobox, CommentHomeInput, CommentContainer, Container, Profilephoto, Topdiv, Nickname, Datetime, Imagediv, Likeimg, Middlediv, Nicknamecontainer, Commentimg } from "./styles";
 import { BiComment } from "react-icons/bi";
 import { Textbutton } from "../common/textbutton";
-import WriteModal from "../modal/writemodal";
 
 function Feedcard(props) {
     const now = new Date();
     const dateString = now.toLocaleString();
     const [isLike, setIsLike] = useState(false)
-    const [isOpen, setIsOpen] = useState(false);
+    const [isModal, setIsModal] = useState(false)
 
     const LikeHandler = () => {
         setIsLike(!isLike)
     }
-
-    const ModalOpenHandler = () => {
-        setIsOpen(!isOpen)
-    }
-    
     return (
         <>
             <Container>
@@ -42,10 +36,7 @@ function Feedcard(props) {
                         onClick={LikeHandler}
                         isLike={isLike}
                         style={{ color: isLike ? "red" : "black" }}>♡</Likeimg>
-                    <Commentimg >
-                        <BiComment onClick={ModalOpenHandler} />
-                    </Commentimg>
-                    {isOpen ? <WriteModal /> : null }
+                    <Commentimg ><BiComment /></Commentimg>
                 </Middlediv>
 
                 {/* 댓글입력창 div */}

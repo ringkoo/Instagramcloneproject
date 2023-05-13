@@ -2,18 +2,21 @@
   "boards": [
     {
       "id": 1,
-      "contents": "json-server",
-      "nickname": "test1"
+      "contents": "json-serve",
+      "nickname": "test1",
+      "img": "/card1.jpg"
     },
     {
       "id": 2,
       "contents": "json-server",
-      "nickname": "test2"
+      "nickname": "test2",
+      "img": "/card2.jpg"
     },
     {
       "id": 3,
       "contents": "json-server",
-      "nickname": "test3"
+      "nickname": "test3",
+      "img": "/card3.jpg"
     }
   ]
 }

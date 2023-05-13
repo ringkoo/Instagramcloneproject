@@ -16,8 +16,6 @@ function Home() {
   if (isError) {
     return <div>오류가 발생했습니다.</div>;
   }
-  let getdata = data;
-  console.log(getdata)
 
   return (
 
@@ -27,13 +25,13 @@ function Home() {
       </Homenavbox>
       <Feedbox>
         <Storybar />
-        {getdata.map((item) => (
+        {data.map((item) => (
           <Feedcard
             id={item.id}
             nickname={item.nickname}
             profileimg='/Chaewon.png'
-            date='서버와 연결되지 않았습니다'
-            imgurl='/card1.jpg'
+            date={item.date||'서버와 연결되지 않았습니다'}
+            imgurl={item.img}
             content={item.contents}
           />
         ))}

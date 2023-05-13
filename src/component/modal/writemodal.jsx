@@ -16,7 +16,7 @@ function WriteModal() {
     setIsOpen(!isOpen);
   };
 
-  const queryClient = useQueryClient();
+  const queryClient = useQueryClient()
   const mutation = useMutation(addBoard, {
     onSuccess: () => {
       queryClient.invalidateQueries("boards")

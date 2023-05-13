@@ -1,8 +1,13 @@
 import React, { useState } from "react";
 import { Overlay, ModalWrap, Contents, ImageDiv, LeftContainer, ImagePreview, ImageBox, Bodybox, Writebox } from "./styles";
 import { Textbutton } from "../common/textbutton";
+import { useMutation, useQuery, useQueryClient } from "react-query";
+import { addBoard, getBoard } from "../../api/board";
+import { useNavigate } from "react-router-dom";
 
-function ReadModal() {
+function ReadModal(id) {
+  const navigate = useNavigate();
+
   const [isOpen, setIsOpen] = useState(true);
   const [image, setImage] = useState(null);
 
@@ -10,53 +15,33 @@ function ReadModal() {
     setIsOpen(!isOpen);
   };
 
-  const handleImageChange = (event) => {
-    const file = event.target.files[0];
-    setImage(file);
-  };
-
+  const { isLoading, isError, data } = useQuery("getBoard", getBoard);
+  if (isLoading) {
+    return <div>로딩중입니다...</div>;
+  }
+  if (isError) {
+    return <div>오류가 발생했습니다.</div>;
+  }
   return (
     <>
-      {isOpen ? (
+      {isOpen ? 
         <Overlay>
           <ModalWrap>
             <Contents>
-              <LeftContainer>
-                <ImageDiv
-                  className="image-upload"
-                  onClick={() => {
-                    document.getElementById("image").click();
-                  }}
-                >
-                  {image ? (
-                    <ImagePreview
-                      src={URL.createObjectURL(image)}
-                      style={{
-                        objectFit: "cover",
-                      }}
-                    />
-                  ) : (
-                    <ImageBox>이미지 추가</ImageBox>
-                  )}
-                  <input
-                    name="image"
-                    id="image"
-                    type="file"
-                    onChange={handleImageChange}
-                    style={{ display: "none" }}
-                  />
-                </ImageDiv>
+              <LeftContainer
+                style={{
+                  backgroundImage: `url(${id.img})`,
+                  backgroundSize: 'cover',
+                  backgroundPosition: 'center',
+                }}>
               </LeftContainer>
               <Writebox>
-                <Bodybox placeholder="내용을 입력해주세요." />
-                <Textbutton style={{fontSize:'20px'}}>글작성</Textbutton>
-                {/* <div>추가기능은 여기에...</div> */}
               </Writebox>
-              <Textbutton onClick={handleClose}>X</Textbutton>
+              <Textbutton onClick={handleClose} >X</Textbutton>
             </Contents>
           </ModalWrap>
         </Overlay>
-      ) : null}
+       : null}
     </>
   );
 }

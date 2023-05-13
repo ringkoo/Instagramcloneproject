@@ -52,10 +52,17 @@ margin-bottom: 30px;
 border: none;
 `
 
+const ErrorMessage = styled.div`
+  color: red;
+  font-size: 14px;
+  margin-bottom: 10px;
+`;
+
 export {
     Container,
     Form,
     Input,
     Button,
     Image,
+    ErrorMessage,
 }

@@ -1,32 +1,36 @@
 import React from "react";
 import { StringButton, Container } from './styles'
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export function Stringsignupbutton() {
-    const navigate = useNavigate()
+    // const navigate = useNavigate()
 
-    const handleSignup = () => {
-        navigate('/singup')
-    }
+    // const handleSignup = () => {
+    //     navigate('/singup')
+    // }
     return (
         <Container>
             <p>계정이 없으신가요?</p>
-            <StringButton onSubmit={handleSignup}>가입하기</StringButton>
+            <Link to={'/signup'}>
+                <StringButton>가입하기</StringButton>
+            </Link>
         </Container>
     )
 }
 
 export function StringloginButton() {
-    const navigate = useNavigate()
+    // const navigate = useNavigate()
 
-    const handleLogin = () => {
-        navigate('/')
-    }
+    // const handleLogin = () => {
+    //     navigate('/')
+    // }
 
     return (
         <Container>
             <p>계정이 있으신가요?</p>
-            <StringButton onSubmit={handleLogin}>로그인</StringButton>
+            <Link to={'/'}>
+                <StringButton>로그인</StringButton>
+            </Link>
         </Container>
     )
 }

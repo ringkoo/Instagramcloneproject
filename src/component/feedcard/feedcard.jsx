@@ -6,7 +6,7 @@ import { deleteBoard, getBoard } from "../../api/board";
 import ReadModal from "../modal/readmodal";
 import { useQuery } from "react-query";
 
-function Feedcard({ id, imgurl, nickname, profileimg, date, content }) {
+function Feedcard({ postId, id, imgurl, nickname, profileimg, date, content }) {
     const [isLike, setIsLike] = useState(false)
     const [isOpen, setIsOpen] = useState(false);
     const [boardData, setBoardData] = useState({});
@@ -43,7 +43,7 @@ function Feedcard({ id, imgurl, nickname, profileimg, date, content }) {
                             <Datetime>작성 시간: {date}</Datetime>
                         </Nicknamecontainer>
                     </Userinfobox>
-                    <Textbutton onClick={()=>DeleteboardHandler(id)}>삭제</Textbutton>
+                    <Textbutton onClick={() => DeleteboardHandler(id)}>삭제</Textbutton>
                 </Topdiv>
 
                 {/* 올렸던 이미지 */}
@@ -58,7 +58,7 @@ function Feedcard({ id, imgurl, nickname, profileimg, date, content }) {
                     <Commentimg >
                         <BiComment onClick={ModalOpenHandler} />
                     </Commentimg>
-                    {isOpen ? <ReadModal postid={id} /> : null}
+                    {isOpen ? <ReadModal postId={postId} /> : null}
                 </Middlediv>
                 <Contentsbox>{content || '내용'}</Contentsbox>
                 {/* 댓글입력창 div */}

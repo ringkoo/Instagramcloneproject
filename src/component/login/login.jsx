@@ -18,8 +18,7 @@ function Login() {
     const [password, setPassword] = useState('')
     const loginMutation = useMutation(loginPost)
     const navigate = useNavigate()
-
-
+    const [errorMessage, setErrorMessage] = useState('')
 
     const handleEmailChange = (e) => {
         setEmail(e.target.value)
@@ -37,6 +36,7 @@ function Login() {
                 navigate('/home')
             },
             onError: (error) => {
+                setErrorMessage(error.response.data.message)
             }
         })
     }
@@ -49,6 +49,7 @@ function Login() {
                     <Input type="text" value={email} onChange={handleEmailChange} placeholder="이메일을 입력해주세요." />
                     <Input type="password" value={password} onChange={handlePasswordChange} placeholder="비밀번호를 입력해주세요." />
                     <Button type="submit">로그인</Button>
+                    {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
                 </Form>
                 <Stringsignupbutton />
             </Container>

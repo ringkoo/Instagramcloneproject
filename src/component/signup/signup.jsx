@@ -17,9 +17,11 @@ function Signup() {
   const [email, setEmail] = useState('')
   const [nickName, setNickName] = useState('')
   const [password, setPassword] = useState('')
-  const mutation = useMutation(signupPost)
+  const signupMutation = useMutation(signupPost)
   const navigate = useNavigate()
   const [passwordConfirm, setPasswordConfirm] = useState('')
+  const [errorMessage1, setErrorMessage1] = useState('');
+
 
   const handlePasswordConfirmChange = (e) => {
     setPasswordConfirm(e.target.value)
@@ -39,11 +41,12 @@ function Signup() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    mutation.mutate({ email, nickName, password }, {
+    signupMutation.mutate({ email, nickName, password }, {
       onSuccess: () => {
         navigate('/');
       },
       onError: (error) => {
+        setErrorMessage1(error.response.data.message)
       }
     });
   }
@@ -76,6 +79,7 @@ function Signup() {
           onChange={handlePasswordConfirmChange}
           placeholder="비밀번호를 다시 입력해주세요." />
         <Button type="submit">회원가입</Button>
+        {errorMessage1 && <ErrorMessage>{errorMessage1}</ErrorMessage>}
       </Form>
       <StringloginButton />
     </Container>

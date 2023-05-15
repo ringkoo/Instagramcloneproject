@@ -7,8 +7,8 @@ const signupPost = async ({ email, nickName, password }) => {
         `${process.env.REACT_APP_SERVER_URL}/members/signup`, {
         email, nickName, password
     })
-    console.log(response)
-    return response
+    console.log(response.data)
+    return response.data
 }
 
 //로그인
@@ -18,6 +18,7 @@ const loginPost = async ({ email, password }) => {
         email, password
     })
     const token = response.headers.get('authorization').split(' ')[1]
+    Cookies.set('token', token)
     console.log('로그인하고 받은 토큰', token)
     return token
 }

@@ -31,8 +31,7 @@ function Login() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         loginMutation.mutate({ email, password }, {
-            onSuccess: (data) => {
-                Cookies.set('token', data.token)
+            onSuccess: () => {           
                 navigate('/home')
             },
             onError: (error) => {

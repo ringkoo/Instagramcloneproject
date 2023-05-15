@@ -3,6 +3,13 @@ import axios from "axios";
 // 데이터 조회
 export const getBoard = async () => {
   const { data } = await axios.get(`${process.env.REACT_APP_SERVER_URL}/boards`);
+  console.log(data)
+  return data;
+}
+
+// 데이터 상세조회
+export const getDetailBoard = async (id) => {
+  const { data } = await axios.get(`${process.env.REACT_APP_SERVER_URL}/boards/${id}`);
   return data;
 }
 

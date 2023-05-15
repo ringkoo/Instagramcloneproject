@@ -6,15 +6,20 @@ function Followarea({ users }) {
   return (
     <>
       <Container>
-        {users?.map((members) => (
-          <Nicknamecontainer key={members.id}>
-            <Divstyle>
-              <Profilephoto url={members.profileImageUrl} />
-              <Nickname>{members.nickName}</Nickname>
-            </Divstyle>
-            <Textbutton>팔로우</Textbutton>
-          </Nicknamecontainer>
-        ))}
+        {/* 유용한 처리법 */}
+        {users?.map((members) => {
+          console.log(members)
+          return (
+            <Nicknamecontainer key={members.id}>
+              <Divstyle>
+                <Profilephoto url={members.profileImageUrl} />
+                <Nickname>{members.nickName}</Nickname>
+              </Divstyle>
+              <Textbutton>팔로우</Textbutton>
+            </Nicknamecontainer>
+          )
+        }
+        )}
       </Container>
     </>
   )

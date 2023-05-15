@@ -46,7 +46,7 @@ function Home() {
       </Homenavbox>
       <Feedbox>
         <Storybar />
-        {data && Array.isArray(data) && data.length > 0 && data.map((item) => (
+        {data?.map((item) => (
           <Feedcard
             postId={item.id}
             id={item.id}

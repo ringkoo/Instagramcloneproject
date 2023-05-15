@@ -2,15 +2,13 @@ import axios from "axios";
 import Cookies from "js-cookie";
 
 //회원가입
-
 const signupPost = async ({ email, nickName, password }) => {
     const response = await axios.post(
         `${process.env.REACT_APP_SERVER_URL}/members/signup`, {
         email, nickName, password
-    }
-    )
-    console.log(response.data)
-    return response.data
+    })
+    console.log(response)
+    return response
 }
 
 //로그인
@@ -18,8 +16,7 @@ const loginPost = async ({ email, password }) => {
     const response = await axios.post(
         `${process.env.REACT_APP_SERVER_URL}/members/login`, {
         email, password
-    }
-    )
+    })
     const token = response.headers.get('authorization').split(' ')[1]
     console.log('로그인하고 받은 토큰', token)
     return token
@@ -44,8 +41,7 @@ const followPost = async ({ userId, jwt }) => {
         headers: {
             Authorization: `Bearer ${jwt}`
         }
-    }
-    )
+    })
     return response.data
 }
 //팔로우 조회
@@ -55,8 +51,7 @@ const followInquiry = async ({ userId, jwt }) => {
         headers: {
             Authorization: `Bearer ${jwt}`
         }
-    }
-    )
+    })
     return response.data
 }
 
@@ -67,12 +62,8 @@ const followingInqury = async ({ userId, jwt }) => {
         headers: {
             Authorization: `Bearer ${jwt}`
         }
-
-    }
-    )
+    })
     return response.data
 }
 
-
 export { loginPost, signupPost, userInquiry, followPost, followInquiry, followingInqury }
-

@@ -13,14 +13,18 @@ const signupPost = async ({ email, nickName, password }) => {
 
 //로그인
 const loginPost = async ({ email, password }) => {
-    const response = await axios.post(
-        `${process.env.REACT_APP_SERVER_URL}/members/login`, {
-        email, password
-    })
-    const token = response.headers.get('authorization').split(' ')[1]
-    Cookies.set('token', token)
-    console.log('로그인하고 받은 토큰', token)
-    return token
+    try {
+        const response = await axios.post(
+            `${process.env.REACT_APP_SERVER_URL}/members/login`, {
+            email, password
+        }
+        )
+        const token = response.headers.get('authorization').split(' ')[1]
+        console.log('로그인하고 받은 토큰', { token })
+        return { token }
+    } catch (error) {
+        return Promise.reject(error.response)
+    }
 }
 
 //유저 조회

@@ -20,6 +20,7 @@ const loginPost = async ({ email, password }) => {
         }
         )
         const token = response.headers.get('authorization').split(' ')[1]
+        Cookies.set('token', token)
         console.log('로그인하고 받은 토큰', { token })
         return { token }
     } catch (error) {

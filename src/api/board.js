@@ -1,9 +1,10 @@
 import axios from "axios";
 
 // 데이터 조회
-export const getBoard = async () => {
-  const { data } = await axios.get(`${process.env.REACT_APP_SERVER_URL}/boards`);
-  console.log(data)
+export const getBoard = async ({jwt}) => {
+  const { data } = await axios.get(`${process.env.REACT_APP_SERVER_URL}/boards`,{
+    headers: { Authorization : `Bearer ${jwt}` }
+  });
   return data;
 }
 

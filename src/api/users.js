@@ -19,8 +19,9 @@ const loginPost = async ({ email, password }) => {
         email, password
     }
     )
-    console.log(response)
-    return response.data
+    const token = response.headers.get('authorization').split(' ')[1]
+    console.log(token)
+    return { token }
 }
 
 //유저 조회

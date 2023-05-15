@@ -20,13 +20,10 @@ function WriteModal() {
   const mutation = useMutation(addBoard, {
     onSuccess: () => {
       queryClient.invalidateQueries("boards")
-      alert("글 작성 완료")
-      navigate('/home')
-      window.location.reload()
     },
     onError: (error) => {
       if (error.response.status !== null) {
-        console.log(error.response.data.errorMessage);
+        console.log(error);
       }
     },
   });
@@ -38,22 +35,34 @@ function WriteModal() {
 
   // image 변경을 감지하는 함수
   const handleImageChange = (event) => {
-    const file = event.target.files[0];
-    setImage(file);
+    const image = event.target.files[0];
+    setImage(image);
   };
 
   //글작성
   const boardSubmitHandler = () => {
     const formData = new FormData();
-    formData.append("img", image);
-    formData.append("contents", contents);
+    const boardData = { contents: contents };
+    const imgBlob = new Blob([image], { type: 'image/jpeg' })
+    const contentsBlob = new Blob([boardData], { type: 'application/json' })
+    formData.append("image", imgBlob);
+    formData.append("board", contentsBlob);
+    // formData.append("board", JSON.stringify(boardData));
+    // formData.append("board", contents);
+    // formData.append("image", image);
+
+    // form 조회
+    // for (const [key, value] of formData.entries()) {
+    //   console.log(`Key: ${key}, Value: ${JSON.stringify(value)}`);
+    // }
+
+    for (let [key, value] of formData.entries()) { console.log(`${key}:`, value); }
 
     mutation.mutate(formData);
+    alert("글 작성 완료")
+    navigate('/home')
+    // window.location.reload()
 
-    //form 조회
-    for (const [key, value] of formData.entries()) {
-      console.log(`Key: ${key}, Value: ${value}`);
-    }
   }
 
 

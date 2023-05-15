@@ -13,16 +13,16 @@ function Home() {
   const token = Cookies.get("token");
   const [members, setMembers] = useState([])
 
-  useEffect(() => {
-    const getMembers = async () => {
-      const members = await userInquiry()
-      setMembers(members)
-    }
-    getMembers()
-  }, [])
+  // useEffect(() => {
+  //   const getMembers = async () => {
+  //     const members = await userInquiry()
+  //     setMembers(members)
+  //   }
+  //   getMembers()
+  // }, [])
 
   if (token) {
-    // console.log("home page에서 확인된 현재토큰", token);
+    console.log("home page에서 확인된 현재토큰", token);
   } else {
     console.log("home page에서 확인된 토큰 없음");
   }

@@ -6,7 +6,7 @@ function Followarea({ users }) {
   return (
     <>
       <Container>
-        {users?.map((members) => (
+        {users.map((members) => (
           <Nicknamecontainer key={members.id}>
             <Divstyle>
               <Profilephoto url={members.profileImageUrl} />

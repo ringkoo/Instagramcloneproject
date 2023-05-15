@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Cookies from "js-cookie";
-import { useMutation } from 'react-query'
+import { QueryClient, useMutation } from 'react-query'
 import { loginPost } from '../../api/users'
 import { useNavigate } from 'react-router-dom'
 import { Stringsignupbutton } from '../stringbutton/stringbutton'
@@ -32,8 +32,10 @@ function Login() {
         e.preventDefault();
         loginMutation.mutate({ email, password }, {
             onSuccess: (data) => {
+                QueryClient.invalidateQueries("boards")
                 Cookies.set('token', data.token)
                 navigate('/home')
+                
             },
             onError: (error) => {
                 setErrorMessage(error.response.data.message)

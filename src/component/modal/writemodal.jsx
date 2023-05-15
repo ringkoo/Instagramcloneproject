@@ -42,12 +42,15 @@ function WriteModal() {
   //글작성
   const boardSubmitHandler = () => {
     const formData = new FormData();
-    const boardData = { contents: contents };
-    const imgBlob = new Blob([image], { type: 'image/jpeg' })
-    const contentsBlob = new Blob([boardData], { type: 'application/json' })
-    formData.append("image", imgBlob);
-    formData.append("board", contentsBlob);
-    // formData.append("board", JSON.stringify(boardData));
+    const boardData = {
+      board: JSON.stringify({ contents: contents }),
+      image: image
+    };
+    // const imgBlob = new Blob([image], { type: 'image/jpeg' })
+    // const contentsBlob = new Blob([boardData], { type: 'application/json' })
+    // formData.append("image", imgBlob);
+    // formData.append("board", contentsBlob);
+    formData.append("board", boardData);
     // formData.append("board", contents);
     // formData.append("image", image);
 
@@ -62,7 +65,6 @@ function WriteModal() {
     alert("글 작성 완료")
     navigate('/home')
     // window.location.reload()
-
   }
 
 

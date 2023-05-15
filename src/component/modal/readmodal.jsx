@@ -5,7 +5,7 @@ import { useMutation, useQuery, useQueryClient } from "react-query";
 import { addBoard, getBoard } from "../../api/board";
 import { useNavigate } from "react-router-dom";
 
-function ReadModal(id) {
+function ReadModal(postId) {
   const navigate = useNavigate();
 
   const [isOpen, setIsOpen] = useState(true);
@@ -30,7 +30,7 @@ function ReadModal(id) {
             <Contents>
               <LeftContainer
                 style={{
-                  backgroundImage: `url(${id.img})`,
+                  backgroundImage: `url(${postId.img})`,
                   backgroundSize: 'cover',
                   backgroundPosition: 'center',
                 }}>

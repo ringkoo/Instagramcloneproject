@@ -26,6 +26,7 @@ function Home() {
         <Storybar />
         {data.map((item) => (
           <Feedcard
+            postId={item.id}
             id={item.id}
             nickname={item.nickname}
             profileimg='/Chaewon.png'

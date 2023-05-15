@@ -2,7 +2,7 @@ import axios from "axios";
 
 const commentPost = async ({ boardId, contents, jwt }) => {
     const response = await axios.post(
-        `${process.env.REACT_APP_SERVER_URL}/comments`, {
+        `${process.env.REACT_APP_SERVER_URL}/comments/`, {
         boardId, contents
     }, {
         headers: {

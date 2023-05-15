@@ -5,7 +5,7 @@ import Cookies from "js-cookie";
 export const getBoard = async () => {
   try {
     const token = Cookies.get('token')
-    const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/boards`,
+    const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/boards/`,
       { headers: { Authorization: `Bearer ${token}` } });
     console.log('data', response)
     return response;
@@ -26,7 +26,7 @@ export const addBoard = async (formData) => {
   // const config = {
   //   headers: { 'Content-Type': 'multipart/form-data' }
   // };
-  const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/boards`, formData,
+  const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/boards/`, formData,
     // config
   );
   return response;

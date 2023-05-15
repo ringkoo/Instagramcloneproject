@@ -6,10 +6,20 @@ import { Backarea, Feedbox, Homenavbox } from "../component/common/backarea";
 import Feedcard from "../component/feedcard/feedcard";
 import { useQuery } from "react-query";
 import { getBoard } from "../api/board";
+import { userInquiry } from '../api/users'
 import Cookies from "js-cookie";
 
 function Home() {
   const token = Cookies.get("token");
+  const [members, setMembers] = useState([])
+
+  useEffect(() => {
+    const getMembers = async () => {
+      const members = await userInquiry()
+      setMembers(members)
+    }
+    getMembers()
+  }, [])
 
   if (token) {
     // console.log("home page에서 확인된 현재토큰", token);
@@ -36,7 +46,7 @@ function Home() {
       </Homenavbox>
       <Feedbox>
         <Storybar />
-        {data.map((item) => (
+        {data && Array.isArray(data) && data.length > 0 && data.map((item) => (
           <Feedcard
             postId={item.id}
             id={item.id}
@@ -48,7 +58,7 @@ function Home() {
           />
         ))}
       </Feedbox>
-      <Followarea />
+      <Followarea users={members} />
     </Backarea>
   );
 }

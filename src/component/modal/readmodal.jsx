@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Overlay, ModalWrap, Contents, ImageDiv, LeftContainer, ImagePreview, ImageBox, Bodybox, Writebox, Readinfobox, Commentlistbox } from "./styles";
+import { Overlay, ModalWrap, Contents, ImageDiv, LeftContainer, ImagePreview, ImageBox, Bodybox, Writebox, Readinfobox, Commentlistbox, Readbox } from "./styles";
 import { Textbutton } from "../common/textbutton";
 import { useQuery } from "react-query";
 import { getDetailBoard } from "../../api/board";
@@ -54,9 +54,9 @@ function ReadModal({ postId }) {
                     <Datetime>작성 시간: {data.date || '연결실패'}</Datetime>
                   </Nicknamecontainer>
                 </Userinfobox>
-                <Writebox>
+                <Readbox>
                   내용{data.contents || '연결실패'}
-                </Writebox>
+                </Readbox>
                 <Commentlistbox>
                   댓글 리스트 박스
                 </Commentlistbox>

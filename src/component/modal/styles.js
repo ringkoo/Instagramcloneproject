@@ -75,10 +75,16 @@ const Writebox = styled.div`
   gap:10px;
 `
 
+const Readbox = styled.div`
+  display: flex;
+  padding:10px;
+  border-bottom:1px solid #DBDBDB;
+`
+
 const Readinfobox = styled.div`
   width:500px;
 `
 
 const Commentlistbox = styled.div`
 `
-export { Commentlistbox, Readinfobox, Writebox, Overlay, ModalWrap, Contents, ImageDiv, ImagePreview, LeftContainer, ImageBox, Bodybox };
+export { Readbox, Commentlistbox, Readinfobox, Writebox, Overlay, ModalWrap, Contents, ImageDiv, ImagePreview, LeftContainer, ImageBox, Bodybox };

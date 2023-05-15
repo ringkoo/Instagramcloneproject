@@ -31,9 +31,7 @@ function Login() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         loginMutation.mutate({ email, password }, {
-            onSuccess: (data) => {
-                QueryClient.invalidateQueries("boards")
-                Cookies.set('token', data.token)
+            onSuccess: () => {           
                 navigate('/home')
                 
             },

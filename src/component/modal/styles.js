@@ -74,4 +74,11 @@ const Writebox = styled.div`
   justify-content:center;
   gap:10px;
 `
-export { Writebox, Overlay, ModalWrap, Contents, ImageDiv, ImagePreview, LeftContainer, ImageBox, Bodybox };
+
+const Readinfobox = styled.div`
+  width:500px;
+`
+
+const Commentlistbox = styled.div`
+`
+export { Commentlistbox, Readinfobox, Writebox, Overlay, ModalWrap, Contents, ImageDiv, ImagePreview, LeftContainer, ImageBox, Bodybox };

@@ -20,8 +20,6 @@ function Login() {
     const navigate = useNavigate()
     const [errorMessage, setErrorMessage] = useState('')
 
-    console.log("로그인페이지")
-
     const handleEmailChange = (e) => {
         setEmail(e.target.value)
     }

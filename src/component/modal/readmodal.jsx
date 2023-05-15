@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import { Overlay, ModalWrap, Contents, ImageDiv, LeftContainer, ImagePreview, ImageBox, Bodybox, Writebox } from "./styles";
+import { Overlay, ModalWrap, Contents, ImageDiv, LeftContainer, ImagePreview, ImageBox, Bodybox, Writebox, Readinfobox, Commentlistbox } from "./styles";
 import { Textbutton } from "../common/textbutton";
 import { useQuery } from "react-query";
 import { getDetailBoard } from "../../api/board";
 import { useNavigate } from "react-router-dom";
-import { Nickname, Nicknamecontainer } from "../feedcard/styles";
+import { CommentContainer, CommentHomeInput, Nickname, Nicknamecontainer } from "../feedcard/styles";
 import { Userinfobox } from "../feedcard/styles";
 import { Profilephoto } from "../feedcard/styles";
 import { Datetime } from "../feedcard/styles";
@@ -43,23 +43,30 @@ function ReadModal({ postId }) {
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',
               }}></ImageDiv>
-              <Userinfobox>
-                {/* 게시자 프로필 이미지 */}
-                <Profilephoto ></Profilephoto>
-                <Nicknamecontainer>
-                  {/* 게시자 닉네임 */}
-                  <Nickname>{data.nickname}</Nickname>
-                  {/* 게시 시간 */}
-                  <Datetime>작성 시간: {data.date || '연결실패'}</Datetime>
-                </Nicknamecontainer>
-              </Userinfobox>
-              내용{data.contents}
-              <LeftContainer
-              >
-              </LeftContainer>
-              <Writebox>
-              </Writebox>
-              <Textbutton onClick={handleClose} >X</Textbutton>
+              <Readinfobox>
+                <Userinfobox>
+                  {/* 게시자 프로필 이미지 */}
+                  <Profilephoto ></Profilephoto>
+                  <Nicknamecontainer>
+                    {/* 게시자 닉네임 */}
+                    <Nickname>{data.nickname}</Nickname>
+                    {/* 게시 시간 */}
+                    <Datetime>작성 시간: {data.date || '연결실패'}</Datetime>
+                  </Nicknamecontainer>
+                </Userinfobox>
+                <Writebox>
+                  내용{data.contents || '연결실패'}
+                </Writebox>
+                <Commentlistbox>
+                  댓글 리스트 박스
+                </Commentlistbox>
+                <div style={{position:'relative', top:'75%'}}>
+                  <CommentContainer>
+                    <CommentHomeInput placeholder="댓글 입력"></CommentHomeInput><Textbutton>게시</Textbutton>
+                  </CommentContainer>
+                </div>
+              </Readinfobox>
+              <Textbutton style={{ position: 'relative', left: '3%', color: 'white' }} onClick={handleClose} >X</Textbutton>
             </Contents>
           </ModalWrap>
         </Overlay>

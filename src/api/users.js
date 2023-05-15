@@ -20,7 +20,7 @@ const loginPost = async ({ email, password }) => {
     }
     )
     const token = response.headers.get('authorization').split(' ')[1]
-    return { token }
+    return token
 }
 
 //유저 조회

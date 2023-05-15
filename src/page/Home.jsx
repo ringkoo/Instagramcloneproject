@@ -51,8 +51,8 @@ function Home() {
             postId={item.id}
             id={item.id}
             nickname={item.nickname}
-            // profileimg='/Chaewon.png'
-            // date={item.date || '서버와 연결되지 않았습니다'}
+            profileimg='/Chaewon.png'
+            date={item.date || '서버와 연결되지 않았습니다'}
             imgurl={item.img}
             content={item.contents}
           />

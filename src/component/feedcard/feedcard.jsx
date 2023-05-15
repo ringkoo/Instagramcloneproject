@@ -4,7 +4,6 @@ import { BiComment } from "react-icons/bi";
 import { Textbutton } from "../common/textbutton";
 import { deleteBoard, getBoard } from "../../api/board";
 import ReadModal from "../modal/readmodal";
-import { useQuery } from "react-query";
 
 function Feedcard({ postId, id, imgurl, nickname, profileimg, date, content }) {
     const [isLike, setIsLike] = useState(false)

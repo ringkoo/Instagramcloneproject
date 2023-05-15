@@ -1,11 +1,19 @@
 import axios from "axios";
+import Cookies from "js-cookie";
 
 // 데이터 조회
 export const getBoard = async () => {
-  const { data } = await axios.get(`${process.env.REACT_APP_SERVER_URL}/boards`)
-    // ,{ headers: { Authorization: `Bearer ${token}` }});
-  return data;
-}
+  try {
+    const token = Cookies.get('token')
+    const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/boards`,
+      { headers: { Authorization: `Bearer ${token}` } });
+    console.log('data', response)
+    return response;
+  } catch (error) {
+    return Promise.reject(error.data)
+  }
+};
+
 
 // 데이터 상세조회
 export const getDetailBoard = async (id) => {

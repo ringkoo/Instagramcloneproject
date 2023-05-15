@@ -31,6 +31,7 @@ export const addBoard = async (formData) => {
     }
   };
   const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/boards/`, formData, config);
+
   return response;
 };
 

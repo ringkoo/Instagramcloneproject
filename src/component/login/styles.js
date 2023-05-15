@@ -55,7 +55,7 @@ border: none;
 const ErrorMessage = styled.div`
   color: red;
   font-size: 14px;
-  margin-bottom: 10px;
+  margin-top: 10px;
 `;
 
 export {

@@ -1,4 +1,5 @@
 import axios from "axios";
+import Cookies from "js-cookie";
 
 //회원가입
 
@@ -14,30 +15,25 @@ const signupPost = async ({ email, nickName, password }) => {
 
 //로그인
 const loginPost = async ({ email, password }) => {
-    try {
-        const response = await axios.post(
-            `${process.env.REACT_APP_SERVER_URL}/members/login`, {
-            email, password
-        }
-        )
-
-        const token = response.headers.get('authorization').split(' ')[1]
-        console.log('로그인하고 받은 토큰', { token })
-        return { token }
-    } catch (error) {
-        return Promise.reject(error.response)
+    const response = await axios.post(
+        `${process.env.REACT_APP_SERVER_URL}/members/login`, {
+        email, password
     }
+    )
+    const token = response.headers.get('authorization').split(' ')[1]
+    console.log('로그인하고 받은 토큰', token)
+    return token
 }
 
 //유저 조회
-const userInquiry = async ({ jwt }) => {
+const userInquiry = async () => {
+    const token = Cookies.get('token')
     const response = await axios.get(
-        `${process.env.REACT_APP_SERVER_URL}/members}`, {
+        `${process.env.REACT_APP_SERVER_URL}/members/`, {
         headers: {
-            Authorization: `Bearer ${jwt}`
+            Authorization: `Bearer ${token}`
         }
-    }
-    )
+    })
     return response.data
 }
 

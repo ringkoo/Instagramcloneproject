@@ -4,6 +4,7 @@ import Mainlogin from "../page/Login";
 import Home from "../page/Home";
 import Mainsignup from '../page/Signup'
 import Profile from "../page/Profile";
+import ReadModal from "../component/modal/readmodal";
 
 
 const Router = () => {
@@ -14,6 +15,7 @@ const Router = () => {
         <Route path="/home" element={<Home />} />
         <Route path="/signup" element={<Mainsignup />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="board/:id" element={<ReadModal />} />
       </Routes>
     </BrowserRouter>
   )

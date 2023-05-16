@@ -25,9 +25,8 @@ function Home() {
     console.log("home page에서 확인된 토큰 없음");
   }
 
-  const { isLoading, isError, data } = useQuery("getBoard", getBoard)
+  const { isLoading, isError, data } = useQuery("boards", getBoard)
 
-  console.log('home', data)
   if (!token) {
     console.log('보낼 토큰 없음')
   }

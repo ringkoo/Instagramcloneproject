@@ -57,7 +57,7 @@ function WriteModal() {
 
     mutation.mutate(formData);
     alert("글 작성 완료")
-    navigate(-1)
+    handleClose()
   }
 
 

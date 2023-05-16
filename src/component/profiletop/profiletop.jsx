@@ -1,8 +1,13 @@
 import React from "react";
 import { Descbox, Container, Profilephoto, Nicknamestyle, Storybox, Infobox, Infocontainer, Infospace } from "./styles";
 import { Textbutton } from "../common/textbutton";
+import { useNavigate } from "react-router-dom";
 
 function Profiletop() {
+    const navigate = useNavigate()
+
+    const handleSubmit = () => navigate('/Profilemodify')
+
     return (
         <>
             <Container>
@@ -13,7 +18,7 @@ function Profiletop() {
                 <Infospace>
                     <Infocontainer>
                         <Nicknamestyle>Chaewon</Nicknamestyle>
-                        <Textbutton>프로필편집</Textbutton>
+                        <Textbutton onClick={handleSubmit}>프로필편집</Textbutton>
                     </Infocontainer>
                     <Infobox>
                         <div>게시글 100</div>

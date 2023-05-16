@@ -1,19 +1,29 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Descbox, Container, Profilephoto, Nicknamestyle, Storybox, Infobox, Infocontainer, Infospace } from "./styles";
 import { Textbutton } from "../common/textbutton";
 import { useNavigate } from "react-router-dom";
+import { getProfilePhoto } from "../../api/file";
 
 function Profiletop() {
     const navigate = useNavigate()
+    const [profilepic, setProfilePic] = useState('')
 
     const handleSubmit = () => navigate('/Profilemodify')
+
+    useEffect(() => {
+        const fetchProfilePhoto = async () => {
+            const photoUrl = await getProfilePhoto();
+            setProfilePic(photoUrl);
+        }
+        fetchProfilePhoto();
+    }, []);
 
     return (
         <>
             <Container>
                 {/* 이미지 + 닉네임 */}
                 <Storybox>
-                    <Profilephoto url='Chaewon.png' />
+                    <Profilephoto url={profilepic} />
                 </Storybox>
                 <Infospace>
                     <Infocontainer>

@@ -14,6 +14,7 @@ function Navbar() {
 
     const handleLogout = () => {
         Cookies.remove('token')
+        alert('로그아웃에 성공했습니다.')
         navigate('/')
     }
 

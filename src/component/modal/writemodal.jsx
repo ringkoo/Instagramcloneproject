@@ -44,8 +44,8 @@ function WriteModal() {
     const formData = new FormData();
     const boardData = { contents: contents };
     formData.append("image", image);
-    // const contentsBlob = new Blob([boardData], { type: 'application/json' })
     formData.append("board", new Blob([JSON.stringify(boardData)], { type: "application/json" }));
+    // const contentsBlob = new Blob([boardData], { type: 'application/json' })
     // formData.append("board", JSON.stringify(boardData));
     // const imgBlob = new Blob([image])
     // formData.append("image", imgBlob, 'image.jpg');

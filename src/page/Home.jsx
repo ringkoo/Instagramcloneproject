@@ -6,6 +6,7 @@ import Feedcard from "../component/feedcard/feedcard";
 import { useQuery } from "react-query";
 import { getBoard } from "../api/board";
 import Cookies from "js-cookie";
+import Followarea from "../component/followarea/followarea";
 
 function Home() {
   const token = Cookies.get("token");
@@ -61,6 +62,7 @@ function Home() {
           );
         })}
       </Feedbox>
+      <Followarea />
     </Backarea>
   );
 }

@@ -7,7 +7,7 @@ function Followarea({ users }) {
     <>
       <Container>
         {/* 유용한 처리법 */}
-        {users.map?.((members) => {
+        {users?.map((members) => {
           console.log(members)
           return (
             <Nicknamecontainer key={members.id}>

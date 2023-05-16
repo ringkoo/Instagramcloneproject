@@ -1,7 +1,7 @@
 import axios from "axios";
 import Cookies from "js-cookie";
 
-//회원가입
+// 회원가입
 const signupPost = async ({ email, nickName, password }) => {
     const response = await axios.post(
         `${process.env.REACT_APP_SERVER_URL}/members/signup`, {
@@ -11,7 +11,7 @@ const signupPost = async ({ email, nickName, password }) => {
     return response.data
 }
 
-//로그인
+// 로그인
 const loginPost = async ({ email, password }) => {
     try {
         const response = await axios.post(
@@ -28,7 +28,7 @@ const loginPost = async ({ email, password }) => {
     }
 }
 
-//유저 조회
+// 유저 조회
 const userInquiry = async () => {
     const token = Cookies.get('token')
     const response = await axios.get(
@@ -37,39 +37,60 @@ const userInquiry = async () => {
             Authorization: `Bearer ${token}`
         }
     })
+    console.log('유저조회', response)
     return response.data
 }
 
-//팔로우 상태
-const followPost = async ({ userId, jwt }) => {
+// 팔로우 유저 조회
+const followuserInquiry = async () => {
+    const token = Cookies.get('token')
+    const response = await axios.get(
+        `${process.env.REACT_APP_SERVER_URL}/members/follwers`, {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    }
+    )
+    console.log('팔로우 유저 조회',response)
+    return response.data
+}
+
+// 팔로우 상태
+const followPost = async ({ userId }) => {
+    const token = Cookies.get('token')
     const response = await axios.post(
         `${process.env.REACT_APP_SERVER_URL}/members/${userId}`, {
         headers: {
-            Authorization: `Bearer ${jwt}`
+            Authorization: `Bearer ${token}`
         }
     })
+    console.log('팔로우 상태', response)
     return response.data
 }
-//팔로우 조회
-const followInquiry = async ({ userId, jwt }) => {
+// 팔로우 조회
+const followInquiry = async ({ userId }) => {
+    const token = Cookies.get('token')
     const response = await axios.get(
         `${process.env.REACT_APP_SERVER_URL}/members/${userId}`, {
         headers: {
-            Authorization: `Bearer ${jwt}`
+            Authorization: `Bearer ${token}`
         }
     })
+    console.log('팔로우 조회', response)
     return response.data
 }
 
-//팔로잉 조회
-const followingInqury = async ({ userId, jwt }) => {
+// 팔로잉 조회
+const followingInqury = async ({ userId }) => {
+    const token = Cookies.get('token')
     const response = await axios.get(
         `${process.env.REACT_APP_SERVER_URL}/members/${userId}`, {
         headers: {
-            Authorization: `Bearer ${jwt}`
+            Authorization: `Bearer ${token}`
         }
     })
+    console.log('팔로잉 조회', response)
     return response.data
 }
 
-export { loginPost, signupPost, userInquiry, followPost, followInquiry, followingInqury }
+export { loginPost, signupPost, userInquiry, followPost, followInquiry, followingInqury, followuserInquiry }

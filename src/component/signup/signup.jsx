@@ -13,6 +13,10 @@ import {
   ErrorMessage,
 } from "./styles";
 
+function validatePasswordConfirm(password, passwordConfirm) {
+  return password === passwordConfirm
+}
+
 function Signup() {
   const [email, setEmail] = useState('')
   const [nickName, setNickName] = useState('')
@@ -41,6 +45,30 @@ function Signup() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    const emailLength = email.length;
+    if (emailLength < 8 || emailLength > 30) {
+      setErrorMessage1("이메일은 8자에서 30자 사이여야 합니다.")
+      return
+    }
+
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*()])(?=.{8,20})/
+    if (!passwordRegex.test(password)) {
+      setErrorMessage1("비밀번호는 8~20자의 대문자, 소문자, 숫자, 특수문자(!@#$%^&*())를 각 하나이상 포함해야 합니다.")
+      return
+    }
+
+    const nickNameRegex = /^[a-zA-Z0-9_.-]{2,10}$/
+    if (!nickNameRegex.test(nickName)) {
+      setErrorMessage1("닉네임은 2~10자의 영문, 숫자, _, ., -만 포함해야 합니다.")
+      return
+    }
+
+    if (!validatePasswordConfirm(password, passwordConfirm)) {
+      setErrorMessage1("입력하신 비밀번호가 일치하지 않습니다.")
+      return
+    }
+
     signupMutation.mutate({ email, nickName, password }, {
       onSuccess: () => {
         navigate('/');

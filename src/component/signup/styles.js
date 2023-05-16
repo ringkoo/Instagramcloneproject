@@ -67,10 +67,13 @@ margin-bottom: 30px;
 `
 
 const ErrorMessage = styled.div`
-  color: red;
-  font-size: 14px;
-  margin-bottom: 10px;
-  margin-top: 15px;
+width: 320px;
+color: red;
+font-size: 14px;
+margin-bottom: 10px;
+margin-top: 15px;
+flex-wrap: warp;
+text-align: center;
 `;
 
 export {

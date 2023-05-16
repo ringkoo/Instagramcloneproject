@@ -1,23 +1,40 @@
 import React, { useState } from "react";
-import { Overlay, ModalWrap, Contents, ImageDiv, LeftContainer, ImagePreview, ImageBox, Bodybox, Writebox, Readinfobox, Commentlistbox, Readbox } from "./styles";
+import { Overlay, ModalWrap, Contents, ImageDiv, LeftContainer, ImagePreview, ImageBox, Bodybox, Writebox, Readinfobox, Commentlistbox, Readbox, ChangeContentsbox } from "./styles";
 import { Textbutton } from "../common/textbutton";
-import { useQuery } from "react-query";
-import { getBoard, getDetailBoard } from "../../api/board";
-import { useNavigate } from "react-router-dom";
 import { CommentContainer, CommentHomeInput, Nickname, Nicknamecontainer } from "../feedcard/styles";
 import { Userinfobox } from "../feedcard/styles";
 import { Profilephoto } from "../feedcard/styles";
 import { Datetime } from "../feedcard/styles";
+import Cookies from "js-cookie";
+import axios from "axios";
+import { getBoard } from "../../api/board";
 
-function ReadModal({ id, imgurl, nickname, profileimg, date, content }) {
-  const navigate = useNavigate();
-
+function ReadModal({ id, imageUrl, nickname, profileimg, date, content }) {
   const [isOpen, setIsOpen] = useState(true);
-  const [image, setImage] = useState(null);
+  const [editButton, setEditButton] = useState(false);
+  const [editContents, setEditContents] = useState(false);
+  const [editBoardText, setEditBoardText] = useState(content)
 
   const handleClose = () => {
     setIsOpen(!isOpen);
   };
+
+  const editHandler = () => {
+    setEditButton(!editButton)
+    setEditContents(!editContents)
+  }
+  //수정 contents 값
+  const boardTextEditHandler = (e) => {
+    setEditBoardText(e.target.value)
+  }
+
+  // 데이터 수정 api
+  const contentsUpdate = async () => {
+    const token = Cookies.get('token')
+    await axios.put(`${process.env.REACT_APP_SERVER_URL}/boards/${id}`,
+      { contents: editBoardText }, { headers: { Authorization: `Bearer ${token}` } })
+    getBoard()
+  }
 
   return (
     <>
@@ -26,7 +43,7 @@ function ReadModal({ id, imgurl, nickname, profileimg, date, content }) {
           <ModalWrap>
             <Contents>
               <ImageDiv style={{
-                backgroundImage: `url(${imgurl})`,
+                backgroundImage: `url(${imageUrl})`,
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',
               }}></ImageDiv>
@@ -38,12 +55,27 @@ function ReadModal({ id, imgurl, nickname, profileimg, date, content }) {
                     {/* 게시자 닉네임 */}
                     <Nickname>{nickname}</Nickname>
                     {/* 게시 시간 */}
-                    <Datetime>작성 시간: {date || '연결실패'}</Datetime>
+                    <Datetime>작성 시간: {date}</Datetime>
                   </Nicknamecontainer>
+                  {editButton ? <Textbutton style={{ position: 'relative', left: '140px', top: '10px' }}
+                    onClick={contentsUpdate}
+                  >완료</Textbutton> :
+                    <Textbutton style={{ position: 'relative', left: '140px', top: '10px' }}
+                      onClick={editHandler}
+                    >수정</Textbutton>
+                  }
                 </Userinfobox>
-                <Readbox>
-                  {content || '연결실패'}
-                </Readbox>
+                <ChangeContentsbox>
+                  {
+                    editContents ?
+                      <CommentHomeInput onChange={boardTextEditHandler}
+                        placeholder="수정 내용 입력"
+                        style={{ border: "none", }}
+                      ></CommentHomeInput> : <Readbox>
+                        {content}
+                      </Readbox>
+                  }
+                </ChangeContentsbox>
                 <Commentlistbox>
                   댓글 리스트 박스
                 </Commentlistbox>

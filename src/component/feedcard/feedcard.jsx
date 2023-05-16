@@ -23,7 +23,7 @@ function Feedcard({ id, imgurl, nickname, profileimg, date, content }) {
         setIsLike(!isLike)
     }
 
-    const ModalOpenHandler = (id) => {
+    const ModalOpenHandler = () => {
         setIsOpen(!isOpen)
     }
 

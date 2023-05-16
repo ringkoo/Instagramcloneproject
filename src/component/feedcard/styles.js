@@ -92,7 +92,10 @@ const CommentHomeInput = styled.input`
     border:none;
     border-bottom:1px solid gray;
     width:80%;
-    
+    margin-bottom:11px;
+    margin-left:10px;
+    font-size:13px;
+    border-bottom:1px solid #DBDBDB;
 `
 
 const Commentsubmit = styled.div`

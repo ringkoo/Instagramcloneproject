@@ -10,15 +10,6 @@ import Followarea from "../component/followarea/followarea";
 
 function Home() {
   const token = Cookies.get("token");
-  // const [members, setMembers] = useState([])
-
-  // useEffect(() => {
-  //   const getMembers = async () => {
-  //     const members = await userInquiry()
-  //     setMembers(members)
-  //   }
-  //   getMembers()
-  // }, [])
 
   if (token) {
     // console.log("home page에서 확인된 현재토큰", token);
@@ -51,7 +42,7 @@ function Home() {
           return (
             <Feedcard
               key={item.id}
-              postId={item.boardId}
+              // postId={item.boardId}
               id={item.boardId}
               nickname={item.nickname || "서버와 연결되지 않았습니다."}
               profileimg="/Chaewon.png"

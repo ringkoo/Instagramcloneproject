@@ -7,21 +7,12 @@ export const getBoard = async () => {
     const token = Cookies.get('token')
     const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/boards/`,
       { headers: { Authorization: `Bearer ${token}` } });
-    return response.data.data
+    return response.data
   } catch (error) {
     return Promise.reject(error.data)
   }
 };
 
-
-// 데이터 상세조회
-export const getDetailBoard = async (id) => {
-  const token = Cookies.get('token')
-  const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/boards/${id}`,
-    { headers: { Authorization: `Bearer ${token}` } });
-    console.log(response)
-  return response;
-}
 
 //게시글 작성(post요청)
 export const addBoard = async (formData) => {
@@ -32,11 +23,8 @@ export const addBoard = async (formData) => {
       Authorization: `Bearer ${token}`
     }
   }
-  console.log('api 토큰', token)
   // for (let [key, value] of formData.entries()) { console.log(`${key}:`, value); }
-
   const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/boards/`, formData, config);
-  console.log('api 응답', response)
   return response;
 };
 
@@ -50,3 +38,4 @@ export const deleteBoard = async (id) => {
   });
   return response
 };
+

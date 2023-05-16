@@ -1,10 +1,12 @@
 import axios from "axios";
 import Cookies from "js-cookie";
+import jwt_decode from 'jwt-decode'
 
 // 프로필 사진 수정
-const uploadimagePut = async ({ nickName,image, content }) => {
+const uploadimagePut = async ({ image, content }) => {
     const token = Cookies.get('token')
-    console.log(token)
+    let decodedToken = jwt_decode(token)
+    let nickName = decodedToken.nickName
     try {
         const formData = new FormData()
         formData.append('image', image)
@@ -30,16 +32,17 @@ const uploadimagePut = async ({ nickName,image, content }) => {
 // 프로필 사진 가져오기
 const getProfilePhoto = async () => {
     const token = Cookies.get('token')
+    let decodedToken = jwt_decode(token)
+    let nickName = decodedToken.nickName
     try {
         const response = await axios.get(
-            `${process.env.REACT_APP_SERVER_URL}/members/profilePhoto`,
+            `${process.env.REACT_APP_SERVER_URL}/members/${nickName}`,
             {
                 headers: {
                     'Authorization': `Bearer ${token}`,
                 }
             }
         )
-        console.log('프로필 사진 받아오기', response)
         return response.data
     } catch (error) {
         console.log('프로필 사진 받아오기 오류', error)

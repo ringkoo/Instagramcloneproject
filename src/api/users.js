@@ -1,5 +1,6 @@
 import axios from "axios";
 import Cookies from "js-cookie";
+import jwt_decode from "jwt-decode";
 
 // 회원가입
 const signupPost = async ({ email, nickName, password }) => {
@@ -102,8 +103,10 @@ const followingInqury = async ({ nickName }) => {
 }
 
 // 내 피드 조회
-const myfeedInqury = async ({ nickName }) => {
+const myfeedInqury = async () => {
     const token = Cookies.get('token')
+    let decodedToken = jwt_decode(token)
+    let nickName = decodedToken.nickName
     try {
         const response = await axios.get(
             `${process.env.REACT_APP_SERVER_URL}/members/${nickName}`, {

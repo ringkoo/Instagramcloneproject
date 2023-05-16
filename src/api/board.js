@@ -7,7 +7,8 @@ export const getBoard = async () => {
     const token = Cookies.get('token')
     const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/boards/`,
       { headers: { Authorization: `Bearer ${token}` } });
-    return response;
+    let data = response.data;
+    return { data }
   } catch (error) {
     return Promise.reject(error.data)
   }
@@ -23,16 +24,17 @@ export const getDetailBoard = async (id) => {
 //게시글 작성(post요청)
 export const addBoard = async (formData) => {
   const token = Cookies.get('token')
-  console.log('api 토큰', token)
   const config = {
     headers: {
       'Content-Type': 'multipart/form-data',
       Authorization: `Bearer ${token}`
     }
-  };
+  }
+  console.log('api 토큰', token)
+  // for (let [key, value] of formData.entries()) { console.log(`${key}:`, value); }
 
   const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/boards/`, formData, config);
-
+  console.log('api 응답', response)
   return response;
 };
 

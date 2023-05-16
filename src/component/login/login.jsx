@@ -32,7 +32,6 @@ function Login() {
         loginMutation.mutate({ email, password }, {
             onSuccess: () => {
                 navigate('/home')
-
             },
             onError: (error) => {
                 setErrorMessage(error.response.data.message)

@@ -27,7 +27,7 @@ const loginPost = async ({ email, password }) => {
 const userInquiry = async () => {
     const token = Cookies.get('token')
     const response = await axios.get(
-        `${process.env.REACT_APP_SERVER_URL}/members/`, {
+        `${process.env.REACT_APP_SERVER_URL}/members/recommends`, {
         headers: {
             Authorization: `Bearer ${token}`
         }

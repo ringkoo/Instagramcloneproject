@@ -66,7 +66,7 @@ function Feedcard({ id, imgurl, nickname, profileimg, date, content }) {
                     </Commentimg>
                     {isOpen ? <ReadModal 
                     id={id}
-                    imgurl={imgurl}
+                    imageUrl={imgurl}
                     nickname={nickname}
                     profileimg={profileimg}
                     date={date}

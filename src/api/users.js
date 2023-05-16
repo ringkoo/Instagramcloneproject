@@ -29,16 +29,24 @@ const loginPost = async ({ email, password }) => {
 }
 
 // 유저 조회
-const userInquiry = async () => {
+const userInquiry = async (id, nickName, img) => {
     const token = Cookies.get('token')
-    const response = await axios.get(
-        `${process.env.REACT_APP_SERVER_URL}/members/recommends`, {
-        headers: {
-            Authorization: `Bearer ${token}`
-        }
-    })
-    console.log('유저조회', response)
-    return response.data
+    try {
+        const response = await axios.get(
+            `${process.env.REACT_APP_SERVER_URL}/members/recommends`, {
+            content: {
+                id,
+                nickName,
+                img
+            },
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
+        return response.data
+    } catch (error) {
+        console.error('유저 조회 실패', error)
+    }
 }
 
 // 팔로우 유저 조회
@@ -51,7 +59,7 @@ const followuserInquiry = async () => {
         }
     }
     )
-    console.log('팔로우 유저 조회',response)
+    console.log('팔로우 유저 조회', response)
     return response.data
 }
 

@@ -13,7 +13,6 @@ export const getBoard = async () => {
   }
 };
 
-
 //게시글 작성(post요청)
 export const addBoard = async (formData) => {
   const token = Cookies.get('token')

@@ -64,10 +64,10 @@ const followuserInquiry = async () => {
 }
 
 // 팔로우 상태
-const followPost = async ({ userId }) => {
+const followPost = async ({ nickName }) => {
     const token = Cookies.get('token')
     const response = await axios.post(
-        `${process.env.REACT_APP_SERVER_URL}/members/${userId}`, {
+        `${process.env.REACT_APP_SERVER_URL}/members/${nickName}`, {
         headers: {
             Authorization: `Bearer ${token}`
         }
@@ -76,10 +76,10 @@ const followPost = async ({ userId }) => {
     return response.data
 }
 // 팔로우 조회
-const followInquiry = async ({ userId }) => {
+const followInquiry = async ({ nickName }) => {
     const token = Cookies.get('token')
     const response = await axios.get(
-        `${process.env.REACT_APP_SERVER_URL}/members/${userId}`, {
+        `${process.env.REACT_APP_SERVER_URL}/members/${nickName}`, {
         headers: {
             Authorization: `Bearer ${token}`
         }
@@ -89,10 +89,10 @@ const followInquiry = async ({ userId }) => {
 }
 
 // 팔로잉 조회
-const followingInqury = async ({ userId }) => {
+const followingInqury = async ({ nickName }) => {
     const token = Cookies.get('token')
     const response = await axios.get(
-        `${process.env.REACT_APP_SERVER_URL}/members/${userId}`, {
+        `${process.env.REACT_APP_SERVER_URL}/members/${nickName}`, {
         headers: {
             Authorization: `Bearer ${token}`
         }
@@ -101,4 +101,30 @@ const followingInqury = async ({ userId }) => {
     return response.data
 }
 
-export { loginPost, signupPost, userInquiry, followPost, followInquiry, followingInqury, followuserInquiry }
+// 내 피드 조회
+const myfeedInqury = async ({ nickName }) => {
+    const token = Cookies.get('token')
+    try {
+        const response = await axios.get(
+            `${process.env.REACT_APP_SERVER_URL}/members/${nickName}`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
+        console.log('내 피드 조회 성공',response)
+        return response.data
+    } catch (error) {
+        console.log('내 피드 조회 실패', error)
+    }
+}
+
+export {
+    loginPost,
+    signupPost,
+    userInquiry,
+    followPost,
+    followInquiry,
+    followingInqury,
+    followuserInquiry,
+    myfeedInqury
+}

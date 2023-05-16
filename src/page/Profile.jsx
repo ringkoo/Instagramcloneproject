@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import Navbar from "../component/navbar/navbar";
-import { Homenavbox, Profileback, Profilecontainer, Profileimgbox, Backarea } from "../component/common/backarea";
 import Profiletop from "../component/profiletop/profiletop";
 import ProfileCard from "../component/profilecard/profilecard";
 import Followarea from "../component/followarea/followarea";
@@ -8,12 +7,19 @@ import Cookies from "js-cookie";
 import { useQuery } from "react-query";
 import { getBoard } from "../api/board";
 import ReadModal from "../component/modal/readmodal";
+import {
+  Homenavbox,
+  Profileback,
+  Profilecontainer,
+  Profileimgbox,
+  Backarea
+} from "../component/common/backarea";
 
 function Profile() {
   const token = Cookies.get("token");
-
-
   const { isLoading, isError, data } = useQuery("boards", getBoard)
+  const
+
 
   if (!token) {
     console.log('보낼 토큰 없음')

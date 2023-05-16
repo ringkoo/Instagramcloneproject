@@ -7,8 +7,7 @@ export const getBoard = async () => {
     const token = Cookies.get('token')
     const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/boards/`,
       { headers: { Authorization: `Bearer ${token}` } });
-    let data = response.data;
-    return { data }
+    return response.data.data
   } catch (error) {
     return Promise.reject(error.data)
   }

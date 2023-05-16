@@ -5,7 +5,6 @@ import Home from "../page/Home";
 import Mainsignup from '../page/Signup'
 import Profile from "../page/Profile";
 import Profilemodify from "../page/Profilemodify";
-import ReadModal from "../component/modal/readmodal";
 
 const Router = () => {
   return (

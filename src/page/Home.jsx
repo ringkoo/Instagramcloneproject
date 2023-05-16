@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Navbar from "../component/navbar/navbar";
 import Storybar from "../component/storybar/storybar";
 import { Backarea, Feedbox, Homenavbox } from "../component/common/backarea";
@@ -28,8 +28,7 @@ function Home() {
   if (isError) {
     return <div>오류가 발생했습니다.</div>;
   }
-
-
+console.log(data)
 
   return (
     <Backarea>
@@ -42,12 +41,13 @@ function Home() {
           return (
             <Feedcard
               key={item.id}
-              id={item.boardId}
-              nickname={item.nickname || "[닉네임] connect error."}
+              boardId={item.boardId}
+              nickname={item.nickName || "[닉네임] connect error."}
               profileimg="/Chaewon.png"
               date={item.createdAt || "서버와 연결되지 않았습니다."}
               imgurl={item.imageUrl}
               content={item.contents}
+              comments={item.commentList}
             />
           );
         })}

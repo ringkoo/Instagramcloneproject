@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Navbar from "../component/navbar/navbar";
 import { Homenavbox, Profileback, Profilecontainer, Profileimgbox, Backarea } from "../component/common/backarea";
 import Profiletop from "../component/profiletop/profiletop";
@@ -7,7 +7,6 @@ import Followarea from "../component/followarea/followarea";
 import Cookies from "js-cookie";
 import { useQuery } from "react-query";
 import { getBoard } from "../api/board";
-import ReadModal from "../component/modal/readmodal";
 
 function Profile() {
   const token = Cookies.get("token");
@@ -24,9 +23,6 @@ function Profile() {
   if (isError) {
     return <div>오류가 발생했습니다.</div>;
   }
-  const handleClick = (id) => {
-    console.log(id)
-  }
   return (
     <Backarea>
       <Homenavbox>
@@ -40,12 +36,13 @@ function Profile() {
           {data?.map((item) => {
             return (<ProfileCard
               key={item.id}
-              id={item.boardId}
+              boardId={item.boardId}
               nickname={item.nickname || "서버와 연결되지 않았습니다."}
               profileimg="/Chaewon.png"
               date={item.createdAt || "서버와 연결되지 않았습니다."}
               imageUrl={item.imageUrl}
               content={item.contents}
+              comments={item.commentList}
             />
             )
           })}

@@ -65,16 +65,22 @@ const followuserInquiry = async () => {
 }
 
 // 팔로우 상태
-const followPost = async ({ nickName }) => {
+const followPost = async () => {
     const token = Cookies.get('token')
-    const response = await axios.post(
-        `${process.env.REACT_APP_SERVER_URL}/members/${nickName}`, {
-        headers: {
-            Authorization: `Bearer ${token}`
-        }
-    })
-    console.log('팔로우 상태', response)
-    return response.data
+    let decodedToken = jwt_decode(token)
+    let nickName = decodedToken.nickName
+    try {
+        const response = await axios.post(
+            `${process.env.REACT_APP_SERVER_URL}/members/${nickName}`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
+        console.log('팔로우 상태', response)
+        return response.data
+    } catch (error) {
+        console.log('팔로우 실패', error)
+    }
 }
 // 팔로우 조회
 const followInquiry = async ({ nickName }) => {
@@ -114,7 +120,6 @@ const myfeedInqury = async () => {
                 Authorization: `Bearer ${token}`
             }
         })
-        console.log('내 피드 조회 성공',response)
         return response.data
     } catch (error) {
         console.log('내 피드 조회 실패', error)

@@ -1,13 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import { Container, Profilephoto, Nicknamecontainer, Nickname, Divstyle } from "./styles";
 import { Textbutton } from "../common/textbutton";
-import { userInquiry } from "../../api/users";
+import { followPost, userInquiry } from "../../api/users";
 import { useQuery } from "react-query";
-// import Cookies from "js-cookie";
 
 function Followarea() {
   const { data: users, status } = useQuery('users', userInquiry)
-  // const loggedId = Cookies.get('token')
+  const [following, setFollowing] = useState(false)
 
   if (status === 'loading') {
     return <p>불러오는중...</p>
@@ -15,6 +14,14 @@ function Followarea() {
 
   if (status === 'error') {
     return <p>데이터를 불러올수 없습니다.</p>
+  }
+
+  const handleClick = async (nickName) => {
+    await followPost({ nickName })
+    setFollowing({
+      ...following,
+      [nickName]: !following[nickName],
+    })
   }
 
   return (
@@ -27,7 +34,10 @@ function Followarea() {
                 <Profilephoto url={members.img} />
                 <Nickname>{members.nickName}</Nickname>
               </Divstyle>
-              <Textbutton>팔로우</Textbutton>
+              <Textbutton
+                onClick={() => handleClick(members.nickName)}>
+                {following ? '언팔로우' : '팔로우'}
+              </Textbutton>
             </Nicknamecontainer>
           )
         }

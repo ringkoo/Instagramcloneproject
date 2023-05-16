@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import { Container, NavLogo, Icon, Icondiv, Icontext, Backarea } from "./styles";
+import { Container, NavLogo, Icon, Icondiv, Icontext } from "./styles";
 import { useNavigate } from "react-router";
 import WriteModal from "../modal/writemodal";
+import Cookies from "js-cookie";
 
 function Navbar() {
     const navigate = useNavigate()
@@ -9,6 +10,11 @@ function Navbar() {
 
     const openModal = () => {
         setIsOpen(true)
+    }
+
+    const handleLogout = () => {
+        Cookies.remove('token')
+        navigate('/')
     }
 
     return (
@@ -32,9 +38,7 @@ function Navbar() {
                     <Icon url='/Chaewon.png'></Icon>
                     <Icontext >프로필</Icontext>
                 </Icondiv>
-                <Icondiv onClick={() => {
-                    navigate("/profile")
-                }}>
+                <Icondiv onClick={handleLogout}>
                     <Icon></Icon>
                     <Icontext>로그아웃</Icontext>
                 </Icondiv>

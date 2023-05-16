@@ -8,7 +8,6 @@ import { CommentContainer, CommentHomeInput, Nickname, Nicknamecontainer } from 
 import { Userinfobox } from "../feedcard/styles";
 import { Profilephoto } from "../feedcard/styles";
 import { Datetime } from "../feedcard/styles";
-import Cookies from "js-cookie";
 
 function ReadModal({ id }) {
   const navigate = useNavigate();

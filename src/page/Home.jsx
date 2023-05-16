@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import Navbar from "../component/navbar/navbar";
 import Storybar from "../component/storybar/storybar";
-import Followarea from "../component/followarea/followarea";
 import { Backarea, Feedbox, Homenavbox } from "../component/common/backarea";
 import Feedcard from "../component/feedcard/feedcard";
 import { useQuery } from "react-query";
@@ -26,9 +25,8 @@ function Home() {
     console.log("home page에서 확인된 토큰 없음");
   }
 
-  const { isLoading, isError, data } = useQuery("getBoard", getBoard)
+  const { isLoading, isError, data } = useQuery("boards", getBoard)
 
-  console.log(data)
   if (!token) {
     console.log('보낼 토큰 없음')
   }
@@ -48,19 +46,21 @@ function Home() {
       </Homenavbox>
       <Feedbox>
         <Storybar />
-        {data?.map?.((item) => {
-          <Feedcard
-            postId={item.boardId}
-            id={item.boardId}
-            nickname={item.nickname || '서버와 연결되지'}
-            profileimg='/Chaewon.png'
-            date={item.createdAt || '서버와 연결되지 않았습니다'}
-            imgurl={item.imageUrl}
-            content={item.contents}
-          />
+        {data?.map((item) => {
+          return (
+            <Feedcard
+              key={item.id}
+              postId={item.boardId}
+              id={item.boardId}
+              nickname={item.nickname || "서버와 연결되지 않았습니다."}
+              profileimg="/Chaewon.png"
+              date={item.createdAt || "서버와 연결되지 않았습니다."}
+              imgurl={item.imageUrl}
+              content={item.contents}
+            />
+          );
         })}
       </Feedbox>
-      {/* <Followarea users={members} /> */}
     </Backarea>
   );
 }

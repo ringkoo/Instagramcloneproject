@@ -53,16 +53,11 @@ function WriteModal() {
     // formData.append("board", contents);
 
     // form 조회
-    // for (const [key, value] of formData.entries()) {
-    //   console.log(`Key: ${key}, Value: ${JSON.stringify(value)}`);
-    // }
-
-    for (let [key, value] of formData.entries()) { console.log(`${key}:`, value); }
+    // for (let [key, value] of formData.entries()) { console.log(`${key}:`, value); }
 
     mutation.mutate(formData);
     alert("글 작성 완료")
-    navigate('/home')
-    // window.location.reload()
+    handleClose()
   }
 
 

@@ -7,8 +7,7 @@ export const getBoard = async () => {
     const token = Cookies.get('token')
     const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/boards/`,
       { headers: { Authorization: `Bearer ${token}` } });
-    let data = response.data;
-    return { data }
+    return response.data.data
   } catch (error) {
     return Promise.reject(error.data)
   }
@@ -17,8 +16,11 @@ export const getBoard = async () => {
 
 // 데이터 상세조회
 export const getDetailBoard = async (id) => {
-  const { data } = await axios.get(`${process.env.REACT_APP_SERVER_URL}/boards/${id}`);
-  return data;
+  const token = Cookies.get('token')
+  const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/boards/${id}`,
+    { headers: { Authorization: `Bearer ${token}` } });
+    console.log(response)
+  return response;
 }
 
 //게시글 작성(post요청)
@@ -38,9 +40,13 @@ export const addBoard = async (formData) => {
   return response;
 };
 
-//게시글 삭제 (delet) 토큰 없음(0513~)
+//게시글 삭제 (delet) 
 export const deleteBoard = async (id) => {
-  const response = await axios.delete(`${process.env.REACT_APP_SERVER_URL}/boards/${id}`);
-  console.log('삭제 res', response)
+  const token = Cookies.get('token')
+  const response = await axios.delete(`${process.env.REACT_APP_SERVER_URL}/boards/${id}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
   return response
 };

@@ -16,7 +16,7 @@ flex-direction: column;
 background-color: white;
 border: 2px solid lightgray;
 padding: 20px;
-width; 400px;
+width: 400px;
 box-sizing: border-box;
 align-items: center;
 `
@@ -25,7 +25,7 @@ const Input = styled.input`
 width: 320px;
 height: 40px;
 margin-bottom: 10px;
-border: 1px solid lightgray
+border: 1px solid lightgray;
 border-radius: 5px;
 padding: 10px;
 box-sizing: border-box;
@@ -55,10 +55,9 @@ border: none;
 const Label = styled.label`
 width: 320px;
 display: flex;
-align-item: center;
+align-items: center;
 justify-content: center;
 flex-direction: column;
-flex-wrap;
 text-align: center;
 font-size: 20px;
 font-weight: bold;

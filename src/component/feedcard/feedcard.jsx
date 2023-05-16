@@ -4,28 +4,36 @@ import { BiComment } from "react-icons/bi";
 import { Textbutton } from "../common/textbutton";
 import { deleteBoard, getBoard } from "../../api/board";
 import ReadModal from "../modal/readmodal";
+import { useMutation, useQuery, useQueryClient } from "react-query";
+import { useNavigate } from "react-router-dom";
 
-function Feedcard({ postId, id, imgurl, nickname, profileimg, date, content }) {
+function Feedcard({ id, imgurl, nickname, profileimg, date, content }) {
     const [isLike, setIsLike] = useState(false)
     const [isOpen, setIsOpen] = useState(false);
-    const [boardData, setBoardData] = useState({});
+    const navigate = useNavigate();
+    const queryClient = useQueryClient();
 
+    const mutation = useMutation(deleteBoard, {
+        onSuccess: () => {
+            queryClient.invalidateQueries('boards');
+        },
+    });
 
     const LikeHandler = () => {
         setIsLike(!isLike)
     }
 
-    const ModalOpenHandler = () => {
+    const ModalOpenHandler = (id) => {
         setIsOpen(!isOpen)
+        navigate(`/board/${id}`);
     }
 
-    const DeleteboardHandler = async (id) => {
+    function DeleteboardHandler(id) {
         const confirmed = window.confirm("정말로 삭제하시겠습니까?");
         if (confirmed) {
-            await deleteBoard(id);
+            mutation.mutate(id);
         }
-        setBoardData(boardData)
-    };
+    }
 
     return (
         <>
@@ -57,7 +65,7 @@ function Feedcard({ postId, id, imgurl, nickname, profileimg, date, content }) {
                     <Commentimg >
                         <BiComment onClick={ModalOpenHandler} />
                     </Commentimg>
-                    {isOpen ? <ReadModal postId={postId} /> : null}
+                    {isOpen ? <ReadModal id={id} /> : null}
                 </Middlediv>
                 <Contentsbox>{content || '내용'}</Contentsbox>
                 {/* 댓글입력창 div */}

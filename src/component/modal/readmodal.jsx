@@ -9,7 +9,7 @@ import { Userinfobox } from "../feedcard/styles";
 import { Profilephoto } from "../feedcard/styles";
 import { Datetime } from "../feedcard/styles";
 
-function ReadModal({ id }) {
+function ReadModal({ id, imgurl, nickname, profileimg, date, content }) {
   const navigate = useNavigate();
 
   const [isOpen, setIsOpen] = useState(true);
@@ -18,7 +18,7 @@ function ReadModal({ id }) {
   const handleClose = () => {
     setIsOpen(!isOpen);
   };
-  console.log(id)
+
   return (
     <>
       {isOpen ?
@@ -26,23 +26,23 @@ function ReadModal({ id }) {
           <ModalWrap>
             <Contents>
               <ImageDiv style={{
-                backgroundImage: `url(${id.img})`,
+                backgroundImage: `url(${imgurl})`,
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',
               }}></ImageDiv>
               <Readinfobox>
                 <Userinfobox>
                   {/* 게시자 프로필 이미지 */}
-                  <Profilephoto ></Profilephoto>
+                  <Profilephoto uri={profileimg}></Profilephoto>
                   <Nicknamecontainer>
                     {/* 게시자 닉네임 */}
-                    <Nickname>{id.nickname}</Nickname>
+                    <Nickname>{nickname}</Nickname>
                     {/* 게시 시간 */}
-                    <Datetime>작성 시간: {id.date || '연결실패'}</Datetime>
+                    <Datetime>작성 시간: {date || '연결실패'}</Datetime>
                   </Nicknamecontainer>
                 </Userinfobox>
                 <Readbox>
-                  내용{id.contents || '연결실패'}
+                  {content || '연결실패'}
                 </Readbox>
                 <Commentlistbox>
                   댓글 리스트 박스

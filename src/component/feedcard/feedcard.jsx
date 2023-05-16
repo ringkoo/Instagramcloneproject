@@ -25,7 +25,6 @@ function Feedcard({ id, imgurl, nickname, profileimg, date, content }) {
 
     const ModalOpenHandler = (id) => {
         setIsOpen(!isOpen)
-        navigate(`/board/${id}`);
     }
 
     function DeleteboardHandler(id) {
@@ -65,7 +64,14 @@ function Feedcard({ id, imgurl, nickname, profileimg, date, content }) {
                     <Commentimg >
                         <BiComment onClick={ModalOpenHandler} />
                     </Commentimg>
-                    {isOpen ? <ReadModal id={id} /> : null}
+                    {isOpen ? <ReadModal 
+                    id={id}
+                    imgurl={imgurl}
+                    nickname={nickname}
+                    profileimg={profileimg}
+                    date={date}
+                    content={content}
+                     /> : null}
                 </Middlediv>
                 <Contentsbox>{content || '내용'}</Contentsbox>
                 {/* 댓글입력창 div */}

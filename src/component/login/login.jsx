@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Cookies from "js-cookie";
-import { useMutation } from 'react-query'
+import { QueryClient, useMutation } from 'react-query'
 import { loginPost } from '../../api/users'
 import { useNavigate } from 'react-router-dom'
 import { Stringsignupbutton } from '../stringbutton/stringbutton'
@@ -33,6 +33,7 @@ function Login() {
         loginMutation.mutate({ email, password }, {
             onSuccess: () => {           
                 navigate('/home')
+                
             },
             onError: (error) => {
                 setErrorMessage(error.response.data.message)

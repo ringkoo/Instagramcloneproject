@@ -42,9 +42,8 @@ function Home() {
           return (
             <Feedcard
               key={item.id}
-              // postId={item.boardId}
               id={item.boardId}
-              nickname={item.nickname || "서버와 연결되지 않았습니다."}
+              nickname={item.nickname || "[닉네임] connect error."}
               profileimg="/Chaewon.png"
               date={item.createdAt || "서버와 연결되지 않았습니다."}
               imgurl={item.imageUrl}

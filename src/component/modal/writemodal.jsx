@@ -13,7 +13,7 @@ function WriteModal() {
   const [image, setImage] = useState(null);
 
   const handleClose = () => {
-    setIsOpen(!isOpen);
+    setIsOpen(false);
   };
 
   const queryClient = useQueryClient()

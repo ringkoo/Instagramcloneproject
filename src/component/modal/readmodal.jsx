@@ -7,9 +7,12 @@ import { Profilephoto } from "../feedcard/styles";
 import { Datetime } from "../feedcard/styles";
 import Cookies from "js-cookie";
 import axios from "axios";
-import { getBoard } from "../../api/board";
+import { useNavigate } from "react-router-dom";
+import { deleteBoard, getBoard } from "../../api/board";
+import { useMutation, useQueryClient } from "react-query";
 
 function ReadModal({ id, imageUrl, nickname, profileimg, date, content }) {
+  const navigate = useNavigate()
   const [isOpen, setIsOpen] = useState(true);
   const [editButton, setEditButton] = useState(false);
   const [editContents, setEditContents] = useState(false);
@@ -31,9 +34,24 @@ function ReadModal({ id, imageUrl, nickname, profileimg, date, content }) {
   // 데이터 수정 api
   const contentsUpdate = async () => {
     const token = Cookies.get('token')
-    await axios.put(`${process.env.REACT_APP_SERVER_URL}/boards/${id}`,
+    const response = await axios.put(`${process.env.REACT_APP_SERVER_URL}/boards/${id}`,
       { contents: editBoardText }, { headers: { Authorization: `Bearer ${token}` } })
-    getBoard()
+    alert('수정 완료')
+    editHandler();
+  }
+
+  const queryClient = useQueryClient();
+  const mutation = useMutation(deleteBoard, {
+    onSuccess: () => {
+      queryClient.invalidateQueries('boards');
+    },
+  });
+
+  function DeleteboardHandler(id) {
+    const confirmed = window.confirm("정말로 삭제하시겠습니까?");
+    if (confirmed) {
+      mutation.mutate(id);
+    }
   }
 
   return (
@@ -57,13 +75,16 @@ function ReadModal({ id, imageUrl, nickname, profileimg, date, content }) {
                     {/* 게시 시간 */}
                     <Datetime>작성 시간: {date}</Datetime>
                   </Nicknamecontainer>
-                  {editButton ? <Textbutton style={{ position: 'relative', left: '140px', top: '10px' }}
+                  {editButton ? <Textbutton style={{ position: 'relative', left: '100px', top: '10px' }}
                     onClick={contentsUpdate}
                   >완료</Textbutton> :
-                    <Textbutton style={{ position: 'relative', left: '140px', top: '10px' }}
+                    <Textbutton style={{ position: 'relative', left: '100px', top: '10px' }}
                       onClick={editHandler}
                     >수정</Textbutton>
                   }
+                  <Textbutton style={{ position: 'relative', left: '100px', top: '10px' }}
+                    onClick={() => DeleteboardHandler(id)}
+                  >삭제</Textbutton>
                 </Userinfobox>
                 <ChangeContentsbox>
                   {

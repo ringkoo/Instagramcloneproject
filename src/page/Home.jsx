@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Navbar from "../component/navbar/navbar";
 import Storybar from "../component/storybar/storybar";
 import Followarea from "../component/followarea/followarea";
@@ -6,12 +6,11 @@ import { Backarea, Feedbox, Homenavbox } from "../component/common/backarea";
 import Feedcard from "../component/feedcard/feedcard";
 import { useQuery } from "react-query";
 import { getBoard } from "../api/board";
-import { userInquiry } from '../api/users'
 import Cookies from "js-cookie";
 
 function Home() {
   const token = Cookies.get("token");
-  const [members, setMembers] = useState([])
+  // const [members, setMembers] = useState([])
 
   // useEffect(() => {
   //   const getMembers = async () => {
@@ -22,13 +21,14 @@ function Home() {
   // }, [])
 
   if (token) {
-    console.log("home page에서 확인된 현재토큰", token);
+    // console.log("home page에서 확인된 현재토큰", token);
   } else {
     console.log("home page에서 확인된 토큰 없음");
   }
 
   const { isLoading, isError, data } = useQuery("getBoard", getBoard)
 
+  console.log(data)
   if (!token) {
     console.log('보낼 토큰 없음')
   }
@@ -39,6 +39,8 @@ function Home() {
     return <div>오류가 발생했습니다.</div>;
   }
 
+
+
   return (
     <Backarea>
       <Homenavbox>
@@ -46,19 +48,19 @@ function Home() {
       </Homenavbox>
       <Feedbox>
         <Storybar />
-        {data?.map?.((item) => (
+        {data?.map?.((item) => {
           <Feedcard
-            postId={item.id}
-            id={item.id}
-            nickname={item.nickname}
+            postId={item.boardId}
+            id={item.boardId}
+            nickname={item.nickname || '서버와 연결되지'}
             profileimg='/Chaewon.png'
-            date={item.date || '서버와 연결되지 않았습니다'}
-            imgurl={item.img}
+            date={item.createdAt || '서버와 연결되지 않았습니다'}
+            imgurl={item.imageUrl}
             content={item.contents}
           />
-        ))}
+        })}
       </Feedbox>
-      <Followarea users={members} />
+      {/* <Followarea users={members} /> */}
     </Backarea>
   );
 }

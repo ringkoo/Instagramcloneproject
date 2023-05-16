@@ -6,6 +6,13 @@ function Followarea({ users }) {
   return (
     <>
       <Container>
+      <Nicknamecontainer>
+          <Divstyle>
+            <Profilephoto url='/Kazha.png' />
+            <Nickname>Kazha</Nickname>
+          </Divstyle>
+          <Textbutton>팔로우</Textbutton>
+        </Nicknamecontainer>
         {/* 유용한 처리법 */}
         {users?.map((members) => {
           console.log(members)

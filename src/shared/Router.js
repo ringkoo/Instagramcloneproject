@@ -16,7 +16,6 @@ const Router = () => {
         <Route path="/signup" element={<Mainsignup />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/Profilemodify" element={<Profilemodify />} />
-        <Route path="board/:id" element={<ReadModal />} />
       </Routes>
     </BrowserRouter>
   )

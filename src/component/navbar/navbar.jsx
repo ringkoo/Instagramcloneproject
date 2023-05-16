@@ -32,6 +32,12 @@ function Navbar() {
                     <Icon url='/Chaewon.png'></Icon>
                     <Icontext >프로필</Icontext>
                 </Icondiv>
+                <Icondiv onClick={() => {
+                    navigate("/profile")
+                }}>
+                    <Icon></Icon>
+                    <Icontext>로그아웃</Icontext>
+                </Icondiv>
             </Container >
         </>
     )

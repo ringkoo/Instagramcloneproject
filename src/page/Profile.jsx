@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Navbar from "../component/navbar/navbar";
 import Profiletop from "../component/profiletop/profiletop";
 import ProfileCard from "../component/profilecard/profilecard";
@@ -14,6 +14,8 @@ import {
   Profileimgbox,
   Backarea
 } from "../component/common/backarea";
+import { getBoard } from "../api/board";
+
 
 function Profile() {
   const token = Cookies.get("token");
@@ -55,6 +57,7 @@ function Profile() {
               date={item.createdAt || "서버와 연결되지 않았습니다."}
               imageUrl={item.imageUrl}
               content={item.contents}
+              comments={item.commentList}
             />
             )
           })}

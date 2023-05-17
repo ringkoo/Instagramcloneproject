@@ -3,17 +3,15 @@ import { Overlay, ModalWrap, Contents, ImageDiv, LeftContainer, ImagePreview, Im
 import { Textbutton } from "../common/textbutton";
 import { useMutation, useQueryClient } from "react-query";
 import { addBoard } from "../../api/board";
-import { useNavigate } from "react-router-dom";
 
 function WriteModal() {
-  const navigate = useNavigate();
 
   const [isOpen, setIsOpen] = useState(true);
   const [contents, setContents] = useState("");
   const [image, setImage] = useState(null);
 
   const handleClose = () => {
-    setIsOpen(!isOpen);
+    setIsOpen(false);
   };
 
   const queryClient = useQueryClient()
@@ -58,6 +56,7 @@ function WriteModal() {
     mutation.mutate(formData);
     alert("글 작성 완료")
     handleClose()
+    setTimeout(() => window.location.reload(), 500);
   }
 
 

@@ -87,9 +87,14 @@ const Readinfobox = styled.div`
 
 const ChangeContentsbox = styled.div`
   border-bottom:1px solid #DBDBDB;
-
 `
 
 const Commentlistbox = styled.div`
+  display:flex;
 `
-export { ChangeContentsbox,Readbox, Commentlistbox, Readinfobox, Writebox, Overlay, ModalWrap, Contents, ImageDiv, ImagePreview, LeftContainer, ImageBox, Bodybox };
+
+const Commentspan = styled.span`
+  font-size:12px;
+  margin:10px;
+`
+export { Commentspan, ChangeContentsbox, Readbox, Commentlistbox, Readinfobox, Writebox, Overlay, ModalWrap, Contents, ImageDiv, ImagePreview, LeftContainer, ImageBox, Bodybox };

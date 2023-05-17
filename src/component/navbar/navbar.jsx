@@ -24,6 +24,7 @@ function Navbar() {
                 <NavLogo />
                 <Icondiv onClick={() => {
                     navigate("/home")
+                    window.location.reload()
                 }}>
                     <Icon url='/home.png'></Icon>
                     <Icontext>홈</Icontext>

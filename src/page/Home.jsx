@@ -28,7 +28,7 @@ function Home() {
   if (isError) {
     return <div>오류가 발생했습니다.</div>;
   }
-
+  
   return (
     <Backarea>
       <Homenavbox>
@@ -47,6 +47,7 @@ function Home() {
               imgurl={item.imageUrl}
               content={item.contents}
               comments={item.commentList}
+              boardLove={item.boardLove}
             />
           );
         })}

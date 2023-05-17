@@ -7,7 +7,7 @@ import ReadModal from "../modal/readmodal";
 import { useMutation, useQueryClient } from "react-query";
 import { commentPost } from "../../api/comments";
 
-function Feedcard({ boardId, imgurl, nickName, profileimg, createdAt, content, comments }) {
+function Feedcard({ boardId, imgurl, nickName, profileimg, createdAt, content, comments, boardLove }) {
   const [isLike, setIsLike] = useState(false)
   const [isOpen, setIsOpen] = useState(false);
   const [isComment, setIsComment] = useState('')
@@ -100,8 +100,8 @@ function Feedcard({ boardId, imgurl, nickName, profileimg, createdAt, content, c
           <Likeimg
             boardId={boardId}
             onClick={() => LikeHandler(boardId)}
-            isLike={isLike}
-            style={{ color: isLike ? "red" : "black" }}>♡</Likeimg>
+            isLike={boardLove}
+            style={{ color: boardLove ? "red" : "black" }}>♡</Likeimg>
           <Commentimg >
             <BiComment onClick={ModalOpenHandler} />
           </Commentimg>

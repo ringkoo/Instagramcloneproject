@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useMutation } from "react-query";
 import { useNavigate } from "react-router-dom";
-import { getProfilePhoto, uploadimagePut } from "../api/file";
+import { getProfileData, uploadimagePut } from "../api/file";
 import {
     Container,
     Form,
@@ -22,7 +22,7 @@ function Editprofile() {
 
     useEffect(() => {
         const fetchProfilePic = async () => {
-            const url = await getProfilePhoto()
+            const url = await getProfileData()
             setProfilePic(url)
         }
         fetchProfilePic()

@@ -26,8 +26,8 @@ const uploadimagePut = async (formData) => {
     }
 }
 
-// 프로필 사진 가져오기
-const getProfilePhoto = async () => {
+// 프로필 정보 가져오기
+const getProfileData = async () => {
     const token = Cookies.get('token')
     let decodedToken = jwt_decode(token)
     let nickName = decodedToken.nickName
@@ -46,4 +46,4 @@ const getProfilePhoto = async () => {
     }
 }
 
-export { uploadimagePut, getProfilePhoto }
+export { uploadimagePut, getProfileData }

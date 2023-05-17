@@ -2,22 +2,22 @@ import React, { useEffect, useState } from "react";
 import { Descbox, Container, Profilephoto, Nicknamestyle, Storybox, Infobox, Infocontainer, Infospace } from "./styles";
 import { Textbutton } from "../common/textbutton";
 import { useNavigate } from "react-router-dom";
-import { getProfilePhoto } from "../../api/file";
+import { getProfileData } from "../../api/file";
 import { myfeedInqury } from "../../api/users";
 
 function Profiletop() {
     const navigate = useNavigate()
-    const [profilepic, setProfilePic] = useState('')
     const [followerCount, setFollowerCount] = useState(0)
     const [followingCount, setFollowingCount] = useState(0)
     const [postCount, setPostCount] = useState(0)
+    const [profileData, setProfileData] = useState(null)
 
     const handleSubmit = () => navigate('/Profilemodify')
 
     useEffect(() => {
-        const fetchProfilePhoto = async () => {
-            const photoUrl = await getProfilePhoto()
-            setProfilePic(photoUrl)
+        const fetchProfileData = async () => {
+            const profileData = await getProfileData() 
+            setProfileData(profileData)
         }
         const fetchProfile = async () => {
             const profileData = await myfeedInqury()
@@ -26,22 +26,20 @@ function Profiletop() {
             setPostCount(profileData.boardResponseDtoList.length)
         }
 
-        fetchProfilePhoto()
+        fetchProfileData()
         fetchProfile()
     }, [])
-
-
 
     return (
         <>
             <Container>
                 {/* 이미지 + 닉네임 */}
                 <Storybox>
-                    <Profilephoto url={profilepic} />
+                    <Profilephoto url={profileData?.img} />
                 </Storybox>
                 <Infospace>
                     <Infocontainer>
-                        <Nicknamestyle>Chaewon</Nicknamestyle>
+                        <Nicknamestyle>{profileData?.nickName}</Nicknamestyle>
                         <Textbutton onClick={handleSubmit}>프로필편집</Textbutton>
                     </Infocontainer>
                     <Infobox>
@@ -49,7 +47,7 @@ function Profiletop() {
                         <div>팔로워 {followerCount}</div>
                         <div>팔로잉 {followingCount}</div>
                     </Infobox>
-                    <Descbox>소개글은 최대 50자 textarea 로</Descbox>
+                    <Descbox>{profileData?.contents}</Descbox>
                 </Infospace>
             </Container>
         </>

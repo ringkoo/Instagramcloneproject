@@ -114,7 +114,6 @@ function ReadModal({ boardId, imageUrl, nickName, profileimg, createdAt, content
     CommentDeleteMutation.mutate(commentId)
   }
 
-  console.log(comments)
   return (
     <>
       {isOpen ?

@@ -30,6 +30,11 @@ function Profile() {
     return <div>오류가 발생했습니다.</div>;
   }
 
+  // boardResponseDtoList를 내림차순으로 정렬합니다.
+  data.boardResponseDtoList?.sort((a, b) => {
+    return new Date(b.createdAt) - new Date(a.createdAt);
+  });
+
   return (
     <Backarea>
       <Homenavbox>

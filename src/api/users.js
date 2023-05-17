@@ -65,11 +65,13 @@ const followuserInquiry = async () => {
 }
 
 // 팔로우 상태
-const followPost = async (targetUserId) => {
+const followPost = async () => {
     const token = Cookies.get('token')
+    let decodedToken = jwt_decode(token)
+    let userId = decodedToken.userId
     try {
         const response = await axios.post(
-            `${process.env.REACT_APP_SERVER_URL}/members/${targetUserId}`, {
+            `${process.env.REACT_APP_SERVER_URL}/members/${userId}`, {
             headers: {
                 Authorization: `Bearer ${token}`
             }

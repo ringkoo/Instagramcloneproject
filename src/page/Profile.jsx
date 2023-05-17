@@ -18,9 +18,7 @@ import {
 
 function Profile() {
   const token = Cookies.get("token");
-  const { isLoading, isError, data } = useQuery("myfeed", myfeedInqury, {
-    variables: { nickName: Cookies.get('nickName') }
-  })
+  const { isLoading, isError, data } = useQuery("boards", myfeedInqury)
 
   if (!token) {
     console.log('보낼 토큰 없음')
@@ -31,7 +29,8 @@ function Profile() {
   if (isError) {
     return <div>오류가 발생했습니다.</div>;
   }
-  
+
+
   return (
     <Backarea>
       <Homenavbox>
@@ -47,7 +46,7 @@ function Profile() {
           />
         </Profileback>
         <Profileimgbox>
-          {data?.boardResponseDtoList?.map((item) => {
+          {data.boardResponseDtoList?.map((item) => {
             return (<ProfileCard
               key={item.id}
               boardId={item.boardId}
@@ -56,7 +55,7 @@ function Profile() {
               createdAt={item.createdAt}
               imageUrl={item.imageUrl}
               content={item.contents}
-              comments={item.commentList}
+              comments={item.commentResponseDtoList}
             />
             )
           })}

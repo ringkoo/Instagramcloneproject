@@ -50,11 +50,13 @@ function Feedcard({ boardId, imgurl, nickName, profileimg, createdAt, content, c
     mutations.mutate(newComment)
     alert('댓글 작성 완료')
     setIsComment('')
+
   }
 
   const newComment = {
     "contents": isComment,
-    "boardId": boardId
+    "boardId": boardId,
+
   }
 
   const likePostMutation = useMutation(likeBoardPost, {
@@ -97,7 +99,7 @@ function Feedcard({ boardId, imgurl, nickName, profileimg, createdAt, content, c
         <Middlediv>
           <Likeimg
             boardId={boardId}
-            onClick={()=>LikeHandler(boardId)}
+            onClick={() => LikeHandler(boardId)}
             isLike={isLike}
             style={{ color: isLike ? "red" : "black" }}>♡</Likeimg>
           <Commentimg >

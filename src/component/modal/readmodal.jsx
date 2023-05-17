@@ -17,7 +17,7 @@ function ReadModal({ boardId, imageUrl, nickName, profileimg, createdAt, content
   const [editContents, setEditContents] = useState(false);
   const [editBoardText, setEditBoardText] = useState(content)
   const [isComment, setIsComment] = useState('')
-
+  
   const handleClose = () => {
     setIsOpen(false);
   };
@@ -40,6 +40,7 @@ function ReadModal({ boardId, imageUrl, nickName, profileimg, createdAt, content
     editHandler();
   }
 
+  //게시글 삭제
   const queryClient = useQueryClient();
   const mutation = useMutation(deleteBoard, {
     onSuccess: () => {
@@ -69,7 +70,7 @@ function ReadModal({ boardId, imageUrl, nickName, profileimg, createdAt, content
     }
   })
 
-
+  // 댓글 작성
   const CommentPostHandler = () => {
     Postmutation.mutate(newComment)
     alert('댓글 작성 완료')
@@ -84,6 +85,7 @@ function ReadModal({ boardId, imageUrl, nickName, profileimg, createdAt, content
 
   // const { isLoading, isError, data } = useQuery(["boards", comments], getBoard)
 
+  // 댓글 삭제
   const CommentDeleteMutation = useMutation(commentDelete, {
     onSuccess: () => {
       queryClient.invalidateQueries('boards');
@@ -92,10 +94,11 @@ function ReadModal({ boardId, imageUrl, nickName, profileimg, createdAt, content
     }
   })
 
-
+  //댓글 삭제
   const CommentDeleteHandler = (commentId) => {
     CommentDeleteMutation.mutate(commentId)
   }
+
 
   return (
     <>
@@ -114,9 +117,9 @@ function ReadModal({ boardId, imageUrl, nickName, profileimg, createdAt, content
                   <Profilephoto uri={profileimg}></Profilephoto>
                   <Nicknamecontainer>
                     {/* 게시자 닉네임 */}
-                    <Nickname>{nickName||'닉네임 없음'}</Nickname>
+                    <Nickname>{nickName}</Nickname>
                     {/* 게시 시간 */}
-                    <Datetime>{createdAt||'시간 없음'}</Datetime>
+                    <Datetime>{createdAt}</Datetime>
                   </Nicknamecontainer>
                   {/* 게시글 수정 */}
                   {editButton ? <Textbutton style={{ position: 'relative', left: '100px', top: '10px' }}
@@ -154,7 +157,7 @@ function ReadModal({ boardId, imageUrl, nickName, profileimg, createdAt, content
                         <Datetime> {item.createdAt}</Datetime>
                         {/* 삭제 버튼 */}
                         <Textbutton onClick={() => CommentDeleteHandler(item.commentId)}
-                        style={{fontSize:'11px'}}>댓글 삭제</Textbutton>
+                          style={{ fontSize: '11px' }}>댓글 삭제</Textbutton>
                       </Nicknamecontainer>
                     </Commentcontainer>
                   ))}

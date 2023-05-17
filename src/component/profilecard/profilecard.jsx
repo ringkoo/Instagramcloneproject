@@ -8,6 +8,7 @@ function ProfileCard({ boardId, imageUrl, nickName, profileimg, createdAt, conte
   const boxClickHandler = () => {
     setisOpen(!isOpen)
   }
+  console.log('procard', comments)
   return (
     <>
       <Box url={imageUrl} onClick={boxClickHandler} />

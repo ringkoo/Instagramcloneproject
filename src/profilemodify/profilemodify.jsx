@@ -14,8 +14,8 @@ import {
 
 function Editprofile() {
     const navigate = useNavigate()
-    const [img, setImg] = useState(null)
-    const [content, setContent] = useState('')
+    const [image, setImg] = useState(null)
+    const [contents, setContent] = useState('')
     const editImageMutation = useMutation(uploadimagePut)
     const profileimg = useRef()
     const [profilePic, setProfilePic] = useState('')
@@ -43,7 +43,11 @@ function Editprofile() {
 
     const handleImageSubmit = async (e) => {
         e.preventDefault()
-        editImageMutation.mutate({ img, content }, {
+        const formData = new FormData()
+        const feedData = { contents: contents }
+        formData.append("image", image)
+        formData.append("feed", new Blob([JSON.stringify(feedData)], { type: "application/json" }))
+        editImageMutation.mutate(formData, {
             onSuccess: () => {
                 navigate('/profile')
             }
@@ -59,7 +63,7 @@ function Editprofile() {
                 </Div>
                 <Div>
                     <Button1 type="button" onClick={handleBtnClick}>프로필 사진 바꾸기</Button1>
-                    <Input type="text" value={content} onChange={handlecontentChange} placeholder="소개글" />
+                    <Input type="text" value={contents} onChange={handlecontentChange} placeholder="소개글" />
                     <Button type="submit">제출</Button>
                 </Div>
             </Form>

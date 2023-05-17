@@ -3,29 +3,26 @@ import Cookies from "js-cookie";
 import jwt_decode from 'jwt-decode'
 
 // 프로필 사진 수정
-const uploadimagePut = async ({ image, content }) => {
+const uploadimagePut = async ({ formData }) => {
     const token = Cookies.get('token')
+    const config = {
+        headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'multipart/form-data'
+        }
+    }
     let decodedToken = jwt_decode(token)
     let nickName = decodedToken.nickName
-    try {
-        const formData = new FormData()
-        formData.append('image', image)
-        formData.append('feed', content)
 
+    try {
         const response = await axios.put(
             `${process.env.REACT_APP_SERVER_URL}/members/${nickName}`,
-            formData,
-            {
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                    'Content-Type': 'multipart/form-data'
-                }
-            }
+            formData, config
         )
         console.log('프로필 사진 수정', response)
         return response.data
     } catch (error) {
-        console.log('프로필 사진 수정 오류', error, decodedToken)
+        console.log('프로필 사진 수정 오류', error, nickName, formData, config)
     }
 }
 

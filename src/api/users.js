@@ -65,13 +65,11 @@ const followuserInquiry = async () => {
 }
 
 // 팔로우 상태
-const followPost = async () => {
+const followPost = async (nickName) => {
     const token = Cookies.get('token')
-    let decodedToken = jwt_decode(token)
-    let userId = decodedToken.userId
     try {
         const response = await axios.post(
-            `${process.env.REACT_APP_SERVER_URL}/members/${userId}`, {
+            `${process.env.REACT_APP_SERVER_URL}/members/${nickName}/follow`, {
             headers: {
                 Authorization: `Bearer ${token}`
             }
@@ -80,6 +78,7 @@ const followPost = async () => {
         return response.data
     } catch (error) {
         console.log('팔로우 실패', error)
+        throw error
     }
 }
 

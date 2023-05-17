@@ -1,17 +1,36 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useMutation } from "react-query";
 import { useNavigate } from "react-router-dom";
-import { uploadimagePost } from "../api/file";
+import { getProfilePhoto, uploadimagePut } from "../api/file";
+import {
+    Container,
+    Form,
+    Button,
+    Input,
+    Button1,
+    Div,
+    Profilephoto
+} from "./styles";
 
 function Editprofile() {
     const navigate = useNavigate()
     const [img, setImg] = useState(null)
     const [content, setContent] = useState('')
-    const editImageMutation = useMutation(uploadimagePost)
+    const editImageMutation = useMutation(uploadimagePut)
     const profileimg = useRef()
+    const [profilePic, setProfilePic] = useState('')
+
+    useEffect(() => {
+        const fetchProfilePic = async () => {
+            const url = await getProfilePhoto()
+            setProfilePic(url)
+        }
+        fetchProfilePic()
+    }, [])
 
     const handleImageChange = (e) => {
-        setImg(e.target.files[0])
+        const file = e.target.files[0]
+        setImg(file)
     }
 
     const handlecontentChange = (e) => {
@@ -24,30 +43,27 @@ function Editprofile() {
 
     const handleImageSubmit = async (e) => {
         e.preventDefault()
-        
-        const formData = new FormData()
-        formData.append('img', img)
-
-        editImageMutation.mutate(formData, {
+        editImageMutation.mutate({ img, content }, {
             onSuccess: () => {
                 navigate('/profile')
             }
         })
     }
 
-
     return (
-        <div>
-            <form onSubmit={handleImageSubmit}>
-                <input type="file" onChange={handleImageChange} ref={profileimg} style={{ display: 'none' }} />
-                <button type="button" onClick={handleBtnClick}>프로필 사진 바꾸기</button>
-            </form>
-            <form>
-                <input type="text" value={content} onChange={handlecontentChange} placeholder="소개글" />
-                <button type="submit">소개글 변경</button>
-            </form>
-            <button>제출</button>
-        </div>
+        <Container>
+            <Form onSubmit={handleImageSubmit}>
+                <Div>
+                    <Profilephoto url={profilePic}/>
+                    <Input type="file" onChange={handleImageChange} ref={profileimg} style={{ display: 'none' }} />
+                </Div>
+                <Div>
+                    <Button1 type="button" onClick={handleBtnClick}>프로필 사진 바꾸기</Button1>
+                    <Input type="text" value={content} onChange={handlecontentChange} placeholder="소개글" />
+                    <Button type="submit">제출</Button>
+                </Div>
+            </Form>
+        </Container>
     )
 }
 

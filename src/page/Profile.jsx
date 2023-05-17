@@ -1,18 +1,27 @@
 import React from "react";
 import Navbar from "../component/navbar/navbar";
-import { Homenavbox, Profileback, Profilecontainer, Profileimgbox, Backarea } from "../component/common/backarea";
 import Profiletop from "../component/profiletop/profiletop";
 import ProfileCard from "../component/profilecard/profilecard";
 import Followarea from "../component/followarea/followarea";
 import Cookies from "js-cookie";
 import { useQuery } from "react-query";
+import { myfeedInqury } from "../api/users";
+import ReadModal from "../component/modal/readmodal";
+import {
+  Homenavbox,
+  Profileback,
+  Profilecontainer,
+  Profileimgbox,
+  Backarea
+} from "../component/common/backarea";
 import { getBoard } from "../api/board";
+
 
 function Profile() {
   const token = Cookies.get("token");
-
-
-  const { isLoading, isError, data } = useQuery("boards", getBoard)
+  const { isLoading, isError, data } = useQuery("myfeed", myfeedInqury, {
+    variables: { nickName: Cookies.get('nickName') }
+  })
 
   if (!token) {
     console.log('보낼 토큰 없음')
@@ -23,6 +32,7 @@ function Profile() {
   if (isError) {
     return <div>오류가 발생했습니다.</div>;
   }
+
   return (
     <Backarea>
       <Homenavbox>
@@ -30,15 +40,20 @@ function Profile() {
       </Homenavbox>
       <Profilecontainer>
         <Profileback>
-          <Profiletop />
+          <Profiletop
+            nickname={data?.nickName}
+            img={data?.img}
+            followerCnt={data?.followerCnt}
+            followingCnt={data?.followingCnt}
+          />
         </Profileback>
         <Profileimgbox>
-          {data?.map((item) => {
+          {data?.boardResponseDtoList?.map((item) => {
             return (<ProfileCard
               key={item.id}
-              boardId={item.boardId}
-              nickname={item.nickname || "서버와 연결되지 않았습니다."}
-              profileimg="/Chaewon.png"
+              id={item.boardId}
+              nickname={data?.nickName || "서버와 연결되지 않았습니다."}
+              profileimg={data?.img}
               date={item.createdAt || "서버와 연결되지 않았습니다."}
               imageUrl={item.imageUrl}
               content={item.contents}

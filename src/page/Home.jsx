@@ -28,7 +28,7 @@ function Home() {
   if (isError) {
     return <div>오류가 발생했습니다.</div>;
   }
-console.log(data)
+
 
   return (
     <Backarea>

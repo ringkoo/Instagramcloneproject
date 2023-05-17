@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Contentsbox, Userinfobox, CommentHomeInput, CommentContainer, Container, Profilephoto, Topdiv, Nickname, Datetime, Imagediv, Likeimg, Middlediv, Nicknamecontainer, Commentimg } from "./styles";
 import { BiComment } from "react-icons/bi";
 import { Textbutton } from "../common/textbutton";
 import { deleteBoard } from "../../api/board";
 import ReadModal from "../modal/readmodal";
-import { useMutation, useQueryClient } from "react-query";
+import { useMutation, useQuery, useQueryClient } from "react-query";
 import { commentPost } from "../../api/comments";
+import { getBoard } from "../../api/board";
 
 function Feedcard({ boardId, imgurl, nickname, profileimg, date, content, comments }) {
   const [isLike, setIsLike] = useState(false)
@@ -40,7 +41,7 @@ function Feedcard({ boardId, imgurl, nickname, profileimg, date, content, commen
 
   const mutations = useMutation(commentPost, {
     onSuccess: () => {
-      queryClient.invalidateQueries('commentList');
+      queryClient.invalidateQueries('boards');
     },
     onError: (error) => {
       console.log(error)
@@ -49,14 +50,13 @@ function Feedcard({ boardId, imgurl, nickname, profileimg, date, content, commen
 
   const CommentPostHandler = () => {
     mutations.mutate(newComment)
-    // setIsComment("")
+    setIsComment('')
   }
 
   const newComment = {
     "contents": isComment,
     "boardId": boardId
   }
-
 
   return (
     <>

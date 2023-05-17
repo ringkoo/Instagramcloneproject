@@ -7,8 +7,8 @@ import { Profilephoto } from "../feedcard/styles";
 import { Datetime } from "../feedcard/styles";
 import Cookies from "js-cookie";
 import axios from "axios";
-import { deleteBoard } from "../../api/board";
-import { useMutation, useQueryClient } from "react-query";
+import { deleteBoard, getBoard } from "../../api/board";
+import { useMutation, useQuery, useQueryClient } from "react-query";
 import { commentPost } from "../../api/comments";
 
 function ReadModal({ boardId, imageUrl, nickname, profileimg, date, content, comments }) {
@@ -59,14 +59,15 @@ function ReadModal({ boardId, imageUrl, nickname, profileimg, date, content, com
     setIsComment(e.target.value)
   }
 
+
   const mutations = useMutation(commentPost, {
     onSuccess: () => {
-      queryClient.invalidateQueries('commentList');
+      queryClient.invalidateQueries('comments');
     },
     onError: (error) => {
       console.log(error)
     }
-  });
+  })
 
   const CommentPostHandler = () => {
     mutations.mutate(newComment)
@@ -78,7 +79,8 @@ function ReadModal({ boardId, imageUrl, nickname, profileimg, date, content, com
     "boardId": boardId
   }
 
-console.log(comments)
+  const { isLoading, isError, data } = useQuery(["boards", comments], getBoard)
+
   return (
     <>
       {isOpen ?

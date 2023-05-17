@@ -6,7 +6,7 @@ import { useQuery } from "react-query";
 
 function Followarea() {
   const { data: users, status } = useQuery('users', userInquiry)
-  const [following, setFollowing] = useState(false)
+  const [following, setFollowing] = useState({})
 
   if (status === 'loading') {
     return <p>불러오는중...</p>
@@ -16,11 +16,11 @@ function Followarea() {
     return <p>데이터를 불러올수 없습니다.</p>
   }
 
-  const handleClick = async (nickName) => {
-    await followPost({ nickName })
+  const handleClick = async (targetUserId) => {
+    await followPost(targetUserId)
     setFollowing({
       ...following,
-      [nickName]: !following[nickName],
+      [targetUserId]: !following[targetUserId],
     })
   }
 
@@ -35,8 +35,8 @@ function Followarea() {
                 <Nickname>{members.nickName}</Nickname>
               </Divstyle>
               <Textbutton
-                onClick={() => handleClick(members.nickName)}>
-                {following ? '언팔로우' : '팔로우'}
+                onClick={() => handleClick(members.id)}>
+                {following[members.id] ? '언팔로우' : '팔로우'}
               </Textbutton>
             </Nicknamecontainer>
           )

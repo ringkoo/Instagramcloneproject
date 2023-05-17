@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Overlay, ModalWrap, Contents, ImageDiv, Readinfobox, Commentlistbox, Readbox, ChangeContentsbox, Commentspan, Commentcontainer } from "./styles";
 import { Textbutton } from "../common/textbutton";
-import { CommentContainer, CommentHomeInput, Nickname, Nicknamecontainer } from "../feedcard/styles";
+import { CommentContainer, CommentHomeInput, Likeimg, Nickname, Nicknamecontainer } from "../feedcard/styles";
 import { Userinfobox } from "../feedcard/styles";
 import { Profilephoto } from "../feedcard/styles";
 import { Datetime } from "../feedcard/styles";
@@ -9,7 +9,7 @@ import Cookies from "js-cookie";
 import axios from "axios";
 import { deleteBoard } from "../../api/board";
 import { useMutation, useQueryClient } from "react-query";
-import { commentDelete, commentPost } from "../../api/comments";
+import { commentDelete, commentPost, likeCommentPost } from "../../api/comments";
 
 function ReadModal({ boardId, imageUrl, nickName, profileimg, createdAt, content, comments }) {
   const [isOpen, setIsOpen] = useState(true);
@@ -17,7 +17,22 @@ function ReadModal({ boardId, imageUrl, nickName, profileimg, createdAt, content
   const [editContents, setEditContents] = useState(false);
   const [editBoardText, setEditBoardText] = useState(content)
   const [isComment, setIsComment] = useState('')
-  
+  const [isLike, setIsLike] = useState(false)
+
+  const LikeHandler = (commentId) => {
+    likePostMutation.mutate(commentId)
+    setIsLike(!isLike)
+  }
+
+  const likePostMutation = useMutation(likeCommentPost, {
+    onSuccess: () => {
+      queryClient.invalidateQueries('boards');
+    },
+    onError: (error) => {
+      console.log(error)
+    }
+  });
+
   const handleClose = () => {
     setIsOpen(false);
   };
@@ -99,7 +114,7 @@ function ReadModal({ boardId, imageUrl, nickName, profileimg, createdAt, content
     CommentDeleteMutation.mutate(commentId)
   }
 
-
+  console.log(comments)
   return (
     <>
       {isOpen ?
@@ -159,12 +174,19 @@ function ReadModal({ boardId, imageUrl, nickName, profileimg, createdAt, content
                         <Textbutton onClick={() => CommentDeleteHandler(item.commentId)}
                           style={{ fontSize: '11px' }}>댓글 삭제</Textbutton>
                       </Nicknamecontainer>
+                      <Likeimg
+                        commentId={item.commentId}
+                        onClick={() => LikeHandler(item.commentId)}
+                        isLike={isLike}
+                        style={{
+                          color: isLike ? "red" : "black",
+                          fontSize: '20px'
+                        }}>♡</Likeimg>
                     </Commentcontainer>
                   ))}
                 </Commentlistbox>
                 <div style={{ position: 'absolute', bottom: '0%', width: '450px' }}>
                   <CommentContainer>
-                    {/* 댓글 목록을 순회하며 출력 */}
                     <CommentHomeInput
                       placeholder="댓글 입력"
                       value={isComment}

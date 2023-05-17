@@ -3,11 +3,11 @@ import Cookies from "js-cookie";
 import jwt_decode from 'jwt-decode'
 
 // 프로필 사진 수정
-const uploadimagePut = async ({ formData }) => {
+const uploadimagePut = async (formData) => {
     const token = Cookies.get('token')
     const config = {
         headers: {
-            'Authorization': `Bearer ${token}`,
+            Authorization: `Bearer ${token}`,
             'Content-Type': 'multipart/form-data'
         }
     }

@@ -6,7 +6,7 @@ export const getBoard = async () => {
   try {
     const token = Cookies.get('token')
     const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/boards/`,
-      { headers: { Authorization: `Bearer ${token}` }});
+      { headers: { Authorization: `Bearer ${token}` } });
     return response.data
   } catch (error) {
     return Promise.reject(error.data)
@@ -38,3 +38,12 @@ export const deleteBoard = async (id) => {
   return response
 };
 
+//게시글 작성(post요청)
+export const likeBoardPost = async (id) => {
+  const token = Cookies.get('token')
+  const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/boards/${id}`, id, {
+    headers: { Authorization: `Bearer ${token}` }
+  });
+  console.log('api', response)
+  return response;
+};

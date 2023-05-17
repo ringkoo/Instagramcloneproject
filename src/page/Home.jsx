@@ -28,7 +28,9 @@ function Home() {
   if (isError) {
     return <div>오류가 발생했습니다.</div>;
   }
-  
+
+console.log(data)
+
   return (
     <Backarea>
       <Homenavbox>
@@ -36,7 +38,7 @@ function Home() {
       </Homenavbox>
       <Feedbox>
         <Storybar />
-        {data?.map((item) => {
+        {data?.content.map((item) => {
           return (
             <Feedcard
               key={item.id}

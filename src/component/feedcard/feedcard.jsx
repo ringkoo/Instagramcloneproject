@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Contentsbox, Userinfobox, CommentHomeInput, CommentContainer, Container, Profilephoto, Topdiv, Nickname, Datetime, Imagediv, Likeimg, Middlediv, Nicknamecontainer, Commentimg } from "./styles";
 import { BiComment } from "react-icons/bi";
 import { Textbutton } from "../common/textbutton";
-import { deleteBoard } from "../../api/board";
+import { deleteBoard, likeBoardPost } from "../../api/board";
 import ReadModal from "../modal/readmodal";
 import { useMutation, useQueryClient } from "react-query";
 import { commentPost } from "../../api/comments";
@@ -13,9 +13,7 @@ function Feedcard({ boardId, imgurl, nickName, profileimg, createdAt, content, c
   const [isComment, setIsComment] = useState('')
   const queryClient = useQueryClient();
 
-  const LikeHandler = () => {
-    setIsLike(!isLike)
-  }
+
 
   const ModalOpenHandler = () => {
     setIsOpen(!isOpen)
@@ -59,6 +57,20 @@ function Feedcard({ boardId, imgurl, nickName, profileimg, createdAt, content, c
     "boardId": boardId
   }
 
+  const likePostMutation = useMutation(likeBoardPost, {
+    onSuccess: () => {
+      queryClient.invalidateQueries('boards');
+    },
+    onError: (error) => {
+      console.log(error)
+    }
+  });
+
+  const LikeHandler = (boardId) => {
+    likePostMutation.mutate(boardId)
+    setIsLike(!isLike)
+  }
+
   return (
     <>
       <Container>
@@ -84,7 +96,8 @@ function Feedcard({ boardId, imgurl, nickName, profileimg, createdAt, content, c
         {/* 좋아요 댓글 icon div */}
         <Middlediv>
           <Likeimg
-            onClick={LikeHandler}
+            boardId={boardId}
+            onClick={()=>LikeHandler(boardId)}
             isLike={isLike}
             style={{ color: isLike ? "red" : "black" }}>♡</Likeimg>
           <Commentimg >
@@ -107,6 +120,7 @@ function Feedcard({ boardId, imgurl, nickName, profileimg, createdAt, content, c
           <CommentHomeInput
             placeholder="댓글 입력"
             onChange={CommentChangeHandler}
+            value={isComment}
           ></CommentHomeInput><Textbutton onClick={CommentPostHandler}>게시</Textbutton>
         </CommentContainer>
       </Container>

@@ -28,8 +28,7 @@ function Home() {
   if (isError) {
     return <div>오류가 발생했습니다.</div>;
   }
-
-
+  
   return (
     <Backarea>
       <Homenavbox>
@@ -42,9 +41,9 @@ function Home() {
             <Feedcard
               key={item.id}
               boardId={item.boardId}
-              nickname={item.nickName || "[닉네임] connect error."}
+              nickName={item.nickName}
               profileimg="/Chaewon.png"
-              date={item.createdAt || "서버와 연결되지 않았습니다."}
+              createdAt={item.createdAt}
               imgurl={item.imageUrl}
               content={item.contents}
               comments={item.commentList}

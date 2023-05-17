@@ -6,7 +6,6 @@ import Followarea from "../component/followarea/followarea";
 import Cookies from "js-cookie";
 import { useQuery } from "react-query";
 import { myfeedInqury } from "../api/users";
-import ReadModal from "../component/modal/readmodal";
 import {
   Homenavbox,
   Profileback,
@@ -14,7 +13,7 @@ import {
   Profileimgbox,
   Backarea
 } from "../component/common/backarea";
-import { getBoard } from "../api/board";
+
 
 
 function Profile() {
@@ -51,10 +50,10 @@ function Profile() {
           {data?.boardResponseDtoList?.map((item) => {
             return (<ProfileCard
               key={item.id}
-              id={item.boardId}
-              nickname={data?.nickName || "서버와 연결되지 않았습니다."}
-              profileimg={data?.img}
-              date={item.createdAt || "서버와 연결되지 않았습니다."}
+              boardId={item.boardId}
+              nickName={item.nickName}
+              profileimg={item.img}
+              createdAt={item.createdAt}
               imageUrl={item.imageUrl}
               content={item.contents}
               comments={item.commentList}

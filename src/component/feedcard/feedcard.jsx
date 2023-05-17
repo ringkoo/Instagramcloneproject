@@ -1,14 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Contentsbox, Userinfobox, CommentHomeInput, CommentContainer, Container, Profilephoto, Topdiv, Nickname, Datetime, Imagediv, Likeimg, Middlediv, Nicknamecontainer, Commentimg } from "./styles";
 import { BiComment } from "react-icons/bi";
 import { Textbutton } from "../common/textbutton";
 import { deleteBoard } from "../../api/board";
 import ReadModal from "../modal/readmodal";
-import { useMutation, useQuery, useQueryClient } from "react-query";
+import { useMutation, useQueryClient } from "react-query";
 import { commentPost } from "../../api/comments";
-import { getBoard } from "../../api/board";
 
-function Feedcard({ boardId, imgurl, nickname, profileimg, date, content, comments }) {
+function Feedcard({ boardId, imgurl, nickName, profileimg, createdAt, content, comments }) {
   const [isLike, setIsLike] = useState(false)
   const [isOpen, setIsOpen] = useState(false);
   const [isComment, setIsComment] = useState('')
@@ -27,7 +26,7 @@ function Feedcard({ boardId, imgurl, nickname, profileimg, date, content, commen
       queryClient.invalidateQueries('boards');
     },
   });
-
+  // 게시글 삭제
   function DeleteboardHandler(boardId) {
     const confirmed = window.confirm("정말로 삭제하시겠습니까?");
     if (confirmed) {
@@ -39,6 +38,7 @@ function Feedcard({ boardId, imgurl, nickname, profileimg, date, content, commen
     setIsComment(e.target.value)
   }
 
+  // 댓글 작성
   const mutations = useMutation(commentPost, {
     onSuccess: () => {
       queryClient.invalidateQueries('boards');
@@ -50,6 +50,7 @@ function Feedcard({ boardId, imgurl, nickname, profileimg, date, content, commen
 
   const CommentPostHandler = () => {
     mutations.mutate(newComment)
+    alert('댓글 작성 완료')
     setIsComment('')
   }
 
@@ -68,11 +69,12 @@ function Feedcard({ boardId, imgurl, nickname, profileimg, date, content, commen
             <Profilephoto url={profileimg}></Profilephoto>
             <Nicknamecontainer>
               {/* 게시자 닉네임 */}
-              <Nickname>{nickname}</Nickname>
+              <Nickname>{nickName}</Nickname>
               {/* 게시 시간 */}
-              <Datetime>작성 시간: {date}</Datetime>
+              <Datetime>작성 시간: {createdAt}</Datetime>
             </Nicknamecontainer>
           </Userinfobox>
+          {/* 게시글 삭제 */}
           <Textbutton onClick={() => DeleteboardHandler(boardId)}>삭제</Textbutton>
         </Topdiv>
 
@@ -91,9 +93,9 @@ function Feedcard({ boardId, imgurl, nickname, profileimg, date, content, commen
           {isOpen ? <ReadModal
             boardId={boardId}
             imageUrl={imgurl}
-            nickname={nickname}
+            nickName={nickName}
             profileimg={profileimg}
-            date={date}
+            createdAt={createdAt}
             content={content}
             comments={comments}
           /> : null}

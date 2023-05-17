@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Overlay, ModalWrap, Contents, ImageDiv, Readinfobox, Commentlistbox, Readbox, ChangeContentsbox, Commentspan } from "./styles";
+import { Overlay, ModalWrap, Contents, ImageDiv, Readinfobox, Commentlistbox, Readbox, ChangeContentsbox, Commentspan, Commentcontainer } from "./styles";
 import { Textbutton } from "../common/textbutton";
 import { CommentContainer, CommentHomeInput, Nickname, Nicknamecontainer } from "../feedcard/styles";
 import { Userinfobox } from "../feedcard/styles";
@@ -7,11 +7,11 @@ import { Profilephoto } from "../feedcard/styles";
 import { Datetime } from "../feedcard/styles";
 import Cookies from "js-cookie";
 import axios from "axios";
-import { deleteBoard, getBoard } from "../../api/board";
-import { useMutation, useQuery, useQueryClient } from "react-query";
-import { commentPost } from "../../api/comments";
+import { deleteBoard } from "../../api/board";
+import { useMutation, useQueryClient } from "react-query";
+import { commentDelete, commentPost } from "../../api/comments";
 
-function ReadModal({ boardId, imageUrl, nickname, profileimg, date, content, comments }) {
+function ReadModal({ boardId, imageUrl, nickName, profileimg, createdAt, content, comments }) {
   const [isOpen, setIsOpen] = useState(true);
   const [editButton, setEditButton] = useState(false);
   const [editContents, setEditContents] = useState(false);
@@ -54,32 +54,48 @@ function ReadModal({ boardId, imageUrl, nickname, profileimg, date, content, com
     }
   }
 
-
+  // 댓글 input 입력값 변경 handler
   const CommentChangeHandler = (e) => {
     setIsComment(e.target.value)
   }
 
-
-  const mutations = useMutation(commentPost, {
+  // 댓글 post 
+  const Postmutation = useMutation(commentPost, {
     onSuccess: () => {
-      queryClient.invalidateQueries('comments');
+      queryClient.invalidateQueries('boards');
     },
     onError: (error) => {
       console.log(error)
     }
   })
 
+
   const CommentPostHandler = () => {
-    mutations.mutate(newComment)
+    Postmutation.mutate(newComment)
+    alert('댓글 작성 완료')
     setIsComment('')
   }
 
+  // 댓글 post에 필요한 요소
   const newComment = {
     "contents": isComment,
     "boardId": boardId
   }
 
-  const { isLoading, isError, data } = useQuery(["boards", comments], getBoard)
+  // const { isLoading, isError, data } = useQuery(["boards", comments], getBoard)
+
+  const CommentDeleteMutation = useMutation(commentDelete, {
+    onSuccess: () => {
+      queryClient.invalidateQueries('boards');
+    }, onError: (error) => {
+      console.log(error)
+    }
+  })
+
+
+  const CommentDeleteHandler = (commentId) => {
+    CommentDeleteMutation.mutate(commentId)
+  }
 
   return (
     <>
@@ -98,22 +114,25 @@ function ReadModal({ boardId, imageUrl, nickname, profileimg, date, content, com
                   <Profilephoto uri={profileimg}></Profilephoto>
                   <Nicknamecontainer>
                     {/* 게시자 닉네임 */}
-                    <Nickname>{nickname}</Nickname>
+                    <Nickname>{nickName||'닉네임 없음'}</Nickname>
                     {/* 게시 시간 */}
-                    <Datetime>{date}</Datetime>
+                    <Datetime>{createdAt||'시간 없음'}</Datetime>
                   </Nicknamecontainer>
+                  {/* 게시글 수정 */}
                   {editButton ? <Textbutton style={{ position: 'relative', left: '100px', top: '10px' }}
                     onClick={contentsUpdate}
                   >완료</Textbutton> :
-                    <Textbutton style={{ position: 'relative', left: '100px', top: '10px' }}
+                    <Textbutton style={{ position: 'relative', left: '170px', top: '10px' }}
                       onClick={editHandler}
                     >수정</Textbutton>
                   }
-                  <Textbutton style={{ position: 'relative', left: '100px', top: '10px' }}
+                  {/* 게시글 삭제 */}
+                  <Textbutton style={{ position: 'relative', left: '170px', top: '10px' }}
                     onClick={() => DeleteboardHandler(boardId)}
                   >삭제</Textbutton>
                 </Userinfobox>
                 <ChangeContentsbox>
+                  {/* 게시글 수정 내용 */}
                   {
                     editContents ?
                       <CommentHomeInput onChange={boardTextEditHandler}
@@ -126,22 +145,26 @@ function ReadModal({ boardId, imageUrl, nickname, profileimg, date, content, com
                 </ChangeContentsbox>
                 <Commentlistbox>
                   {/* 게시자 프로필 이미지 */}
-                  <Profilephoto uri={profileimg}></Profilephoto>
-                  <Nicknamecontainer>
-                    {/* 게시자 닉네임 + 작성된 댓글내용*/}
-                    {comments?.map((item) => (
-                      <div key={item.id}>
+                  {comments?.map((item) => (
+                    <Commentcontainer key={item.id} >
+                      <Profilephoto url='/Chaewon.png'></Profilephoto>
+                      <Nicknamecontainer>
+                        {/* 게시자 닉네임 + 작성된 댓글내용*/}
                         <Nickname>{item.nickName}<Commentspan>{item.contents}</Commentspan></Nickname>
                         <Datetime> {item.createdAt}</Datetime>
-                      </div>
-                    ))}
-                  </Nicknamecontainer>
+                        {/* 삭제 버튼 */}
+                        <Textbutton onClick={() => CommentDeleteHandler(item.commentId)}
+                        style={{fontSize:'11px'}}>댓글 삭제</Textbutton>
+                      </Nicknamecontainer>
+                    </Commentcontainer>
+                  ))}
                 </Commentlistbox>
                 <div style={{ position: 'absolute', bottom: '0%', width: '450px' }}>
                   <CommentContainer>
                     {/* 댓글 목록을 순회하며 출력 */}
                     <CommentHomeInput
                       placeholder="댓글 입력"
+                      value={isComment}
                       onChange={CommentChangeHandler}
                     ></CommentHomeInput><Textbutton onClick={CommentPostHandler}>게시</Textbutton>
                   </CommentContainer>

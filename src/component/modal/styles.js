@@ -91,10 +91,18 @@ const ChangeContentsbox = styled.div`
 
 const Commentlistbox = styled.div`
   display:flex;
+  flex-direction:column;
 `
 
 const Commentspan = styled.span`
   font-size:12px;
   margin:10px;
 `
-export { Commentspan, ChangeContentsbox, Readbox, Commentlistbox, Readinfobox, Writebox, Overlay, ModalWrap, Contents, ImageDiv, ImagePreview, LeftContainer, ImageBox, Bodybox };
+
+const Commentcontainer = styled.div`
+  display:flex;
+  /* justify-content:; */
+  border:1px solid #DBDBDB;
+  margin:5px 5px 0px 5px;
+`
+export { Commentcontainer, Commentspan, ChangeContentsbox, Readbox, Commentlistbox, Readinfobox, Writebox, Overlay, ModalWrap, Contents, ImageDiv, ImagePreview, LeftContainer, ImageBox, Bodybox };

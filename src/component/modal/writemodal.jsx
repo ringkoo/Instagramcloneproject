@@ -17,7 +17,7 @@ function WriteModal() {
   const queryClient = useQueryClient()
   const mutation = useMutation(addBoard, {
     onSuccess: () => {
-      queryClient.invalidateQueries("boards")
+      queryClient.invalidateQueries(["boards"])
     },
     onError: (error) => {
       if (error.response.status !== null) {
@@ -56,7 +56,7 @@ function WriteModal() {
     mutation.mutate(formData);
     alert("글 작성 완료")
     handleClose()
-    setTimeout(() => window.location.reload(), 500);
+    setTimeout(() => window.location.reload(), 750);
   }
 
 

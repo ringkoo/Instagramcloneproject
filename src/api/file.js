@@ -25,7 +25,7 @@ const uploadimagePut = async ({ image, content }) => {
         console.log('프로필 사진 수정', response)
         return response.data
     } catch (error) {
-        console.log('프로필 사진 수정 오류', error)
+        console.log('프로필 사진 수정 오류', error, decodedToken)
     }
 }
 

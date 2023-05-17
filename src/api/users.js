@@ -123,7 +123,7 @@ const myfeedInqury = async () => {
         })
         return response.data
     } catch (error) {
-        console.log('내 피드 조회 실패', error)
+        console.log('내 피드 조회 실패', error, decodedToken)
     }
 }
 

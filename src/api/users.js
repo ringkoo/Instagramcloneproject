@@ -91,7 +91,7 @@ const unfollowPost = async ({ nickName }) => {
     const token = Cookies.get('token')
     try {
         const response = await axios.delete(
-            `http://52.78.186.160:8080/members/${nickName}`, {
+            `http://52.78.186.160:8080/members/${nickName}`, {}, {
             headers: {
                 Authorization: `Bearer ${token}`
             }

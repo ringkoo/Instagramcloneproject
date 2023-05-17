@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Container, Profilephoto, Nicknamecontainer, Nickname, Divstyle } from "./styles";
 import { Textbutton } from "../common/textbutton";
-import { followPost, userInquiry } from "../../api/users";
+import { followPost, userInquiry, unfollowPost } from "../../api/users";
 import { useQuery } from "react-query";
 
 function Followarea() {
@@ -18,7 +18,13 @@ function Followarea() {
 
   const handleClick = async (nickName) => {
     try {
-      const response = await followPost({ nickName })
+      let response;
+      if (following[nickName]) { // if currently following, then unfollow
+          response = await unfollowPost({ nickName });
+      } else { // if not currently following, then follow
+          response = await followPost({ nickName });
+      }
+      
       if (response && response.statusCode === 200) {
           setFollowing({
               ...following,
@@ -26,7 +32,7 @@ function Followarea() {
           })
       }
   } catch (error) {
-      console.log('팔로우 요청 처리 중 에러 발생:', error)
+      console.log('팔로우/언팔로우 요청 처리 중 에러 발생:', error)
   }
 }
 

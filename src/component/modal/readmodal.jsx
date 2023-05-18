@@ -49,7 +49,7 @@ function ReadModal({ boardId, imageUrl, nickName, profileimg, createdAt, content
   // 데이터 수정 api
   const contentsUpdate = async () => {
     const token = Cookies.get('token')
-    await axios.put(`http://52.78.186.160:8080/boards/${boardId}`,
+    await axios.put(`${process.env.REACT_APP_SERVER_URL}/boards/${boardId}`,
       { contents: editBoardText }, { headers: { Authorization: `Bearer ${token}` } })
     alert('수정 완료')
     editHandler();

@@ -16,7 +16,7 @@ const uploadimagePut = async (formData) => {
 
     try {
         const response = await axios.put(
-            `http://52.78.186.160:8080/members/${nickName}`,
+            `${process.env.REACT_APP_SERVER_URL}/members/${nickName}`,
             formData, config
         )
         console.log('프로필 사진 수정', response)
@@ -33,7 +33,7 @@ const getProfileData = async () => {
     let nickName = decodedToken.nickName
     try {
         const response = await axios.get(
-            `http://52.78.186.160:8080/members/${nickName}`,
+            `${process.env.REACT_APP_SERVER_URL}/members/${nickName}`,
             {
                 headers: {
                     'Authorization': `Bearer ${token}`,

@@ -5,7 +5,7 @@ import jwt_decode from "jwt-decode";
 // 회원가입
 const signupPost = async ({ email, nickName, password }) => {
     const response = await axios.post(
-        `http://52.78.186.160:8080/members/signup`, {
+        `${process.env.REACT_APP_SERVER_URL}/members/signup`, {
         email, nickName, password
     })
     console.log(response.data)
@@ -16,7 +16,7 @@ const signupPost = async ({ email, nickName, password }) => {
 const loginPost = async ({ email, password }) => {
     try {
         const response = await axios.post(
-            `http://52.78.186.160:8080/members/login`, {
+            `${process.env.REACT_APP_SERVER_URL}/members/login`, {
             email, password
         }
         )
@@ -34,7 +34,7 @@ const userInquiry = async (id, nickName, img) => {
     const token = Cookies.get('token')
     try {
         const response = await axios.get(
-            `http://52.78.186.160:8080/members/recommends`, {
+            `${process.env.REACT_APP_SERVER_URL}/members/recommends`, {
             content: {
                 id,
                 nickName,
@@ -54,7 +54,7 @@ const userInquiry = async (id, nickName, img) => {
 const followuserInquiry = async () => {
     const token = Cookies.get('token')
     const response = await axios.get(
-        `http://52.78.186.160:8080/members/follwers`, {
+        `${process.env.REACT_APP_SERVER_URL}/members/follwers`, {
         headers: {
             Authorization: `Bearer ${token}`
         }
@@ -70,7 +70,7 @@ const followPost = async ({ nickName }) => {
     console.log(token)
     try {
         const response = await axios.post(
-            `http://52.78.186.160:8080/members/${nickName}`, {}, {
+            `${process.env.REACT_APP_SERVER_URL}/members/${nickName}`, {}, {
             headers: {
                 Authorization: `Bearer ${token}`
             }
@@ -91,7 +91,7 @@ const unfollowPost = async ({ nickName }) => {
     const token = Cookies.get('token')
     try {
         const response = await axios.delete(
-            `http://52.78.186.160:8080/members/${nickName}`, {}, {
+            `${process.env.REACT_APP_SERVER_URL}/members/${nickName}`, {}, {
             headers: {
                 Authorization: `Bearer ${token}`
             }
@@ -108,7 +108,7 @@ const unfollowPost = async ({ nickName }) => {
 const followInquiry = async ({ nickName }) => {
     const token = Cookies.get('token')
     const response = await axios.get(
-        `http://52.78.186.160:8080/members/${nickName}`, {
+        `${process.env.REACT_APP_SERVER_URL}/members/${nickName}`, {
         headers: {
             Authorization: `Bearer ${token}`
         }
@@ -121,7 +121,7 @@ const followInquiry = async ({ nickName }) => {
 const followingInqury = async ({ nickName }) => {
     const token = Cookies.get('token')
     const response = await axios.get(
-        `http://52.78.186.160:8080/members/${nickName}`, {
+        `${process.env.REACT_APP_SERVER_URL}/members/${nickName}`, {
         headers: {
             Authorization: `Bearer ${token}`
         }
@@ -137,7 +137,7 @@ const myfeedInqury = async () => {
     let nickName = decodedToken.nickName
     try {
         const response = await axios.get(
-            `http://52.78.186.160:8080/members/${nickName}`, {
+            `${process.env.REACT_APP_SERVER_URL}/members/${nickName}`, {
             headers: {
                 Authorization: `Bearer ${token}`
             }

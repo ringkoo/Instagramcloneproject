@@ -12,6 +12,7 @@ function WriteModal() {
 
   const handleClose = () => {
     setIsOpen(false);
+    window.location.reload()
   };
 
   const queryClient = useQueryClient()
@@ -56,52 +57,53 @@ function WriteModal() {
     mutation.mutate(formData);
     alert("글 작성 완료")
     handleClose()
-  }
+    setTimeout(() => { window.location.reload() }, 700);
+}
 
 
 
-  return (
-    <>
-      {isOpen ? (
-        <Overlay>
-          <ModalWrap>
-            <Contents>
-              <LeftContainer>
-                <ImageDiv
-                  className="image-upload"
-                  onClick={() => {
-                    document.getElementById("image").click();
-                  }}
-                >
-                  {image ? (
-                    <ImagePreview
-                      src={URL.createObjectURL(image)}
-                      style={{ objectFit: "cover" }}
-                    />
-                  ) : (
-                    <ImageBox>이미지 추가</ImageBox>
-                  )}
-                  <input
-                    name="image"
-                    id="image"
-                    type="file"
-                    onChange={handleImageChange}
-                    style={{ display: "none" }}
+return (
+  <>
+    {isOpen ? (
+      <Overlay>
+        <ModalWrap>
+          <Contents>
+            <LeftContainer>
+              <ImageDiv
+                className="image-upload"
+                onClick={() => {
+                  document.getElementById("image").click();
+                }}
+              >
+                {image ? (
+                  <ImagePreview
+                    src={URL.createObjectURL(image)}
+                    style={{ objectFit: "cover" }}
                   />
-                </ImageDiv>
-              </LeftContainer>
-              <Writebox>
-                <Bodybox value={contents} onChange={changeContents} placeholder="내용을 입력해주세요." />
-                <Textbutton style={{ fontSize: '20px' }} onClick={boardSubmitHandler}>글작성</Textbutton>
-                {/* <div>추가기능은 여기에...</div> */}
-              </Writebox>
-              <Textbutton onClick={handleClose} style={{ color: ' white' }}>X</Textbutton>
-            </Contents>
-          </ModalWrap>
-        </Overlay>
-      ) : null}
-    </>
-  );
+                ) : (
+                  <ImageBox>이미지 추가</ImageBox>
+                )}
+                <input
+                  name="image"
+                  id="image"
+                  type="file"
+                  onChange={handleImageChange}
+                  style={{ display: "none" }}
+                />
+              </ImageDiv>
+            </LeftContainer>
+            <Writebox>
+              <Bodybox value={contents} onChange={changeContents} placeholder="내용을 입력해주세요." />
+              <Textbutton style={{ fontSize: '20px' }} onClick={boardSubmitHandler}>글작성</Textbutton>
+              {/* <div>추가기능은 여기에...</div> */}
+            </Writebox>
+            <Textbutton onClick={handleClose} style={{ color: ' white' }}>X</Textbutton>
+          </Contents>
+        </ModalWrap>
+      </Overlay>
+    ) : null}
+  </>
+);
 }
 
 export default WriteModal;

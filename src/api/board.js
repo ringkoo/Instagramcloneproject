@@ -40,11 +40,9 @@ export const deleteBoard = async (id) => {
 
 //좋아요 클릭(post요청)
 export const likeBoardPost = async (id) => {
-  console.log(id)
   const token = Cookies.get('token')
   const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/boards/${id}`, id, {
     headers: { Authorization: `Bearer ${token}` }
   });
-  console.log('api', response)
   return response;
 };

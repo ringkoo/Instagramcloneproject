@@ -45,7 +45,7 @@ function Profiletop() {
                     <Infobox>
                         <div>게시글 {postCount}</div>
                         <div><Link to='/follower'>팔로워</Link> {followerCount}</div>
-                        <div><Link to='/follower'>팔로잉</Link> {followingCount}</div>
+                        <div><Link to='/following'>팔로잉</Link> {followingCount}</div>
                     </Infobox>
                     <Descbox>{profileData?.contents}</Descbox>
                 </Infospace>

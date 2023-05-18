@@ -1,70 +1,63 @@
-# Getting Started with Create React App
+<h2>인스타 클론 코딩 프로젝트<h2>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+이 프로젝트는 인스타그램의 주요 기능을 구현한 클론 코딩 프로젝트입니다. 
+React를 사용하여 개발되었습니다.
 
-## Available Scripts
 
-In the project directory, you can run:
+사용 기술
+React
 
-### `yarn start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+컴포넌트 구성
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
 
-### `yarn test`
+signup: 회원가입 폼과 가입 버튼
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+login: 로그인 폼과 로그인 요청 처리
 
-### `yarn build`
+feedcard: 피드에 보여질 게시글 카드 컴포넌트
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+followarea: 유저를 팔로우할 수 있는 컴포넌트
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+modal: 게시글 읽기/쓰기 모달 컴포넌트
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+navbar: 왼쪽 화면에 고정된 네비게이션 바 컴포넌트
 
-### `yarn eject`
+profilecard: 프로필 페이지의 게시글을 카드 형식으로 표현하기 위한 컴포넌트
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+profiletop: 프로필 페이지 상단의 정보 컴포넌트
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+storybar: 스토리를 볼 수 있는 홈페이지 상단 바
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+페이지 구성
 
-## Learn More
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+follower: 팔로워 목록 페이지
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+following: 팔로잉 목록 페이지
 
-### Code Splitting
+home: 홈페이지
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+login: 로그인 페이지
 
-### Analyzing the Bundle Size
+profile: 프로필 페이지
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+profilemodify: 프로필 수정 페이지
 
-### Making a Progressive Web App
+signup: 회원가입 페이지
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
 
-### Advanced Configuration
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+기능 소개
 
-### Deployment
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+회원 가입 및 로그인을 통한 인증
 
-### `yarn build` fails to minify
+피드 페이지에서 팔로우 한 유저의 게시글 및 스토리 확인
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+팔로우 및 팔로워 관리
+
+게시글 및 댓글 작성, 수정, 삭제 (CRUD)
+
+프로필 확인 및 수정

@@ -7,7 +7,7 @@ import ReadModal from "../modal/readmodal";
 import { useMutation, useQueryClient } from "react-query";
 import { commentPost } from "../../api/comments";
 
-function Feedcard({ boardId, imgurl, nickName, profileimg, createdAt, content, comments, boardLove }) {
+function Feedcard({ boardId, imgurl, nickName, memberImage, createdAt, content, comments, boardLove }) {
   const [isLike, setIsLike] = useState(false)
   const [isOpen, setIsOpen] = useState(false);
   const [isComment, setIsComment] = useState('')
@@ -80,7 +80,7 @@ function Feedcard({ boardId, imgurl, nickName, profileimg, createdAt, content, c
         <Topdiv>
           <Userinfobox>
             {/* 게시자 프로필 이미지 */}
-            <Profilephoto url={profileimg}></Profilephoto>
+            <Profilephoto url={memberImage}></Profilephoto>
             <Nicknamecontainer>
               {/* 게시자 닉네임 */}
               <Nickname>{nickName}</Nickname>
@@ -109,7 +109,7 @@ function Feedcard({ boardId, imgurl, nickName, profileimg, createdAt, content, c
             boardId={boardId}
             imageUrl={imgurl}
             nickName={nickName}
-            profileimg={profileimg}
+            memberImage={memberImage}
             createdAt={createdAt}
             content={content}
             comments={comments}

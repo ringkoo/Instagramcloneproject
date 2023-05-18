@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Box } from "./styles";
 import ReadModal from "../modal/readmodal";
 
-function ProfileCard({ boardId, imageUrl, nickName, profileimg, createdAt, content, comments }) {
+function ProfileCard({ boardId, imageUrl, nickName, memberImage, createdAt, content, comments }) {
   const [isOpen, setisOpen] = useState(false);
 
   const boxClickHandler = () => {
@@ -17,7 +17,7 @@ function ProfileCard({ boardId, imageUrl, nickName, profileimg, createdAt, conte
           boardId={boardId}
           imageUrl={imageUrl}
           nickName={nickName}
-          profileimg={profileimg}
+          memberImage={memberImage}
           createdAt={createdAt}
           content={content}
           comments={comments}

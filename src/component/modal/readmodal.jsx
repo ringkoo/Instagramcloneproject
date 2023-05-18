@@ -11,7 +11,7 @@ import { deleteBoard } from "../../api/board";
 import { useMutation, useQueryClient } from "react-query";
 import { commentDelete, commentPost, likeCommentPost } from "../../api/comments";
 
-function ReadModal({ boardId, imageUrl, nickName, profileimg, createdAt, content, comments }) {
+function ReadModal({ boardId, imageUrl, nickName, memberImage, createdAt, content, comments }) {
   const [isOpen, setIsOpen] = useState(true);
   const [editButton, setEditButton] = useState(false);
   const [editContents, setEditContents] = useState(false);
@@ -19,10 +19,6 @@ function ReadModal({ boardId, imageUrl, nickName, profileimg, createdAt, content
   const [isComment, setIsComment] = useState('')
   const [isLike, setIsLike] = useState(false)
 
-  const LikeHandler = (commentId) => {
-    likePostMutation.mutate(commentId)
-    setIsLike(!isLike)
-  }
 
   const likePostMutation = useMutation(likeCommentPost, {
     onSuccess: () => {
@@ -33,6 +29,11 @@ function ReadModal({ boardId, imageUrl, nickName, profileimg, createdAt, content
     }
   });
 
+  const LikeHandler = (commentId) => {
+    likePostMutation.mutate(commentId)
+    setIsLike(!isLike)
+  }
+  
   const handleClose = () => {
     setIsOpen(false);
   };
@@ -114,6 +115,8 @@ function ReadModal({ boardId, imageUrl, nickName, profileimg, createdAt, content
     CommentDeleteMutation.mutate(commentId)
   }
 
+  console.log(comments)
+
   return (
     <>
       {isOpen ?
@@ -128,7 +131,7 @@ function ReadModal({ boardId, imageUrl, nickName, profileimg, createdAt, content
               <Readinfobox>
                 <Userinfobox>
                   {/* 게시자 프로필 이미지 */}
-                  <Profilephoto uri={profileimg}></Profilephoto>
+                  <Profilephoto url={memberImage}></Profilephoto>
                   <Nicknamecontainer>
                     {/* 게시자 닉네임 */}
                     <Nickname>{nickName}</Nickname>
@@ -164,7 +167,7 @@ function ReadModal({ boardId, imageUrl, nickName, profileimg, createdAt, content
                   {/* 게시자 프로필 이미지 */}
                   {comments?.map((item) => (
                     <Commentcontainer key={item.id} >
-                      <Profilephoto url='/Chaewon.png'></Profilephoto>
+                      <Profilephoto url={item.memberImg}></Profilephoto>
                       <Nicknamecontainer>
                         {/* 게시자 닉네임 + 작성된 댓글내용*/}
                         <Nickname>{item.nickName}<Commentspan>{item.contents}</Commentspan></Nickname>
@@ -176,10 +179,10 @@ function ReadModal({ boardId, imageUrl, nickName, profileimg, createdAt, content
                       <Likeimg
                         commentId={item.commentId}
                         onClick={() => LikeHandler(item.commentId)}
-                        isLike={isLike}
+                        isLike={item.commentLove}
                         style={{
-                          color: isLike ? "red" : "black",
-                          fontSize: '20px'
+                          color: item.commentLove ? "red" : "black",
+                          fontSize: '20px',
                         }}>♡</Likeimg>
                     </Commentcontainer>
                   ))}

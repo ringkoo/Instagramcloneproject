@@ -44,7 +44,7 @@ console.log(data)
               key={item.id}
               boardId={item.boardId}
               nickName={item.nickName}
-              profileimg="/Chaewon.png"
+              memberImage={item.memberImage}
               createdAt={item.createdAt}
               imgurl={item.imageUrl}
               content={item.contents}

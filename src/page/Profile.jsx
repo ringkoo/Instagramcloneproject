@@ -14,8 +14,6 @@ import {
   Backarea
 } from "../component/common/backarea";
 
-
-
 function Profile() {
   const token = Cookies.get("token");
   const { isLoading, isError, data } = useQuery("boards", myfeedInqury)
@@ -35,6 +33,8 @@ function Profile() {
     return new Date(b.createdAt) - new Date(a.createdAt);
   });
 
+
+
   return (
     <Backarea>
       <Homenavbox>
@@ -51,11 +51,11 @@ function Profile() {
         </Profileback>
         <Profileimgbox>
           {data.boardResponseDtoList?.map((item) => {
-            return (<ProfileCard
+            return (< ProfileCard
               key={item.id}
               boardId={item.boardId}
               nickName={item.nickName}
-              profileimg={item.img}
+              memberImage={item.memberImageUrl}
               createdAt={item.createdAt}
               imageUrl={item.imageUrl}
               content={item.contents}

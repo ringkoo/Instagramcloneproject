@@ -1,12 +1,14 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Container, NavLogo, Icon, Icondiv, Icontext } from "./styles";
 import { useNavigate } from "react-router";
 import WriteModal from "../modal/writemodal";
 import Cookies from "js-cookie";
+import { getProfileData } from "../../api/file";
 
 function Navbar() {
     const navigate = useNavigate()
     const [isOpen, setIsOpen] = useState(false);
+    const [profileData, setProfileData] = useState(null)
 
     const openModal = () => {
         setIsOpen(true)
@@ -17,6 +19,14 @@ function Navbar() {
         alert('로그아웃에 성공했습니다.')
         navigate('/')
     }
+
+    useEffect(() => {
+        const loadProfileData = async () => {
+            const data = await getProfileData()
+            setProfileData(data)
+        }
+        loadProfileData()
+    },[])
 
     return (
         <>
@@ -36,7 +46,7 @@ function Navbar() {
                 <Icondiv onClick={() => {
                     navigate("/profile")
                 }}>
-                    <Icon url='/Chaewon.png'></Icon>
+                    <Icon url={profileData?.img}></Icon>
                     <Icontext >프로필</Icontext>
                 </Icondiv>
                 <Icondiv onClick={handleLogout}>

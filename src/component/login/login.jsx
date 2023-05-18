@@ -28,7 +28,7 @@ function Login() {
     }
 
     const handleSubmit = async (e) => {
-        e.preventDefault();
+        e.preventDefault()
         loginMutation.mutate({ email, password }, {
             onSuccess: () => {
                 navigate('/home')

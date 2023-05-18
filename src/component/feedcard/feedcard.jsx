@@ -24,6 +24,7 @@ function Feedcard({ boardId, imgurl, nickName, profileimg, createdAt, content, c
       queryClient.invalidateQueries('boards');
     },
   });
+  
   // 게시글 삭제
   function DeleteboardHandler(boardId) {
     const confirmed = window.confirm("정말로 삭제하시겠습니까?");
@@ -50,7 +51,6 @@ function Feedcard({ boardId, imgurl, nickName, profileimg, createdAt, content, c
     mutations.mutate(newComment)
     alert('댓글 작성 완료')
     setIsComment('')
-
   }
 
   const newComment = {

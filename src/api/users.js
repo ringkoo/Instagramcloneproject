@@ -5,7 +5,7 @@ import jwt_decode from "jwt-decode";
 // 회원가입
 const signupPost = async ({ email, nickName, password }) => {
     const response = await axios.post(
-        `${process.env.REACT_APP_SERVER_URL}/members/signup`, {
+        `http://52.78.186.160:8080/members/signup`, {
         email, nickName, password
     })
     console.log(response.data)
@@ -16,11 +16,11 @@ const signupPost = async ({ email, nickName, password }) => {
 const loginPost = async ({ email, password }) => {
     try {
         const response = await axios.post(
-            `${process.env.REACT_APP_SERVER_URL}/members/login`, {
+            `http://52.78.186.160:8080/members/login`, {
             email, password
         }
         )
-        const token = response.headers.get('authorization').split(' ')[1]
+        const token = response.headers['authorization'].split(' ')[1]
         Cookies.set('token', token)
         console.log('로그인하고 받은 토큰', { token })
         return { token }
@@ -34,7 +34,7 @@ const userInquiry = async (id, nickName, img) => {
     const token = Cookies.get('token')
     try {
         const response = await axios.get(
-            `${process.env.REACT_APP_SERVER_URL}/members/recommends`, {
+            `http://52.78.186.160:8080/members/recommends`, {
             content: {
                 id,
                 nickName,
@@ -54,7 +54,7 @@ const userInquiry = async (id, nickName, img) => {
 const followuserInquiry = async () => {
     const token = Cookies.get('token')
     const response = await axios.get(
-        `${process.env.REACT_APP_SERVER_URL}/members/follwers`, {
+        `http://52.78.186.160:8080/members/follwers`, {
         headers: {
             Authorization: `Bearer ${token}`
         }
@@ -64,14 +64,13 @@ const followuserInquiry = async () => {
     return response.data
 }
 
-// 팔로우 상태
-const followPost = async () => {
+// 팔로우
+const followPost = async ({ nickName }) => {
     const token = Cookies.get('token')
-    let decodedToken = jwt_decode(token)
-    let userId = decodedToken.userId
+    console.log(token)
     try {
         const response = await axios.post(
-            `${process.env.REACT_APP_SERVER_URL}/members/${userId}`, {
+            `http://52.78.186.160:8080/members/${nickName}`, {}, {
             headers: {
                 Authorization: `Bearer ${token}`
             }
@@ -79,7 +78,29 @@ const followPost = async () => {
         console.log('팔로우 상태', response)
         return response.data
     } catch (error) {
-        console.log('팔로우 실패', error)
+        if (error.response) {
+            console.log('서버응답', error.response)
+        }
+        console.log('팔로우 실패', error,)
+        throw error
+    }
+}
+
+// 언팔로우
+const unfollowPost = async ({ nickName }) => {
+    const token = Cookies.get('token')
+    try {
+        const response = await axios.delete(
+            `http://52.78.186.160:8080/members/${nickName}`, {}, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
+        console.log('언팔로우 상태', response)
+        return response.data
+    } catch (error) {
+        console.log('언팔로우 실패', error)
+        throw error
     }
 }
 
@@ -87,7 +108,7 @@ const followPost = async () => {
 const followInquiry = async ({ nickName }) => {
     const token = Cookies.get('token')
     const response = await axios.get(
-        `${process.env.REACT_APP_SERVER_URL}/members/${nickName}`, {
+        `http://52.78.186.160:8080/members/${nickName}`, {
         headers: {
             Authorization: `Bearer ${token}`
         }
@@ -100,7 +121,7 @@ const followInquiry = async ({ nickName }) => {
 const followingInqury = async ({ nickName }) => {
     const token = Cookies.get('token')
     const response = await axios.get(
-        `${process.env.REACT_APP_SERVER_URL}/members/${nickName}`, {
+        `http://52.78.186.160:8080/members/${nickName}`, {
         headers: {
             Authorization: `Bearer ${token}`
         }
@@ -116,7 +137,7 @@ const myfeedInqury = async () => {
     let nickName = decodedToken.nickName
     try {
         const response = await axios.get(
-            `${process.env.REACT_APP_SERVER_URL}/members/${nickName}`, {
+            `http://52.78.186.160:8080/members/${nickName}`, {
             headers: {
                 Authorization: `Bearer ${token}`
             }
@@ -135,5 +156,6 @@ export {
     followInquiry,
     followingInqury,
     followuserInquiry,
-    myfeedInqury
+    myfeedInqury,
+    unfollowPost
 }

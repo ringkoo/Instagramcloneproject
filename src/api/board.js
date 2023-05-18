@@ -5,7 +5,7 @@ import Cookies from "js-cookie";
 export const getBoard = async () => {
   try {
     const token = Cookies.get('token')
-    const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/boards/`,
+    const response = await axios.get(`http://52.78.186.160:8080/boards/`,
       { headers: { Authorization: `Bearer ${token}` } });
     return response.data
   } catch (error) {
@@ -23,14 +23,14 @@ export const addBoard = async (formData) => {
     }
   }
   // for (let [key, value] of formData.entries()) { console.log(`${key}:`, value); }
-  const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/boards/`, formData, config);
+  const response = await axios.post(`http://52.78.186.160:8080/boards/`, formData, config);
   return response;
 };
 
 //게시글 삭제 (delet) 
 export const deleteBoard = async (id) => {
   const token = Cookies.get('token')
-  const response = await axios.delete(`${process.env.REACT_APP_SERVER_URL}/boards/${id}`, {
+  const response = await axios.delete(`http://52.78.186.160:8080/boards/${id}`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -42,7 +42,7 @@ export const deleteBoard = async (id) => {
 export const likeBoardPost = async (id) => {
   console.log(id)
   const token = Cookies.get('token')
-  const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/boards/${id}`, id, {
+  const response = await axios.post(`http://52.78.186.160:8080/boards/${id}`, id, {
     headers: { Authorization: `Bearer ${token}` }
   });
   console.log('api', response)

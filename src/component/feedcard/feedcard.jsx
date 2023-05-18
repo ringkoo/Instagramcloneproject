@@ -24,7 +24,7 @@ function Feedcard({ boardId, imgurl, nickName, memberImage, createdAt, content, 
       queryClient.invalidateQueries('boards');
     },
   });
-  
+
   // 게시글 삭제
   function DeleteboardHandler(boardId) {
     const confirmed = window.confirm("정말로 삭제하시겠습니까?");
@@ -48,9 +48,13 @@ function Feedcard({ boardId, imgurl, nickName, memberImage, createdAt, content, 
   });
 
   const CommentPostHandler = () => {
-    mutations.mutate(newComment)
-    alert('댓글 작성 완료')
-    setIsComment('')
+    if (!isComment) {
+      alert('댓글을 입력해주세요')
+    } else {
+      mutations.mutate(newComment)
+      alert('댓글 작성 완료')
+      setIsComment('')
+    }
   }
 
   const newComment = {

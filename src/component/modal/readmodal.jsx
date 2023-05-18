@@ -33,7 +33,7 @@ function ReadModal({ boardId, imageUrl, nickName, memberImage, createdAt, conten
     likePostMutation.mutate(commentId)
     setIsLike(!isLike)
   }
-  
+
   const handleClose = () => {
     setIsOpen(false);
   };
@@ -88,9 +88,13 @@ function ReadModal({ boardId, imageUrl, nickName, memberImage, createdAt, conten
 
   // 댓글 작성
   const CommentPostHandler = () => {
-    Postmutation.mutate(newComment)
-    alert('댓글 작성 완료')
-    setIsComment('')
+    if (!isComment) {
+      alert('댓글을 입력해주세요')
+    } else {
+      Postmutation.mutate(newComment)
+      alert('댓글 작성 완료')
+      setIsComment('')
+    }
   }
 
   // 댓글 post에 필요한 요소
@@ -139,7 +143,7 @@ function ReadModal({ boardId, imageUrl, nickName, memberImage, createdAt, conten
                     <Datetime>{createdAt}</Datetime>
                   </Nicknamecontainer>
                   {/* 게시글 수정 */}
-                  {editButton ? <Textbutton style={{ position: 'relative', left: '100px', top: '10px' }}
+                  {editButton ? <Textbutton style={{ position: 'relative', left: '170px', top: '10px' }}
                     onClick={contentsUpdate}
                   >완료</Textbutton> :
                     <Textbutton style={{ position: 'relative', left: '170px', top: '10px' }}

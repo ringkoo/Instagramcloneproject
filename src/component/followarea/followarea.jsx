@@ -1,23 +1,48 @@
 import React, { useEffect, useState } from "react";
 import { Container, Profilephoto, Nicknamecontainer, Nickname, Divstyle } from "./styles";
 import { Textbutton } from "../common/textbutton";
-import { followPost, userInquiry, unfollowPost } from "../../api/users";
-import { useQuery } from "react-query";
+import { followPost, userInquiry } from "../../api/users";
+import { useQuery, useMutation, useQueryClient } from "react-query";
 import { getProfileData } from "../../api/file";
 
-function Followarea(nickName) {
+function Followarea({ nickName }) {
+  const queryClient = useQueryClient();
   const { data: users, status } = useQuery('users', userInquiry)
-  const [following, setFollowing] = useState({})
   const [profileData, setProfileData] = useState(null)
+
+  const followMutation = useMutation(followPost, {
+    onMutate: async (newData) => {
+      await queryClient.cancelQueries('users')
+
+      const previousValue = queryClient.getQueryData('users')
+
+      queryClient.setQueryData('users', (oldData) => {
+          return {
+              ...oldData,
+              content: oldData.content.map(user =>
+                  user.nickName === newData.nickName
+                      ? { ...user, isFollowing: !user.isFollowing }
+                      : user
+              ),
+          }
+      })
+
+      return { previousValue }
+  },
+  onError: (previousValue) =>
+      queryClient.setQueryData('users', previousValue),
+  onSettled: () => {
+      queryClient.invalidateQueries('users')
+  },
+})
 
   useEffect(() => {
     const loadProfileData = async () => {
-        const data = await getProfileData()
-        setProfileData(data)
+      const data = await getProfileData()
+      setProfileData(data)
     }
     loadProfileData()
-},[])
-
+  }, [])
 
   if (status === 'loading') {
     return <p>불러오는중...</p>
@@ -27,42 +52,34 @@ function Followarea(nickName) {
     return <p>데이터를 불러올수 없습니다.</p>
   }
 
-  const handleClick = async (nickName) => {
+  const handleClick = async (clickedNickName) => {
     try {
-      let response;
-      if (following[nickName]) {
-          response = await unfollowPost({ nickName })
-      } else {
-          response = await followPost({ nickName })
-      }
-      
-      if (response && response.statusCode === 200) {
-          setFollowing({
-              ...following,
-              [nickName]: response.message.includes('성공'),
-          })
-      }
-  } catch (error) {
+      followMutation.mutate({ nickName: clickedNickName });
+    } catch (error) {
       console.log('팔로우/언팔로우 요청 처리 중 에러 발생:', error)
+    }
   }
-}
 
   return (
     <>
       <Container>
         {users && users.content.filter(member => member.nickName !== nickName).map((members) => {
-          return (
-            <Nicknamecontainer key={members.id}>
-              <Divstyle>
-                <Profilephoto url={profileData?.img} />
-                <Nickname>{members.nickName}</Nickname>
-              </Divstyle>
-              <Textbutton
-                onClick={() => handleClick(members.nickName)}>
-                {following[members.nickName] ? '언팔로우' : '팔로우'}
-              </Textbutton>
-            </Nicknamecontainer>
-          )
+          if (members.nickName === nickName) {
+            return null
+          } else {
+            return (
+              <Nicknamecontainer key={members.id}>
+                <Divstyle>
+                  <Profilephoto url={members.img ? members.img : profileData?.img} />
+                  <Nickname>{members.nickName}</Nickname>
+                </Divstyle>
+                <Textbutton
+                  onClick={() => handleClick(members.nickName)}>
+                  {members.isFollowing ? '언팔로우' : '팔로우'}
+                </Textbutton>
+              </Nicknamecontainer>
+            )
+          }
         }
         )}
       </Container>
@@ -70,4 +87,4 @@ function Followarea(nickName) {
   )
 }
 
-export default Followarea;
+export default Followarea

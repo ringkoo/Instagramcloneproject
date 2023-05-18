@@ -1,12 +1,23 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Container, Profilephoto, Nicknamecontainer, Nickname, Divstyle } from "./styles";
 import { Textbutton } from "../common/textbutton";
 import { followPost, userInquiry, unfollowPost } from "../../api/users";
 import { useQuery } from "react-query";
+import { getProfileData } from "../../api/file";
 
-function Followarea() {
+function Followarea(nickName) {
   const { data: users, status } = useQuery('users', userInquiry)
   const [following, setFollowing] = useState({})
+  const [profileData, setProfileData] = useState(null)
+
+  useEffect(() => {
+    const loadProfileData = async () => {
+        const data = await getProfileData()
+        setProfileData(data)
+    }
+    loadProfileData()
+},[])
+
 
   if (status === 'loading') {
     return <p>불러오는중...</p>
@@ -19,10 +30,10 @@ function Followarea() {
   const handleClick = async (nickName) => {
     try {
       let response;
-      if (following[nickName]) { // if currently following, then unfollow
-          response = await unfollowPost({ nickName });
-      } else { // if not currently following, then follow
-          response = await followPost({ nickName });
+      if (following[nickName]) {
+          response = await unfollowPost({ nickName })
+      } else {
+          response = await followPost({ nickName })
       }
       
       if (response && response.statusCode === 200) {
@@ -39,11 +50,11 @@ function Followarea() {
   return (
     <>
       <Container>
-        {users && users.content.map((members) => {
+        {users && users.content.filter(member => member.nickName !== nickName).map((members) => {
           return (
             <Nicknamecontainer key={members.id}>
               <Divstyle>
-                <Profilephoto url={members.img} />
+                <Profilephoto url={profileData?.img} />
                 <Nickname>{members.nickName}</Nickname>
               </Divstyle>
               <Textbutton

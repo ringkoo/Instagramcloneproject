@@ -5,6 +5,8 @@ import Home from "../page/Home";
 import Mainsignup from '../page/Signup'
 import Profile from "../page/Profile";
 import Profilemodify from "../page/Profilemodify";
+import Follower from '../page/follower'
+import Following from '../page/following'
 
 const Router = () => {
   return (
@@ -15,6 +17,8 @@ const Router = () => {
         <Route path="/signup" element={<Mainsignup />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/Profilemodify" element={<Profilemodify />} />
+        <Route path="/follower" element={<Follower />} />
+        <Route path="/Following" element={<Following />} />
       </Routes>
     </BrowserRouter>
   )

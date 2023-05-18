@@ -56,8 +56,8 @@ dispaly: flex;
 `
 
 const Profilephoto = styled.div`
-    width: 50px;
-    height: 50px;
+    width: 150px;
+    height: 150px;
     border-radius: 200px;
     margin: 5px 5px;
     background-image: url(${props => props.url});

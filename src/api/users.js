@@ -53,15 +53,24 @@ const userInquiry = async (id, nickName, img) => {
 // 팔로우 유저 조회
 const followuserInquiry = async () => {
     const token = Cookies.get('token')
-    const response = await axios.get(
-        `${process.env.REACT_APP_SERVER_URL}/members/follwers`, {
-        headers: {
-            Authorization: `Bearer ${token}`
+    console.log('token', token)
+    try {
+        const response = await axios.get(
+            `${process.env.REACT_APP_SERVER_URL}/members/followers`, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
         }
+        )
+        console.log('팔로우 유저 조회', response)
+        return response.data
+    } catch (error) {
+        if (error.response) {
+            console.log('조회 실패', error.response)
+        }
+        console.log(error)
+        throw error
     }
-    )
-    console.log('팔로우 유저 조회', response)
-    return response.data
 }
 
 // 팔로우
@@ -81,7 +90,7 @@ const followPost = async ({ nickName }) => {
         if (error.response) {
             console.log('서버응답', error.response)
         }
-        console.log('팔로우 실패', error,)
+        console.log('팔로우 실패', error)
         throw error
     }
 }
@@ -104,18 +113,18 @@ const unfollowPost = async ({ nickName }) => {
     }
 }
 
-// 팔로우 조회
-const followInquiry = async ({ nickName }) => {
-    const token = Cookies.get('token')
-    const response = await axios.get(
-        `${process.env.REACT_APP_SERVER_URL}/members/${nickName}`, {
-        headers: {
-            Authorization: `Bearer ${token}`
-        }
-    })
-    console.log('팔로우 조회', response)
-    return response.data
-}
+// // 팔로우 회원 조회
+// const followInquiry = async ({ nickName }) => {
+//     const token = Cookies.get('token')
+//     const response = await axios.get(
+//         `${process.env.REACT_APP_SERVER_URL}/members/followers`, {
+//         headers: {
+//             Authorization: `Bearer ${token}`
+//         }
+//     })
+//     console.log('팔로우 조회', response)
+//     return response.data
+// }
 
 // 팔로잉 조회
 const followingInqury = async ({ nickName }) => {
@@ -153,7 +162,7 @@ export {
     signupPost,
     userInquiry,
     followPost,
-    followInquiry,
+    // followInquiry,
     followingInqury,
     followuserInquiry,
     myfeedInqury,

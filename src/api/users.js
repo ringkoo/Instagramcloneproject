@@ -34,7 +34,7 @@ const userInquiry = async (id, nickName, img) => {
     try {
         const response = await axios.get(
             `${process.env.REACT_APP_SERVER_URL}/members/recommends`, {
-            content: {
+            params: {
                 id,
                 nickName,
                 img
@@ -94,37 +94,6 @@ const followPost = async ({ nickName }) => {
     }
 }
 
-// // 언팔로우
-// const unfollowPost = async ({ nickName }) => {
-//     const token = Cookies.get('token')
-//     try {
-//         const response = await axios.delete(
-//             `${process.env.REACT_APP_SERVER_URL}/members/${nickName}`, {}, {
-//             headers: {
-//                 Authorization: `Bearer ${token}`
-//             }
-//         })
-//         console.log('언팔로우 상태', response)
-//         return response.data
-//     } catch (error) {
-//         console.log('언팔로우 실패', error)
-//         throw error
-//     }
-// }
-
-// // // 팔로우 회원 조회
-// // const followInquiry = async ({ nickName }) => {
-// //     const token = Cookies.get('token')
-// //     const response = await axios.get(
-// //         `${process.env.REACT_APP_SERVER_URL}/members/followers`, {
-// //         headers: {
-// //             Authorization: `Bearer ${token}`
-// //         }
-// //     })
-// //     console.log('팔로우 조회', response)
-// //     return response.data
-// // }
-
 // 팔로잉 조회
 const followingInqury = async ({ nickName }) => {
     const token = Cookies.get('token')
@@ -161,9 +130,7 @@ export {
     signupPost,
     userInquiry,
     followPost,
-    // followInquiry,
     followingInqury,
     followuserInquiry,
     myfeedInqury,
-    // unfollowPost
 }

@@ -9,7 +9,7 @@ function Follower() {
         return <p>불러오는중...</p>
     }
 
-    if (status === 'error') {
+    if (status === 400) {
         return <p>데이터를 불러올수 없습니다.</p>
     }
 
@@ -17,7 +17,6 @@ function Follower() {
         <>
             <h1>Followers</h1>
             {followers?.content && followers.content.map((follower) => {
-                if (!follower.isFollowing) return null;
                 return (
                     <div key={follower.id}>
                         {follower.img && <img src={follower.img} alt={follower.nickName} />}
@@ -29,4 +28,4 @@ function Follower() {
     )
 }
 
-export default Follower
+export default Follower;

@@ -64,7 +64,7 @@ function WriteModal() {
       mutation.mutate(formData);
       alert("글 작성 완료")
       handleClose()
-      setTimeout(() => { window.location.reload() }, 800);
+      setTimeout(() => { window.location.reload() }, 1000);
     }
   }
 

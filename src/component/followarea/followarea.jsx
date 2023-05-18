@@ -63,7 +63,7 @@ function Followarea({ nickName }) {
   return (
     <>
       <Container>
-        {users && users.content.filter(member => member.nickName !== nickName).map((members) => {
+        {users && users.content?.filter(member => member.nickName !== nickName).map((members) => {
           if (members.nickName === nickName) {
             return null
           } else {

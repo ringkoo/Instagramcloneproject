@@ -20,6 +20,7 @@ function Editprofile() {
     const profileimg = useRef()
     const [profilePic, setProfilePic] = useState('')
 
+
     useEffect(() => {
         const fetchProfilePic = async () => {
             const url = await getProfileData()
@@ -31,6 +32,15 @@ function Editprofile() {
     const handleImageChange = (e) => {
         const file = e.target.files[0]
         setImg(file)
+
+        const reader = new FileReader()
+        reader.onloadend = () => {
+            setProfilePic(reader.result)
+        }
+        
+        if (file) {
+            reader.readAsDataURL(file)
+        }
     }
 
     const handlecontentChange = (e) => {
@@ -58,7 +68,7 @@ function Editprofile() {
         <Container>
             <Form onSubmit={handleImageSubmit}>
                 <Div>
-                    <Profilephoto url={profilePic}/>
+                    <Profilephoto url={profilePic} />
                     <Input type="file" onChange={handleImageChange} ref={profileimg} style={{ display: 'none' }} />
                 </Div>
                 <Div>

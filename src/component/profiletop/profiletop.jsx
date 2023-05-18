@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Descbox, Container, Profilephoto, Nicknamestyle, Storybox, Infobox, Infocontainer, Infospace } from "./styles";
 import { Textbutton } from "../common/textbutton";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { getProfileData } from "../../api/file";
 import { myfeedInqury } from "../../api/users";
 
@@ -44,8 +44,8 @@ function Profiletop() {
                     </Infocontainer>
                     <Infobox>
                         <div>게시글 {postCount}</div>
-                        <div>팔로워 {followerCount}</div>
-                        <div>팔로잉 {followingCount}</div>
+                        <div><Link to='/follower'>팔로워</Link> {followerCount}</div>
+                        <div><Link to='/follower'>팔로잉</Link> {followingCount}</div>
                     </Infobox>
                     <Descbox>{profileData?.contents}</Descbox>
                 </Infospace>

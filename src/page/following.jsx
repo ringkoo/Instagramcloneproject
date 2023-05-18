@@ -33,15 +33,14 @@ function Follower() {
             <h1>Following</h1>
             {followers?.content && followers.content.map((follower) => {
                 return (
-                    <div key={follower.id}>
-                        {follower.img && <img src={follower.img} alt={follower.nickName} />}
-                        <p>{follower.nickName}</p>
-                        <button onClick={() => handleUnfollow(follower.nickName)}>언팔로우</button>
-                    </div>
-                )
-            })}
+                <div key={follower.id}>
+                    {follower.img && <img src={follower.img} alt={follower.nickName} />}
+                    <p>{follower.nickName}</p>
+                    <button onClick={() => handleUnfollow(follower.nickName)}>언팔로우</button>
+                </div>
+            )
+        })}
         </>
     )
 }
-
-export default Follower;
+export default Follower
